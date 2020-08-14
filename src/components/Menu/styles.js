@@ -9,7 +9,6 @@ export const Menu = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   position: fixed;
   top: 0;
   left: 0;
@@ -17,7 +16,6 @@ export const Menu = styled.nav`
   padding-left: 5%;
   padding-right: 5%;
 
-  background: var(--black);
-  border-bottom: 2px solid var(--primary);
+  background: black;
   
 `
