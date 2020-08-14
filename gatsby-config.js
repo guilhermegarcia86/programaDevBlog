@@ -5,6 +5,8 @@ module.exports = {
     author: `@programaDev`,
   },
   plugins: [
+    `gatsby-plugin-transition-link`,
+    `gatsby-plugin-styled-components`,
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
