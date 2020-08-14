@@ -1,7 +1,8 @@
 import React from 'react';
 import { useStaticQuery, graphql, Link } from 'gatsby';
 import Img from 'gatsby-image';
-import './Menu.css';
+import Contact from './components/Contact'
+import * as Style from './styles';
 
 const Menu = () => {
 
@@ -20,11 +21,12 @@ const Menu = () => {
     )
 
     return (
-        <nav className="Menu">
+        <Style.Menu>
             <Link to="/">
                 <Img fixed={imageIcon.childImageSharp.fixed} />
             </Link>
-        </nav>
+            <Contact />
+        </Style.Menu>
     );
 }
 
