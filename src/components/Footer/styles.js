@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import media from "styled-media-query"
 
 export const FooterBase = styled.footer`
   background: var(--black);
@@ -13,4 +13,8 @@ export const FooterBase = styled.footer`
   @media (max-width: 800px) {
     margin-bottom: 50px;
   }
+
+  ${media.lessThan("large")`
+    display: none;
+  `}
 `;

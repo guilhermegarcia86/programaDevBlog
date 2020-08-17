@@ -11,8 +11,8 @@ const Menu = () => {
             query {
                 imageIcon: file(relativePath: { eq: "gatsby-icon.png"}) {
                     childImageSharp {
-                        fixed(width: 60, height: 60) {
-                            ...GatsbyImageSharpFixed_tracedSVG
+                        fluid(maxWidth: 60) {
+                            ...GatsbyImageSharpFluid_tracedSVG
                         }
                     }
                 }
@@ -23,7 +23,7 @@ const Menu = () => {
     return (
         <Style.Menu>
             <Link to="/">
-                <Img fixed={imageIcon.childImageSharp.fixed} />
+                <Style.Icon fluid={imageIcon.childImageSharp.fluid} />
             </Link>
             <Contact />
         </Style.Menu>

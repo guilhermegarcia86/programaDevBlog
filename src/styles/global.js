@@ -52,10 +52,11 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
   }
   body {
+    background: #16202c;
     line-height: 1;
     font-size: 100%;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    
+
     --bodyPaddingTop: 94px;
     padding-top: var(--bodyPaddingTop);
   }
@@ -91,6 +92,6 @@ const GlobalStyles = createGlobalStyle`
     min-height: calc(100vh - var(--bodyPaddingTop));
     display: flex;
     flex-direction: column;
-    }
+  }
 `
 export default GlobalStyles

@@ -4,15 +4,20 @@ import PropTypes from "prop-types"
 import Menu from "../Menu"
 import Footer from "../Footer"
 import GlobalStyles from '../../styles/global'
+import { TransitionPortal } from "gatsby-plugin-transition-link"
 
 const Layout = ({ children }) => {
 
   return (
     <div id="root">
       <GlobalStyles />
-      <Menu />
+      <TransitionPortal level="top">
+        <Menu />
+      </TransitionPortal>
       <main>{children}</main>
-      <Footer />
+      <TransitionPortal level="top">
+        <Footer />
+      </TransitionPortal>
     </ div>
   )
 }
