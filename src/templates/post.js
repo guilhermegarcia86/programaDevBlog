@@ -13,10 +13,6 @@ const BlogPost = ({ data, pageContext }) => {
   const next = pageContext.nextPost
   const previous = pageContext.previousPost
 
-  debugger
-  console.log(post)
-  console.log(post.frontmatter.title)
-
   return (
     <Layout>
       <SEO tittle={post.frontmatter.title} />

@@ -1,8 +1,10 @@
 import React from 'react';
-import { useStaticQuery, graphql, Link } from 'gatsby';
-import Img from 'gatsby-image';
+import { useStaticQuery, graphql } from 'gatsby';
+import AniLink from "gatsby-plugin-transition-link/AniLink"
 import Contact from './components/Contact'
 import * as Style from './styles';
+
+import getThemeColor from "../../utils/getThemeColor"
 
 const Menu = () => {
 
@@ -22,9 +24,14 @@ const Menu = () => {
 
     return (
         <Style.Menu>
-            <Link to="/">
+            <AniLink to="/"
+                cover
+                direction="right"
+                bg={getThemeColor()}
+                duration={0.6}
+                title="Voltar para Home">
                 <Style.Icon fluid={imageIcon.childImageSharp.fluid} />
-            </Link>
+            </AniLink>
             <Contact />
         </Style.Menu>
     );

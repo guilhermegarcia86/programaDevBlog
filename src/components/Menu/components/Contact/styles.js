@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import {Link} from 'gatsby'
+import AniLink from "gatsby-plugin-transition-link/AniLink"
 
-export const Contact = styled(Link)`
+export const Contact = styled(AniLink)`
 
 `
