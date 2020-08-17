@@ -87,11 +87,5 @@ const GlobalStyles = createGlobalStyle`
     --white: #fff;
     --black: #222;
   }
-
-  #root {
-    min-height: calc(100vh - var(--bodyPaddingTop));
-    display: flex;
-    flex-direction: column;
-  }
 `
 export default GlobalStyles

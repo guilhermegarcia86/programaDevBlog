@@ -6,6 +6,8 @@ import SEO from "../components/seo"
 import PostItem from "../components/PostItem"
 import Pagination from '../components/Pagination'
 
+import * as Style from "../components/List/styles"
+
 const BlogList = props => {
 
   const postList = props.data.allMarkdownRemark.edges
@@ -18,6 +20,7 @@ const BlogList = props => {
   return (
     <Layout>
       <SEO title="Home" />
+      <Style.List>
       {postList.map(
         ({
           node: {
@@ -37,6 +40,7 @@ const BlogList = props => {
             />
           )
       )}
+      </Style.List>
 
       <Pagination
         isFirst={isFirst}
