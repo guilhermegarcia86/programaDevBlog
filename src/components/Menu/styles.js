@@ -15,12 +15,23 @@ export const Menu = styled.nav`
   top: 0;
   left: 0;
   right: 0;
-  padding-left: 5%;
+  padding-left: 2%;
   padding-right: 5%;
 
   background: var(--mediumBackground);
   border-bottom: 1px solid var(--borders);
   transition: background 0.5s;
+  
+  a {
+    text-decoration: none;
+    font-family: var(--titulo);
+    color: var(--linkText);
+    font-size: 50px;
+  }
+
+  strong {
+    color: var(--strongText)
+  }
   
 `
 

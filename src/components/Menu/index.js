@@ -29,7 +29,7 @@ const Menu = () => {
                 bg={getThemeColor()}
                 duration={0.6}
                 title="Voltar para Home">
-                <Style.Icon fluid={imageIcon.childImageSharp.fluid} />
+                programa<strong>Dev</strong>
             </AniLink>
         </Style.Menu>
     );

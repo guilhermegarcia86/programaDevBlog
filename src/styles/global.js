@@ -59,6 +59,10 @@ const GlobalStyles = createGlobalStyle`
 
     --bodyPaddingTop: 94px;
     padding-top: var(--bodyPaddingTop);
+
+    --strongText: #1AABBF;
+    --titulo: Fira Code;
+    --conteudo: Source Sans Pro;
   }
   img {
     display: block;
@@ -70,22 +74,24 @@ const GlobalStyles = createGlobalStyle`
     --borders: #38444d;
     --texts: #8899a6;
     --postColor: #fff;
-    --highlight: #1fa1f2;
+    --highlight: #0A8394;
     --mediumBackground: #0D0D0D;
     --background: #0D0D0D;
     --white: #fff;
     --black: #222;
+    --linkText: #fff;
   }
 
   body.light {
     --borders: #dedede;
     --postColor: #111;
     --texts: #555555;
-    --highlight: #1fa1f2;
+    --highlight: #1AABBF;
     --mediumBackground: #f0f0f3;
     --background: #f0f0f3;
     --white: #fff;
     --black: #222;
+    --linkText: #222;
   }
 `
 export default GlobalStyles
