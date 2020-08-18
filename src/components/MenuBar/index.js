@@ -47,8 +47,7 @@ const MenuBar = () => {
             <Search />
           </Style.MenuBarItem>
         </Style.MenuBarLink>
-      </Style.MenuBarGroup>
-      <Style.MenuBarGroup>
+
         <Style.MenuBarItem
           title="Mudar o tema"
           onClick={() => {
@@ -58,6 +57,8 @@ const MenuBar = () => {
         >
           <Light />
         </Style.MenuBarItem>
+      </Style.MenuBarGroup>
+      <Style.MenuBarGroup>
         <Style.MenuBarItem title="Ir para o Topo">
           <Arrow />
         </Style.MenuBarItem>

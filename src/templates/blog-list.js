@@ -20,7 +20,6 @@ const BlogList = props => {
   return (
     <Layout>
       <SEO title="Home" />
-      <Style.List>
       {postList.map(
         ({
           node: {
@@ -40,7 +39,6 @@ const BlogList = props => {
             />
           )
       )}
-      </Style.List>
 
       <Pagination
         isFirst={isFirst}

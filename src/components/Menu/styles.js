@@ -18,7 +18,9 @@ export const Menu = styled.nav`
   padding-left: 5%;
   padding-right: 5%;
 
-  background: black;
+  background: var(--mediumBackground);
+  border-bottom: 1px solid var(--borders);
+  transition: background 0.5s;
   
 `
 

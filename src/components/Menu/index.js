@@ -1,7 +1,6 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import AniLink from "gatsby-plugin-transition-link/AniLink"
-import Contact from './components/Contact'
 import * as Style from './styles';
 
 import getThemeColor from "../../utils/getThemeColor"
@@ -32,7 +31,6 @@ const Menu = () => {
                 title="Voltar para Home">
                 <Style.Icon fluid={imageIcon.childImageSharp.fluid} />
             </AniLink>
-            <Contact />
         </Style.Menu>
     );
 }
