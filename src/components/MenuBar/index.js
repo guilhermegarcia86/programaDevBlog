@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import scrollTo from 'gatsby-plugin-smoothscroll';
 
 import { Home } from "@styled-icons/boxicons-regular/Home"
 import { SearchAlt2 as Search } from "@styled-icons/boxicons-regular/SearchAlt2"
@@ -59,7 +60,11 @@ const MenuBar = () => {
         </Style.MenuBarItem>
       </Style.MenuBarGroup>
       <Style.MenuBarGroup>
-        <Style.MenuBarItem title="Ir para o Topo">
+        <Style.MenuBarItem title="Ir para o Topo"
+        onClick={() => {
+          let mode = document.querySelector('.dark') !== null ? '.dark' : '.light'
+          scrollTo(mode)
+          }}>
           <Arrow />
         </Style.MenuBarItem>
       </Style.MenuBarGroup>

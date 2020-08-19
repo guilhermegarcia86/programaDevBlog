@@ -22,7 +22,7 @@ const Menu = () => {
     )
 
     return (
-        <Style.Menu>
+        <Style.Menu id="menu">
             <AniLink to="/"
                 cover
                 direction="right"

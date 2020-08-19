@@ -12,6 +12,7 @@ module.exports = {
     `gatsby-plugin-transition-link`,
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-smoothscroll`,
     {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
