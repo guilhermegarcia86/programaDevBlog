@@ -12,6 +12,7 @@ const PostItem = ({
     timeToRead,
     title,
     description,
+    author,
 }) => (
         <Style.PostItemLink to={slug}
             cover
@@ -26,6 +27,7 @@ const PostItem = ({
         </Style.PostItemDate>
                     <Style.PostItemTitle>{title}</Style.PostItemTitle>
                     <Style.PostItemDescription>{description}</Style.PostItemDescription>
+                    <Style.PostItemAuthor>{author}</Style.PostItemAuthor>
                 </Style.PostItemInfo>
             </Style.PostItemWrapper>
         </Style.PostItemLink>
@@ -39,6 +41,7 @@ PostItem.propTypes = {
     timeToRead: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
+    author: PropTypes.string.isRequired,
 }
 
 export default PostItem

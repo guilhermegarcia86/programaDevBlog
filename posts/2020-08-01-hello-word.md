@@ -4,6 +4,7 @@ title: Hello Word
 description: And I'm not sure about the universe.
 category: JS
 background: "#7AAB13"
+author: Guilherme Alves
 ---
 
 # Lorem ipsum

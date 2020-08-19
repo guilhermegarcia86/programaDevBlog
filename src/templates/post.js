@@ -26,6 +26,7 @@ const BlogPost = ({ data, pageContext }) => {
         </Style.PostDate>
         <Style.PostTitle>{post.frontmatter.title}</Style.PostTitle>
         <Style.PostDescription>{post.frontmatter.description}</Style.PostDescription>
+        <Style.PostAuthor>por {post.frontmatter.author}</Style.PostAuthor>
       </Style.PostHeader>
       <Style.MainContent>
         <div dangerouslySetInnerHTML={{ __html: post.html }}></div>
@@ -47,6 +48,7 @@ export const query = graphql`
         description
         date(locale: "pt-br", formatString: "DD [de] MMMM [de] YYYY")
         image
+        author
       }
       html
       timeToRead

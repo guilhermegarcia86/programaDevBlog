@@ -4,6 +4,7 @@ title: Segundo artigo
 description: And I'm not sure about the universe.
 category: Java
 background: "#7AAB13"
+author: Guilherme Alves
 ---
 
 # Lorem ipsum (SEGUNDO ARTIGO)

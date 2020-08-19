@@ -6,7 +6,7 @@ module.exports = {
     title: `programaDev`,
     description: `Conteúdo colaborativo de tecnologia`,
     author: `@programaDev`,
-    siteUrl: `https://johndoe.com.br`,
+    siteUrl: `https://proagramadev.netlify.app/`,
   },
   plugins: [
     `gatsby-plugin-transition-link`,

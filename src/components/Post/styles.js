@@ -39,6 +39,20 @@ export const PostDescription = styled.h2`
   `}
 `
 
+export const PostAuthor = styled.h3`
+  font-size: 1rem;
+  font-weight: 50;
+  padding: 0 1.3rem;
+  font-style: italic;
+  margin: 1rem auto;
+
+  ${media.lessThan("large")`
+    font-size: 0.5rem;
+    line-height: 1.1;
+    padding: 0 1rem;
+  `}
+`
+
 export const PostDate = styled.p`
   font-size: 1.1rem;
   font-weight: 100;
@@ -53,10 +67,10 @@ export const MainContent = styled.section`
   font-family: var(--conteudo);
   margin: auto;
   max-width: 70rem;
-  padding: 2rem 5rem;
+  padding-left: 5rem;
 
   ${media.lessThan("large")`
-    padding: 2rem 0;
+    padding: 0rem 0;
     max-width: 100%;
   `}
 
