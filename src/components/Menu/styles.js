@@ -26,12 +26,18 @@ export const Menu = styled.nav`
     text-decoration: none;
     font-family: var(--titulo);
     color: var(--linkText);
-    font-size: 50px;
+    font-size: 4rem;
   }
 
   strong {
     color: var(--strongText)
   }
+
+  ${media.lessThan("large")`
+    a {
+      font-size: 2rem;
+    }
+  `}
   
 `
 

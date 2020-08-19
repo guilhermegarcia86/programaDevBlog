@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components"
+import media from "styled-media-query"
 
 const GlobalStyles = createGlobalStyle`
   /* http://meyerweb.com/eric/tools/css/reset/
@@ -59,6 +60,10 @@ const GlobalStyles = createGlobalStyle`
 
     --bodyPaddingTop: 94px;
     padding-top: var(--bodyPaddingTop);
+
+    ${media.lessThan("large")`
+      padding-top: 20px;
+  `}
 
     --strongText: #1AABBF;
     --titulo: Fira Code;
