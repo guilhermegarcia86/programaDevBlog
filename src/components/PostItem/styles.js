@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import media from "styled-media-query"
+import Img from "gatsby-image"
 import AniLink from "gatsby-plugin-transition-link/AniLink"
 
 export const PostItemLink = styled(AniLink)`
@@ -35,6 +36,18 @@ export const PostItemWrapper = styled.section`
     align-items: flex-start;
     flex-direction: column;
     padding: 2rem 1rem;
+  `}
+`
+
+export const PostImage = styled(Img)`
+  border-radius: 50%;
+  height: 3.75rem;
+  margin: auto;
+  width: 3.75rem;
+
+  ${media.lessThan("large")`
+    height: 1.875rem;
+    width: 1.875rem;
   `}
 `
 

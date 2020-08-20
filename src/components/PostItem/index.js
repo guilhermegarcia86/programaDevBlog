@@ -1,4 +1,5 @@
 import React from 'react'
+import { useStaticQuery, graphql } from "gatsby"
 import PropTypes from "prop-types"
 import * as Style from './styles'
 
@@ -13,13 +14,32 @@ const PostItem = ({
     title,
     description,
     author,
-}) => (
+    image,
+}) => {
+
+    const { avatarImage } = useStaticQuery(
+        graphql`
+          query {
+            avatarImage: file(relativePath: { eq: "assets/img/camadas.png" }) {
+              childImageSharp {
+                fluid(maxWidth: 60) {
+                  ...GatsbyImageSharpFluid_tracedSVG
+                }
+              }
+            }
+          }
+        `
+      )
+
+
+    return (
         <Style.PostItemLink to={slug}
             cover
             direction="right"
             bg={getThemeColor()}
             duration={0.6}>
             <Style.PostItemWrapper>
+                <Style.PostImage fluid={avatarImage} />
                 <Style.PostItemTag background={background}>{category}</Style.PostItemTag>
                 <Style.PostItemInfo>
                     <Style.PostItemDate>
@@ -32,6 +52,7 @@ const PostItem = ({
             </Style.PostItemWrapper>
         </Style.PostItemLink>
     )
+}
 
 PostItem.propTypes = {
     slug: PropTypes.string.isRequired,
