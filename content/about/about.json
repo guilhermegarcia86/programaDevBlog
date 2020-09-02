@@ -1,0 +1,83 @@
+[
+  {
+    "nome": "ProgramaDev",
+    "descricao": "Blog sobre tecnologia, desenvolvimento e mundo de TI.",    
+    "imageSrc": "programaDev.jpg"
+  },
+  {
+    "nome": "Kelly Alves",
+    "descricao": "Olá, muito prazer! Me chamo Kelly, sou Desenvolvedora FrontEnd recém formada pela Laboratória e atualmente trabalho no Banco Next como Analista de Sistemas. Curiosa e amante de bom desafio, migrei de área aos 33 anos e desse então me encontro em constante aprendizado. Gosto de JS, React e apanho um bocado do CSS (quem nunca?). Também tenho um carinho especial pelo Java.",    
+    "imageSrc": "kelly.jpeg",
+    "links": [
+      {
+        "label": "Github",
+        "url": "https://github.com/kellyalves87"
+      },
+      {
+        "label": "Twitter",
+        "url": "https://twitter.com/kellalves_"
+      },
+      {
+        "label": "LinkedIn",
+        "url": "https://www.linkedin.com/in/kellyp-alves"
+      }
+    ]
+  },
+  {
+    "nome": "Leonardo Yassuda",
+    "descricao": "Programador, gamer e amante de café! Formado em Ciência da computação mas queria ser Pro player nos eSports. As principais linguagens que trabalho são Java e Javascript 😊",    
+    "imageSrc": "leonardo.jpeg",
+    "links": [
+      {
+        "label": "Github",
+        "url": "https://github.com/leoyassuda"
+      },
+      {
+        "label": "Twitter",
+        "url": "https://twitter.com/leo_yassuda"
+      },
+      {
+        "label": "LinkedIn",
+        "url": "https://www.linkedin.com/in/leonardo-yassuda"
+      }
+    ]
+  },
+  {
+    "nome": "Pedro Alves",
+    "descricao": "Eu sou Pedro Alves, desenvolvedor de São Paulo. Possuo muitos anos de experiência com desenvolvimento de softwares nas linguagens Java e JavaScript. Entusiasta, evangelista ativo na comunidade OpenSource e inovações tecnológicas.",    
+    "imageSrc": "pedro.jpeg",
+    "links": [
+      {
+        "label": "Github",
+        "url": "https://github.com/pedrualves"
+      },
+      {
+        "label": "Twitter",
+        "url": "https://twitter.com/3pedru"
+      },
+      {
+        "label": "LinkedIn",
+        "url": "https://www.linkedin.com/in/pedrualves"
+      }
+    ]
+  },
+  {
+    "nome": "Guilherme Alves",
+    "descricao": "Desenvolvedor FullStack apaixonado por tecnologia e soluções inovadoras. Tem experiência nas linguagens Java, JavaScript e Golang",    
+    "imageSrc": "guilherme.jpg",
+    "links": [
+      {
+        "label": "Github",
+        "url": "https://github.com/guilhermegarcia86"
+      },
+      {
+        "label": "Twitter",
+        "url": "https://twitter.com/guilherme_ga86"
+      },
+      {
+        "label": "LinkedIn",
+        "url": "https://www.linkedin.com/in/guilherme-garcia-alves-11281aa4"
+      }
+    ]
+  }
+]
