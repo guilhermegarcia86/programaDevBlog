@@ -22,9 +22,6 @@ const PostItem = ({
             duration={0.6}>
             <Style.PostItemWrapper>
                 {image && <Style.CardImage fluid={image.childImageSharp.fluid} />}
-                {tags && (
-                        <Details tags={tags} author={author} />
-                    )}
                 <Style.PostItemInfo>
                     <Style.PostItemDate>
                         {date} • {timeToRead} min de leitura
@@ -32,6 +29,9 @@ const PostItem = ({
                     <Style.PostItemTitle>{title}</Style.PostItemTitle>
                     <Style.PostItemDescription>{description}</Style.PostItemDescription>
                     <Style.PostItemAuthor>por {author}</Style.PostItemAuthor>
+                    <ul>
+                        {tags.map((tag, i) => (<Style.PostItemDetail>#{tag}</Style.PostItemDetail>))}
+                    </ul>
                 </Style.PostItemInfo>
             </Style.PostItemWrapper>
         </Style.PostItemLink>

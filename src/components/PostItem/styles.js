@@ -112,3 +112,9 @@ export const PostItemAuthor = styled.p`
   font-weight: 300;
   line-height: 1.2;
 `
+
+export const PostItemDetail = styled.li`
+    display: inline-block;
+    font-size: 0.75rem;
+    padding-right: 0.5rem;
+`
