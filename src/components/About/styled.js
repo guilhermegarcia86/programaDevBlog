@@ -17,8 +17,8 @@ export const Image = styled(Img)`
   width: 5.75rem;
 
   ${media.lessThan('large')`
-    height: 1.875rem;
-    width: 1.875rem;
+    height: 4.875rem;
+    width: 4.875rem;
   `}
 `
 
