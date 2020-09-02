@@ -1,12 +1,12 @@
 [
   {
     "nome": "ProgramaDev",
-    "descricao": "Blog sobre tecnologia, desenvolvimento e mundo de TI.",    
+    "descricao": "Blog colaborativo sobre tecnologia, desenvolvimento e mundo de TI. Trazendo novidades sobre linguagens, frameworks, ferramentas utilzadas e carreira.",    
     "imageSrc": "programaDev.jpg"
   },
   {
     "nome": "Kelly Alves",
-    "descricao": "Olá, muito prazer! Me chamo Kelly, sou Desenvolvedora FrontEnd recém formada pela Laboratória e atualmente trabalho no Banco Next como Analista de Sistemas. Curiosa e amante de bom desafio, migrei de área aos 33 anos e desde então me encontro em constante aprendizado. Gosto de JS, React e apanho um bocado do CSS (quem nunca?). Também tenho um carinho especial pelo Java.",    
+    "descricao": "Desenvolvedora FrontEnd recém formada pela Laboratória. Curiosa e amante de um bom desafio, migrei de área aos 33 anos e desde então me encontro em constante aprendizado. Gosto de JS, React e apanho um bocado do CSS (quem nunca?). Também tenho um carinho especial pelo Java.",    
     "imageSrc": "kelly.jpeg",
     "links": [
       {
@@ -63,7 +63,7 @@
   },
   {
     "nome": "Guilherme Alves",
-    "descricao": "Desenvolvedor FullStack apaixonado por tecnologia e soluções inovadoras. Tem experiência nas linguagens Java, JavaScript e Golang",    
+    "descricao": "Desenvolvedor FullStack apaixonado por tecnologia e soluções inovadoras. Tem experiência nas linguagens Java, JavaScript e Golang.",    
     "imageSrc": "guilherme.jpg",
     "links": [
       {
