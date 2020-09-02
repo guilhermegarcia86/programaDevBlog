@@ -267,7 +267,6 @@ export const MainContent = styled.section`
   }
 
   a {
-    border-bottom: 1px dashed var(--highlight);
     color: var(--highlight);
     text-decoration: none;
     transition: opacity 0.5s;
@@ -277,7 +276,7 @@ export const MainContent = styled.section`
     }
 
     &:hover {
-      opacity: 0.8;
+      opacity: 0.5;
     }
   }
 `
