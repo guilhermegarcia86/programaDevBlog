@@ -3,8 +3,8 @@ title: Como decidi virar Desenvolvedora
 description: Um relato contando um pouco da experiência de como foi migrar de
   área aos 33 anos.
 author: Kelly Alves
-date: 2020-09-02 09:09:03
-image: assets/job.png
+date: 2020-09-02 21:09:03
+image: /assets/job.png
 tags:
   - Transição de Carreira
   - Desenvolvimento
@@ -15,7 +15,7 @@ Mas bem, comecemos pelo começo...
 
 Eu trabalhei com Turismo quase que a minha vida profissional inteira, tinha na cabeça que me aposentaria nessa profissão e que ficar naquela empresa até o fim dos meus dias era o certo.
 
-Aí você deve estar se perguntando: "Tá Kelly, mas se você estava tão bem na sua empresa, porque decidiu migrar de área?". Você vai descobrir logo mais, prometo 🙃![🙃](data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7)![🙃](data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7)
+Aí você deve estar se perguntando: "Tá Kelly, mas se você estava tão bem na sua empresa, porque decidiu migrar de área?". Você vai descobrir logo mais, prometo 🙃
 
 A minha curiosidade pela programação começou quando o maridão começou a trabalhar como desenvolvedor. Eu achava muito dahora ver ele colocando um monte de palavra esquisita numa tela preta, ficava admirando ele me contar o que fazia no dia a dia com aqueles termos técnicos. Queria aprender, mas não tinha coragem, de cara já falava que não era pra mim (olha a síndrome da impostora aí) enfim, arrumava milhões de desculpas para sequer tentar.
 
