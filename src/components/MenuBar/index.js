@@ -68,6 +68,15 @@ const MenuBar = () => {
           title="Mudar o tema"
           onClick={() => {
             window.__setPreferredTheme(isDarkMode ? "light" : "dark")
+
+            if (window.DISQUS !== undefined) {
+              window.setTimeout(() => {
+                window.DISQUS.reset({
+                  reload: true
+                })
+              }, 300)
+            }
+
           }}
           className={theme}
         >
