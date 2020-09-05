@@ -1,34 +1,42 @@
-
-<h1 align="center">
-  programaDev Blog
-</h1>
-
+# programaDev Blog
 
 ## 🚀 Blog colaborativo sobre desenvolvimento e o mundo de TI
 
-[programaDev Blog](https://proagramadev.netlify.app/)
+💻 SITE: [programaDev Blog](https://programadev.com.br/)
 
-# Como contribuir
+## Como contribuir
 
-Crie um arquivo *.md* no path */content/posts* com o título seguindo o padrão **YYYY-MM-DD-< título >.md**
+Crie um arquivo `.md` na pasta `/content/posts` com o título seguindo o padrão `YYYY-MM-DD-título_do_seu_conteudo.md`
 
 ## Front Matter importa
 
+É um markup **obrigatório** para o blog identificar e autogerir os seus conteúdos.
+
 Adicione front matter com os seguintes campos obrigatórios:
 
-- tittle: text
-- date: YYYY-MM-DD HH:mm:ss
-- description: text
-- image: text* **ex: /assets/imagem.png**
-- tags: array text
-- author: text
+```text
+---
+title: "Arquitetura limpa"
+date: 2020-08-19 12:57:37
+description: "Introdução a Arquitetura Limpa de Robert C. Martin"
+image: /assets/arquitetura.png
+tags: ["Java", "Arquitetura"]
+author: Guilherme Alves
+---
+```
 
-<p>* O path da imagem deve ser salvo a imagem que foi salva na pasta static/assets/posts mas não precisa colocar nem **/static/ e nem **/posts/**</p>
+## Imagens
+
+- Para a referência das imagens, basta apenas referenciar por `/assets/nome_da_imagem.jpg`
+
+- A imagem deverá ser alocada na seguinte pasta: `/static/assets/posts/`
 
 ## Conteúdo
 
-Deve ser um **Markdown**, a única ressalva é que imagens no **Markdown** devem também ser salvas no path /static/assets/posts.
-<p>Ex: ![](/assets/imagens.png)</p>
+Todo Conteúdo deve ser construído no formato **Markdown**.
 
+A única ressalva é que as imagens que você inseriu manualmente, no **Markdown** devem ser referenciadas como no exemplo abaixo:
+
+Exemplo: `![](/assets/nome_da_imagem.png)`
 
 Divirta-se 🤓
