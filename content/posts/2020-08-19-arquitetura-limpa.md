@@ -1,13 +1,11 @@
 ---
-title: 'Arquitetura limpa'
+title: "Arquitetura limpa"
 date: 2020-08-19 12:57:37
-description:
-  'Introdução a Arquitetura Limpa de Robert C. Martin'
+description: "Introdução a Arquitetura Limpa de Robert C. Martin"
 image: /assets/arquitetura.png
-tags: ['Java', 'Arquitetura']
+tags: ["Java", "Arquitetura"]
 author: Guilherme Alves
 ---
-
 
 # Arquitetura e Arquitetura limpa
 
@@ -17,7 +15,7 @@ Resumindo arquitetura de software pode ser descrito da seguinte forma: _"... a a
 
 Quebrando um pouco mais essa explicação e tentando deixá-la mais suscinta eu diria que a arquitetura de software é a ideia que trata da relação entre o mapeamento de componentes de um software e os detalhes que são levados em conta na hora de implementar esses elementos na forma de código.
 
-Resumindo ainda mais a arquitetura consiste em um modelo de alto nível que possibilita um entendimento e uma análise mais fácil do software a ser desenvolvido.  
+Resumindo ainda mais a arquitetura consiste em um modelo de alto nível que possibilita um entendimento e uma análise mais fácil do software a ser desenvolvido.
 
 Como o nome diz e levando pro mundo real é como ver um arquiteto de uma casa onde ele desenha a planta e todas as partes da construção se encaixam e como elas devem interagir uma com a outra.
 
@@ -48,11 +46,8 @@ A arquitetura limpa tem como ideia principal, a modulação das informações qu
 - Independência de framework, os frameworks que tanto gostamos aqui são tratados como meros detalhes, as aplicações não são mais amarradas ao framework, podendo assim haver substituição rápida de um framework por outro sem nenhum impacto na aplicação.
 
 - Independência de banco de dados, assim como os frameworks o banco de dados é tratado como um detalhe.
-  
 - Testabilidade aqui vale um ponto importante, quanto mais fácil for pro seu sistema ser testado menos acoplamento ele terá isso significa que mudanças serão faceis de ocorrer e de serem testadas.
-  
 - Independência de interface de usuário, seja um GUI, API ou que quer que seja deve haver independência e não deve interferir no funcionamento do sistema.
-  
 - Independência de agentes externos, a nossa regra de negócio não deve depender de nada externo.
 
 ### Como funciona?
@@ -73,15 +68,19 @@ Buscamos sempre um sistema que tenha baixo acoplamento e alta coesão. Na imagem
 Começando do centro pra fora:
 
 # Entidades
+
 A Entidade é a camada mais ao centro e mais alta na Arquitetura Limpa, é aqui onde devem ficar os objetos de domínio da aplicação, as regras de negócio cruciais e que não irão mudar com facilidade.
 
 # Casos de Uso
+
 Casos de uso contém regras de negócio mais específicas referente à aplicação, ele especifíca a entrada a ser fornecida, a saída a ser retornada e os passos de processamento envolvidos.
 
 # Adaptadores de Interface
+
 Camada que tem como finalidade converter dados da maneira mais acessível e conveniente possível para as camadas Entidades e Casos de Uso. Um exemplo seria o uso de _Mapper's_, onde eu poderia controlar as estruturas transmitidas entre Casos de Uso e Entidades com o interface do usuário, por exemplo.
 
 # Frameworks e Drivers
+
 Contém qualquer frameworks ou ferramentas para poder rodar na aplicação.
 
 ## Exemplo prático
@@ -345,6 +344,7 @@ public final class UserBuilder {
 ```
 
 Aqui temos a criação de um **User** e já temos a definição da cor do ranger de acordo com a personalidade, vamos também adicionar o nosso builder dentro da nossa classe **User**:
+
 ```java
     public static UserBuilder builder() {
         return new UserBuilder();
@@ -424,7 +424,7 @@ import com.gogo.powerrangers.entity.User;
 public class CreateUser {
 
     public CreateUser() {
-        
+
     }
 
     public User create(final User user) {
@@ -462,7 +462,9 @@ public class UserValidator {
     }
 }
 ```
+
 Aqui temos a nossa validação e customizamos as nossas **Exceptions** com a **UserValidationException** e a **PowerRangerNotFoundException**, em seguida acionamos o nosso método estático a nossa classe de criação de usuário:
+
 ```java
 package com.gogo.powerrangers.usecase;
 
@@ -496,6 +498,7 @@ Pronto temos a nosa validação e agora precisamos de alguma forma informar que 
 Usaremos _interfaces_ e inversão de controle, trocando em miúdos vamos dizer na nossa classe **CreateUser** que queremos salvar um usuário mas como ele será salvo já não nos importa.
 
 Então vamos criar a interface **UserRepository** com os métodos que queremos:
+
 ```java
 package com.gogo.powerrangers.usecase.port;
 
@@ -513,7 +516,9 @@ public interface UserRepository {
     Optional<List<User>> findAllUsers();
 }
 ```
+
 O resultado final da **CreateUser** fica:
+
 ```java
 package com.gogo.powerrangers.usecase;
 
@@ -549,6 +554,7 @@ public class CreateUser {
 Nessa camada podemos ver que exitem os nossos **Controllers**, **Gateways** e **Presenters**, aqui temos a comunicação pra dentro das nossa **Entidades** mas também a comunicação externa e representação do objeto de retorno que será exposto.
 
 Vamos criar um diretório chamado _adapter_ e dentro dele outro diretório chamado _controller_ e um arquivos _pom.xml_ que terá como dependência a _entity_ e aa _usecase_:
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -595,6 +601,7 @@ Vamos criar um diretório chamado _adapter_ e dentro dele outro diretório chama
 ```
 
 Vamos começar aqui criando o nosso objeto de resposta da nossa aplicação, não queremos que a nossa entidade seja retornada aqui pois caso a apresentação seja alterada temos um ponto unico de alteração e podemos ainda aqui realizar qualquer transformação que seja importante para exibição. Então criamos a classe **UserModel**:
+
 ```java
 package com.gogo.powerrangers.model;
 
@@ -684,6 +691,7 @@ public class UserModel {
 ```
 
 Aqui temos os métodos que fazem a mudança de _Model-to-User_ e _User-to-Model_ e agora vamos criar o nosso controlador:
+
 ```java
 package com.gogo.powerrangers;
 
@@ -708,7 +716,8 @@ public class UserController {
 ```
 
 ## Frameworks e Drivers
-Aqui é a nossa última camada, aqui temos os **Drivers**, **Frameworks**, **UI** e qualquer **Dispositivo** ou chamada externa em nossa aplicação é a camada mais "suja" pois é aqui que temos a entrada da nossa aplicação, ela conhece todas as outras camadas porém não é conhecida por nenhuma. 
+
+Aqui é a nossa última camada, aqui temos os **Drivers**, **Frameworks**, **UI** e qualquer **Dispositivo** ou chamada externa em nossa aplicação é a camada mais "suja" pois é aqui que temos a entrada da nossa aplicação, ela conhece todas as outras camadas porém não é conhecida por nenhuma.
 
 ### Qual o benefício disso?
 
@@ -719,6 +728,7 @@ Aqui vamos criar três pontos de entrada, um com **Java** puro executando por te
 ### Aplicação Java executada pelo terminal
 
 Começando pela aplicação **Java** puro executado pelo terminal. Dentro do diretório _adapter_ vamos criar um outro diretório chamado _repository_ e dentro dele outro diretório chamado _in-memory-db_ e dentro dele um arquivo _pom.xm_:
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -787,6 +797,7 @@ Começando pela aplicação **Java** puro executado pelo terminal. Dentro do dir
 ```
 
 E vamos criar a classe **InMemoryUserRepository** que implementa **UserRepository**:
+
 ```java
 package com.gogo.powerrangers.db;
 
@@ -816,9 +827,11 @@ public class InMemoryUserRepository implements UserRepository {
     }
 }
 ```
+
 E aqui temos um **Map** e simulamos em cache as operações de persistência.
 
 Agora vamos criar um diretório a partir do nosso diretório raiz chamada _application_ e dentro desse repositório um diretórioa chamadp _manual-app_ e dentro dele um _pom.xml_:
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -914,6 +927,7 @@ Agora vamos criar um diretório a partir do nosso diretório raiz chamada _appli
 ```
 
 Aqui podemos verificar que nas dependências temos acesso as outras camadas, agora precisamos criar a classe **Main** que irá executar essa aplicação, mas antes vamos precisar fazer o controle e injeção das dependências, pra vamos criar uma classe de configuração chamada **ManualConfig**:
+
 ```java
 package com.gogo.powerrangers.config;
 
@@ -934,6 +948,7 @@ public class ManualConfig {
 Aqui temos a criação da instância do **InMemoryUserRepository** e a injeção dessa dependência na classe **CreateUser** que irá usar essa instância para realizar a persistência.
 
 Vamos criar agora a classe **Main**:
+
 ```java
 package com.gogo.powerrangers;
 
@@ -962,18 +977,23 @@ public class Main {
 ```
 
 Se executarmos essa aplicação pelo terminal:
+
 ```
 java -jar target/manual-app-1.0.jar Guilherme fake@mail.com 34 Persistência
 ```
+
 Temos o retorno:
+
 ```
 UserModel{name='Guilherme', email='guiherme@gmail.com', age=34, personality='Persistência', ranger='Verde'}
 ```
 
 ### Spring Boot e JDBC Template
+
 Agora vamos fazer a aplicação com um frameworks web e outro pra banco de dados.
 
 Antes de mais nada vamos adicionar ao nosso _pom_ raiz as dependências dos frameworks:
+
 ```xml
 <dependency>
     <groupId>org.springframework.boot</groupId>
@@ -1000,7 +1020,9 @@ Antes de mais nada vamos adicionar ao nosso _pom_ raiz as dependências dos fram
     <version>1.4.200</version>
 </dependency>
 ```
+
 Agora vamos usar o **JDBC Template**, vamos então criar um diretório em _repository_ chamado _spring-jdbc_ e vamos criar o nosso _pom.xml_:
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -1054,7 +1076,9 @@ Agora vamos usar o **JDBC Template**, vamos então criar um diretório em _repos
         </dependency>
 </project>
 ```
+
 O nosso _pom_ agora tem as dependências das camadas da nossa aplicação e a dos drivers e framework jdbc, vamos criar o objeto que será persistido no nosso banco de dados chamado **UserEntity**:
+
 ```java
 package com.gogo.powerrangers.entity;
 
@@ -1124,7 +1148,9 @@ public class UserEntity {
 
 }
 ```
+
 O **JDBC Template** pede para implementarmos uma interface **RowMapper** que nos auxilia no mapeamento do objeto que retorna do banco para o objeto **UserEntity**:
+
 ```java
 package com.gogo.powerrangers.mapper;
 
@@ -1153,7 +1179,9 @@ public class UserRowMapper implements RowMapper<UserEntity> {
     }
 }
 ```
+
 Agora vamos implementar a nossa **UserRepository** numa classe chamada **SpringJdbcUserRepository**:
+
 ```java
 package com.gogo.powerrangers;
 
@@ -1175,18 +1203,18 @@ import com.gogo.powerrangers.mapper.UserRowMapper;
 import com.gogo.powerrangers.usecase.port.UserRepository;
 
 public class SpringJdbcUserRepository implements UserRepository {
-	
+
 	private JdbcTemplate jdbcTemplate;
-    
+
     public DataSource dataSource(){
         return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2)
                 .addScript("classpath:schema.sql").build();
     }
-    
+
     public JdbcTemplate jdbcTemplate(){
         return new JdbcTemplate(this.dataSource());
     }
-    
+
     public SpringJdbcUserRepository() {
     	this.jdbcTemplate = this.jdbcTemplate();
     }
@@ -1236,9 +1264,11 @@ public class SpringJdbcUserRepository implements UserRepository {
     }
 }
 ```
+
 Temos a nossa implementação da parte de persistência de dados e agora precisamos criar a aplicação web com **Spring Boot**.
 
 No diretório _application_ criamos outro diretório chamado _spring-boot_ e dentro dele um arquivo _pom.xml_:
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -1327,9 +1357,11 @@ No diretório _application_ criamos outro diretório chamado _spring-boot_ e den
 	</dependencies>
 </project>
 ```
+
 Aqui temos as dependências das camadas da nossa aplicação e as dependências do framework.
 
 Quando usamos **Spring Boot** precisamos de uma classe principal que chamaremos de **Application**:
+
 ```java
 package com.gogo.powerrangers;
 
@@ -1344,9 +1376,11 @@ public class Application {
     }
 }
 ```
+
 Essa classe possui a _annotation_ **@SpringBootApplication** e tudo o que é necessário para uma aplicação **Spring Boot** ser iniciada.
 
 Mas agora precisamos fazer a nossa configuração de injeção de dependências e nisso o **SPring Boot** nos ajuda através dos **Beans**, então vamos criar uma classe de configuração chamada **SpringBootConfig**:
+
 ```java
 package com.gogo.powerrangers.config;
 
@@ -1377,7 +1411,9 @@ public class SpringBootConfig {
     }
 }
 ```
+
 Aqui temos a _annotation_ **@Configuration** que nos auxilia e indica ao Spring que aqui temos os nossos **Beans** que serão processados pelo container do Spring e deixarão esses **Beans** disponíveis para serem injetados na aplicação. Também temos os nosso **Beans** própriamente ditos e prontos para serem usados, então vamos a criação do nosso endpoint com a classe **AddUserController**:
+
 ```java
 package com.gogo.powerrangers.endpoint;
 
@@ -1403,11 +1439,13 @@ public class AddUserController {
     }
 }
 ```
+
 Aqui temos a nossa injeção através da _annotation_ **@Autowired** da **UserController** e as declarações necessárias para a criação de um endpoint que recebe um **UserModel** através de um **POST** e faz a criação e persistência desse usuário.
 
 ### VertX e Hibernate
 
 Agora vamos criar uma aplicação com o framework **VertX** e com persistência de dados com o **Hibernate**. Para isso vamos começar com o **Hibernate**, criaremos um diretório dentro de _repository_ com nome _hibernate_ e nele criamos um arquivo _pom.xml_:
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -1455,7 +1493,7 @@ Agora vamos criar uma aplicação com o framework **VertX** e com persistência 
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 		</dependency>
-		
+
 		<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>
@@ -1480,6 +1518,7 @@ Agora vamos criar uma aplicação com o framework **VertX** e com persistência 
 ```
 
 No nosso _pom_ temos nossas dependências e também adicionamos as dependências que são necessárias para o **Hibernate** funcionar. O **Hibernate** precisa de um arquivo de configuração dentro da pasta **META-INF** em _resources_ chamado _persistence.xml_ e dentro dele ficam as configurações das propriedades que o **Hibernate** usa:
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
@@ -1514,6 +1553,7 @@ No nosso _pom_ temos nossas dependências e também adicionamos as dependências
 ```
 
 Agora precisamos mapear o nosso objeto que vai representar a tabela no banco de dados:
+
 ```java
 package com.gogo.powerrangers.entity;
 
@@ -1524,7 +1564,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "USER")
 public class UserEntity {
-	
+
 	@Id
 	private String id;
     private String name;
@@ -1532,14 +1572,14 @@ public class UserEntity {
     private int age;
     private String personality;
     private String ranger;
-    
+
     public static User toUser(UserEntity entity) {
         var user = User.builder().name(entity.getName()).age(entity.getAge())
                 .email(entity.getEmail()).personality(entity.getPersonality()).build();
 
         return user;
     }
-    
+
 	public String getId() {
 		return id;
 	}
@@ -1580,6 +1620,7 @@ public class UserEntity {
 ```
 
 Aqui na **UserEntity** temos todas as anotações necessárias para o **Hibernate**. E agora vamos criar a nossa classe que irá implementar a **UserRepository** que chamaremos de **HibernateUserRepository** onde vamos criar a nossa instância do **EntityManager** para gerenciar as nossas transações com o banco de dados:
+
 ```java
 package com.gogo.powerrangers;
 
@@ -1599,9 +1640,9 @@ import com.gogo.powerrangers.entity.UserEntity;
 import com.gogo.powerrangers.usecase.port.UserRepository;
 
 public class HibernateUserRepository implements UserRepository{
-	
+
 	private EntityManagerFactory emf = null;
-	
+
 	public HibernateUserRepository() {
 		emf = Persistence.createEntityManagerFactory("jpa-h2");
 	}
@@ -1610,7 +1651,7 @@ public class HibernateUserRepository implements UserRepository{
 	public User create(User user) {
 		EntityManager entityManager = emf.createEntityManager();
 		entityManager.getTransaction().begin();
-		
+
 		UserEntity entity = new UserEntity();
 		entity.setId(UUID.randomUUID().toString());
 		entity.setName(user.getName());
@@ -1618,29 +1659,29 @@ public class HibernateUserRepository implements UserRepository{
 		entity.setAge(user.getAge());
 		entity.setPersonality(user.getPersonality().getPersonality());
 		entity.setRanger(user.getRanger());
-		
+
 		entityManager.persist(entity);
 		entityManager.getTransaction().commit();
 		entityManager.close();
-		
+
 		return user;
 	}
 
 	@Override
 	public Optional<User> findByEmail(String email) {
 		EntityManager entityManager = emf.createEntityManager();
-		
+
 		//@formatter:off
 		TypedQuery<UserEntity> query = entityManager.createQuery(new StringBuilder()
 				.append("SELECT user ")
 				.append("	FROM UserEntity user ")
 				.append(" WHERE user.email = :email").toString(), UserEntity.class);
 		// @formatter:on
-		
+
 		try {
 			UserEntity userEntity = query.setParameter("email", email).getSingleResult();
-			
-			return Optional.of(UserEntity.toUser(userEntity));			
+
+			return Optional.of(UserEntity.toUser(userEntity));
 		} catch (NoResultException e) {
 			return Optional.empty();
 		}
@@ -1649,18 +1690,19 @@ public class HibernateUserRepository implements UserRepository{
 	@Override
 	public Optional<List<User>> findAllUsers() {
 		EntityManager entityManager = emf.createEntityManager();
-		
+
 		List<UserEntity> userEntityList = entityManager.createQuery("SELECT user FROM UserEntity user", UserEntity.class).getResultList();
-		
+
 		List<User> userList = userEntityList.stream().map(UserEntity::toUser).collect(Collectors.toList());
 
         return Optional.of(userList);
 	}
-	
+
 }
 ```
 
 Agora vamos criar a nossa aplicação com o framework **VertX**, vamos no diretório _application_ e criar uma pasta chamada _vertx_ e adicionar o _pom.xml_:
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -1730,6 +1772,7 @@ Agora vamos criar a nossa aplicação com o framework **VertX**, vamos no diret�
 ```
 
 Temos as nossas dependências das camadas internas, as dependências do **VertX** e a dependência do _jackson-core_ que nos ajuda com o nosso endpoint. E agora vamos criar a nossa classe de configuração onde teremos a injeção das nossas dependências:
+
 ```java
 package com.gogo.powerrangers.config;
 
@@ -1738,11 +1781,11 @@ import com.gogo.powerrangers.usecase.CreateUser;
 import com.gogo.powerrangers.usecase.port.UserRepository;
 
 public class VertxConfig {
-	
+
 	public final UserRepository repository() {
 		return new HibernateUserRepository();
 	}
-	
+
 	public final CreateUser createUser() {
 		return new CreateUser(this.repository());
 	}
@@ -1750,6 +1793,7 @@ public class VertxConfig {
 ```
 
 E criaremos agora o nosso _controller_ que utiliza a instâncai que foi injetada do nosso **UserController**
+
 ```java
 package com.gogo.powerrangers.endpoint;
 
@@ -1758,7 +1802,7 @@ import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.JsonObject;
 
 public abstract class Controller {
-	
+
     public boolean isNull(final Buffer buffer) {
         return buffer == null || "".equals(buffer.toString());
     }
@@ -1778,6 +1822,7 @@ public abstract class Controller {
 
 }
 ```
+
 ```java
 package com.gogo.powerrangers.endpoint;
 
@@ -1788,13 +1833,13 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.RoutingContext;
 
 public class AddUserController extends Controller{
-	
+
 	private final UserController controller;
-	
+
 	public AddUserController(UserController controller) {
         this.controller = controller;
     }
-	
+
 	public void createUser(final RoutingContext routingContext) {
         var response = routingContext.response();
         var body = routingContext.getBody();
@@ -1810,9 +1855,11 @@ public class AddUserController extends Controller{
 
 }
 ```
+
 Temos aqui uma classe abstrata **Controller** que serve apenas como utilitário que outros controllers podem usar.
 
 Agora precisamos o nosso ponto de entrada da aplicação e fazer as configurações do **VertX**:
+
 ```java
 package com.gogo.powerrangers;
 
@@ -1827,11 +1874,11 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
 
 public class VertxApplication extends AbstractVerticle{
-	
+
 	private final VertxConfig config = new VertxConfig();
 	private final UserController userController = new UserController(config.createUser(), config.searchUser());
     private final AddUserController addUserController = new AddUserController(userController);
-    
+
     @Override
     public void start() {
         Json.mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
@@ -1851,9 +1898,11 @@ public class VertxApplication extends AbstractVerticle{
 Aqui temos as configurações do **VertX** e rotas no método _start_ e o _main_ que é o ponto de entrada.
 
 ## Conclusão
+
 Podemos ver que com esse modelo de arquitetura temos uma aplicação plugável, quer dizer essa aplicação pode usar outras camadas sem que isso tenha impacto direto nas camadas mais internas. Vimos também que o foco está na regra de negócio e a facilidade em fazer testes é maior.
 
 #### Prós
+
 - Independente de Framework
 - Altamente testável
 - Independente de UI
@@ -1861,6 +1910,7 @@ Podemos ver que com esse modelo de arquitetura temos uma aplicação plugável, 
 - Independente de qualquer agente externo
 
 #### Contras
+
 - Maior curva de aprendizado
 - Mais classes, pacotes e mais sub-projetos
 
