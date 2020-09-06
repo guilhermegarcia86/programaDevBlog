@@ -15,7 +15,7 @@ Ultimamente tenho visto em muitos lugares os seguintes nomes: _jamstack, Netlify
 
 Sendo breve o termo _jamstack_ foi criado por [Matt Biilmann](https://twitter.com/biilmann) (CEO da Netlify) onde ele diz "_A modern web development architecture based on client-side JavaScript, reusable APIs, and prebuilt Markup_"
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/i/01aljdeppscxvbvrzljl.png)
+![](/assets/jamstack.png)
 
 - Javascript
 
@@ -46,7 +46,7 @@ Como exemplo, me aventurei criando um encurtador de URLs utilizando javascript, 
 
 Cadastrando uma URL e associando um "apelido" (alias) que servirá como o identificador para a aplicação realizar o redirect.
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/i/z4ss01ocr02dsej16bng.png)
+![](/assets/chiwawer.png)
 
 Links:
 
@@ -55,13 +55,13 @@ Links:
 
 Aqui vemos uma estrutura básica do projeto:
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/i/yi5ahssu52b6m1sjic5s.png)
+![](/assets/folder-structure.png)
 
 Vamos aproveitar e focar na estrutura das pastas de _API_ , pela documentação do Vercel, para criarmos nossa camada de REST, basta incluir nossos arquivos diretamente na pas API. Dentro da pasta API, criamos o arquivo `index.js` ele será a chamada raiz do nosso REST e cada arquivo funcionará com um serviço servless.
 
 Como por exemplo fazendo um GET em [https://chiwawer.vercel.app/api](https://chiwawer.vercel.app/api) o index.js irá responder com uma mensagem como na imagem abaixo.
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/i/fxhbr2i2lq5xfa4byffr.png)
+![](/assets/chiwawer-get-api-200.png)
 
 Então para estruturar a sua camada de API, as pastas serão os paths, a pasta URLS será associada ao path /urls e quem irá responder será o index.js pertencente a ela.
 
@@ -127,23 +127,23 @@ Sem dores de cabeça e gastos com SSL para o seu site, por de baixo dos panos a 
 
 Para linkar seu repo com a conta na Vercel, vá em [import](https://vercel.com/import)
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/i/5aas93ico7mhbhtutm6g.png)
+![](/assets/chiwawer-import-github-vercel.png)
 
 Insira a url do seu repo, nas próximas etapas de projeto é onde feita a configuração do framework usado, build e a localização da pasta do código.
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/i/mutt1y2m0va7dlahb2yh.png)
+![](/assets/chiwawer-build-github-vercel.png)
 
 Nas variáveis de ambiente, podemos configurar informações para o usa na aplicação como a conexão do mongoDB e node_env.
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/i/we37gnadp5tpii3gxf8y.png)
+![](/assets/chiwawer-variaveis-ambiente.png)
 
 Feito deploy, já é possível acessar o dashboard com o projeto em execução.
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/i/1edo3z0fh7mgnfn8c8au.png)
+![](/assets/chiwawwer-project-dashboard-vercel.png)
 
 Ao acessar o projeto já temos uma pré-vizualição do deploy.
 
-![Alt Text](https://dev-to-uploads.s3.amazonaws.com/i/zcwl0chcdjm939y5qe3o.png)
+![](/assets/chiwawer-production-deployment.png)
 
 Como o projeto está associado ao repo do github, a cada atualização na branch master, automaticamente será feito o build e deploy em produção.
 
