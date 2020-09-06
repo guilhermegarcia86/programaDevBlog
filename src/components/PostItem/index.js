@@ -30,7 +30,7 @@ const PostItem = ({
                     <Style.PostItemDescription>{description}</Style.PostItemDescription>
                     <Style.PostItemAuthor>por {author}</Style.PostItemAuthor>
                     <ul>
-                        {tags.map((tag, i) => (<Style.PostItemDetail>#{tag}</Style.PostItemDetail>))}
+                        {tags.map((tag, i) => (<Style.PostItemDetail key={i}>#{tag}</Style.PostItemDetail>))}
                     </ul>
                 </Style.PostItemInfo>
             </Style.PostItemWrapper>
