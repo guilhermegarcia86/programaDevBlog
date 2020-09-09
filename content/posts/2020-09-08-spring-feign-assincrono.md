@@ -306,6 +306,30 @@ public class ConsultService {
 ```
 Então aqui temos a nossa chamada assíncrona onde caso dê algum erro o nosso **CustomRetryer** vai tentar algumas vezes e após isso vai salvar como falha para ser processado posteriormente e caso dê certo nós gravamos como um registro de sucesso.
 
+#Executando o serviço
+Agora vamos rodar tudo junto, pra isso vou usar a interface **CommandLineRunner** para ser executada no momento em que aplicação subir:
+```java
+@SpringBootApplication
+@EnableFeignClients
+@EnableScheduling
+public class DemoApplication implements CommandLineRunner {
+
+	@Autowired
+	private ConsultService service;
+
+	public static void main(String[] args) {
+		SpringApplication.run(DemoApplication.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		Optional<Cep> cep = service.consultCep("01032000");
+		cep.ifPresent(System.out::println);
+	}
+}
+```
+Coloquei na classe _main_ mesmo; então no momento da execução ele irá fazer a busca com o CEP informado.
+
 #Conclusão
 Vimos aqui uma dentre outras mil formas que podemos pensar em fazer chamadas HTTP com um client de forma assíncrona, pensando em possíveis cenários de falha e com uma tentativa de reprocessamento agendado.
 Segue o link do projeto no [GitHub](https://github.com/guilhermegarcia86/feign-retry)
