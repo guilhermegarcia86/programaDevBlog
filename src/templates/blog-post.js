@@ -19,7 +19,7 @@ const BlogPost = (props) => {
       <SEO
         title={post.frontmatter.title}
         description={post.frontmatter.description}
-        image={post.frontmatter.image ? `https://programadev.com.br/${post.frontmatter.image.publicURL}` : 'https://programadev.com.br/assets/og-image.jpg'}
+        image={post.frontmatter.image ? `https://programadev.com.br${post.frontmatter.image.publicURL}` : 'https://programadev.com.br/assets/og-image.jpg'}
       />
       <Style.PostHeader>
         <Style.PostImage fluid={post.frontmatter.image.childImageSharp.fluid} />
