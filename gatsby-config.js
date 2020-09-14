@@ -134,8 +134,7 @@ module.exports = {
     title: `programaDev`,
     author: `@programaDev`,
     description: `Conteúdo colaborativo de tecnologia`,
-    descriptionEn: `Collaborative technologic content`,
-    siteUrl: `https://proagramadev.netlify.app`,
+    siteUrl: `https://proagramadev.com.br`,
   },
   plugins
 }
