@@ -1,6 +1,6 @@
 ---
 title: Usando padrões de projeto em uma aplicação
-description: Como utlizar Design Patterns em uma aplicação Java
+description: Como utilizar Design Patterns em uma aplicação Java
 author: Guilherme Alves
 date: 2020-09-14 18:04:01
 image: /assets/design-patterns.png
@@ -47,8 +47,8 @@ if(cerveja.getName() == "IPA"){
 }
 ```
 
-Essa implementação parece ser razoável a primeira vista mas aqui temos um problema que pode ser considerado, e se amanhã surgir outro tipo de cerveja? Ou se eu tiver um catálogo com mais de 100 tipos de cervejas? Vou colocar mais um ```if``` ou então vou substituir por um block ```switch case```? As duas abordagens na verdade mascaram o mesmo problema que é o problema de sua implementação poder crescer infinitamente. Isso gera um código gigante, difícil de dar manutenção e díficil de entender e ainda mais existe um princípio que esse tipo de implementação fere que é o princípio Open/Close (Aberto/Fechado) do S.O.L.I.D. que diz: _"entidades de software (classes, módulos, funções, etc.) devem ser abertas para extensão, mas fechadas para modificação"_.
-Trocando em miúdos isso quer dizer que você ter várias extenssões de uma interface, classe e etc. sem mudar nada neles. Mas como trazer isso pro nosso caso?
+Essa implementação parece ser razoável a primeira vista mas aqui temos um problema que pode ser considerado, e se amanhã surgir outro tipo de cerveja? Ou se eu tiver um catálogo com mais de 100 tipos de cervejas? Vou colocar mais um ```if``` ou então vou substituir por um block ```switch case```? As duas abordagens na verdade mascaram o mesmo problema que é o problema de sua implementação poder crescer infinitamente. Isso gera um código gigante, difícil de dar manutenção e difícil de entender e ainda mais existe um princípio que esse tipo de implementação fere que é o princípio Open/Close (Aberto/Fechado) do S.O.L.I.D. que diz: _"entidades de software (classes, módulos, funções, etc.) devem ser abertas para extensão, mas fechadas para modificação"_.
+Trocando em miúdos isso quer dizer que você ter várias extensões de uma interface, classe e etc. sem mudar nada neles. Mas como trazer isso pro nosso caso?
 
 ## Strategy
 
@@ -83,7 +83,7 @@ public class Ale implements Beer{
 
 }
 ```
-Com isso se eu já instânciar qualquer cerveja ele já vai ser capaz de chamar a implentação correta mais ou menos assim:
+Com isso se eu já instânciar qualquer cerveja ele já vai ser capaz de chamar a implementação correta mais ou menos assim:
 ```java
 
 public class Test {
@@ -140,7 +140,7 @@ public class FactoryBeer implements AbstractFactory<Beer> {
 	}
 }
 ```
-Aqui pode parecer que demos uma grande volta pra cair num ```if/else``` de novo mas na verdade estamos deixando em um único ponto, que é na nossa classe especializada em fabricar objetos, mas podemos melhorar isso, nesse projeto eu uso **Spring Boot** e ele trabalha com o conceito de IoC (Inversão de Controle) e nos fornece uma interface que é a **ApplicationContext** que gerencia os nossos **Beans**, pra não entrar muito dentro dos detalhes a grosso modo tudo o que usar as anotations ```@Bean```, ```@Component```, ```@Controller```, ```@Service```, ```@Repository```, ```@Autowired```, e ```@Qualifier``` serão objetos que o Spring vai gerenciar e ele é que vai decidir quando eles estarão disponíveis pra uso. Então depois de toda essa explicação é pra dizer que podemos então delegar essa responsabilidade pro **ApplicationContext** pra gente assim:
+Aqui pode parecer que demos uma grande volta pra cair num ```if/else``` de novo mas na verdade estamos deixando em um único ponto, que é na nossa classe especializada em fabricar objetos, mas podemos melhorar isso, nesse projeto eu uso **Spring Boot** e ele trabalha com o conceito de IoC (Inversão de Controle) e nos fornece uma interface que é a **ApplicationContext** que gerencia os nossos **Beans**, pra não entrar muito dentro dos detalhes a grosso modo tudo o que usar as annotations ```@Bean```, ```@Component```, ```@Controller```, ```@Service```, ```@Repository```, ```@Autowired```, e ```@Qualifier``` serão objetos que o Spring vai gerenciar e ele é que vai decidir quando eles estarão disponíveis pra uso. Então depois de toda essa explicação é pra dizer que podemos então delegar essa responsabilidade pro **ApplicationContext** pra gente assim:
 ```java
 @Component
 public class FactoryBeer implements AbstractFactory<Beer> {
