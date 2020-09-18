@@ -161,7 +161,7 @@ func (validationType *ValidationType) SetNext(next Validation) {
 }
 ```
 Aqui é somente uma prova de conceito onde poderiam entrar lançamento de erros e outras validações mais efetivas, mas o importante aqui é que o nosso _Execute_ recebe um **Person** e verifica se validação já ocorreu com o ```user.ValidationTypeDone``` e se já aconteceu chama o próximo caso não tenha ocorrido vai ser executado a validação e vai chamar o próximo na cadeia.
-Pra poder então termos esse controle de estado, se j;a executou a validação de nome, tipo e etc. precisamos atualiza a nossa **Person**:
+Pra poder então termos esse controle de estado, se já executou a validação de nome, tipo e etc. precisamos atualizar a nossa **Person**:
 ```go
 type Person struct {
 	Name               string
@@ -219,7 +219,7 @@ Agora vamos ver como seria o funcionamento das validações:
 
 # Proxy
 
-Agora pensando que nós já temos o nosso objeto criado e que já validamos ou tratamos ele precisamos seguir o nosso fluxo proposta que seria salvar essa informação em algum lugar, porém essa tarefa pode se tornar muito custosa dependendo de como vamos fazer isso. Por exemplo se formos salvar em um banco de dados temos todo o custo que é se conectar com o banco de dados, abrir uma transação, commitar e depois fechar, pensando em casos assim existe o padrão Proxy.
+Agora pensando que nós já temos o nosso objeto criado e que já validamos ou tratamos ele precisamos seguir o nosso fluxo proposto que seria salvar essa informação em algum lugar, porém essa tarefa pode se tornar muito custosa dependendo de como vamos fazer isso. Por exemplo se formos salvar em um banco de dados temos todo o custo que é se conectar com o banco de dados, abrir uma transação, commitar e depois fechar, pensando em casos assim existe o padrão Proxy.
 Mas antes de explorar ele vamos entender alguns pontos, se abrir a conexão com um banco é tão difícil por que então eu não tento fazer um código mais performático pra abrir a conexão e fazer todo o resto? A resposta é que nem sempre nós temos acesso ao código que vai ser executado, pensando nessa ideia de acesso ao banco de dados, geralmente temos bibliotecas prontas onde nós só fazemos as chamadas às suas funções sem que o código de como é feito isso seja exposto pra quem chamou.
 Tendo isso em mente pense no seguinte e se tivéssemos alguém que vai chamar uma vez o código pesado e vai guardar isso pra gente e depois só usa a parte mais fácil sem chamar a parte pesada de novo mas quem está chamando acha que está chamando o código pesado? A ideia de proxy vem de alguém que seja representante de alguém e é isso que ele vai fazer aqui, vamos criar uma interface chamada **Database**:
 ```go
