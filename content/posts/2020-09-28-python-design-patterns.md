@@ -2,7 +2,7 @@
 title: Padrões de projeto com Python
 description: Utilizando padrões Adapter, Factory e Observer
 author: Guilherme Alves
-date: 2020-09-18 18:04:01
+date: 2020-09-28 00:00:01
 image: /assets/python-design-patterns.png
 tags:
   - Desenvolvimento
