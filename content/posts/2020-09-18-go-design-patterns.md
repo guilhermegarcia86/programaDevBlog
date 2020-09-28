@@ -52,7 +52,7 @@ func GetBuilder(tyeName string) PersonBuilder {
 }
 ```
 
-Aqui definimos a nossa _interface_ **PersonBuilder** com as funções para adicionar o nome, o documento e a função encarregada por realizar a construção. Temos também a função _GetBuilder_ que recebe o ```type``` e decide qual o tipo deve ser criado, caso seja pessoa física retorna um **NaturalPerson** caso seja pessoa jurídica retorna um **LegalPerson** já com um atributo _Type_ atribuído.
+Aqui definimos a nossa _interface_ **PersonBuilder** com as funções para adicionar o nome, o documento e a função encarregada por realizar a construção. Temos também a função *GetBuilder* que recebe o ```type``` e decide qual o tipo deve ser criado, caso seja pessoa física retorna um **NaturalPerson** caso seja pessoa jurídica retorna um **LegalPerson** já com um atributo _Type_ atribuído.
 O que significa esses tipos **NaturalPerson** e **LegalPerson** e por que eles são considerados de um tipo **PersonBuilder** vamos ver o arquivo ```naturalPerson.go``` para entender:
 ```go
 package builder

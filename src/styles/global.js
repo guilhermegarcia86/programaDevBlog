@@ -75,6 +75,10 @@ const GlobalStyles = createGlobalStyle`
   	height: auto;
   }
 
+  em {
+    font-style: italic !important;
+  }
+
   body.dark {
     --borders: #38444d;
     --texts: #8899a6;
