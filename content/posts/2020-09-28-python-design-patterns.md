@@ -12,13 +12,13 @@ tags:
 
 # Definição do projeto
 
-Continuando essa série de posts sobre design patterns, já foi mostrado como usar em [Java]() e [Go]() e agora vamos mostrar como usar com Python também, vamos ver como padrões de projeto nos ajuda a ter um código limpo, reutilizável e de fácil manutenção e alterações caso necessário.
-Então vamos pensar no cenário, temos uma aplicação que vai salvar Notas Fiscais (Invoices), nesse caso vamos ter entrada de vários tipos diferentes de notas e precisamos processar diferentemente cada nota, precisamos descobrir então qual o tipo de nota está chegando e executar a lógica de cálculo de taxas, após isso precisamos salvar essa informação mas de ante mão nós não sabemos onde isso será salvo, se vai ser em banco de dados ou um arquivo sendo salve em um bucket ou até mesmo um arquivo _txt_ simples salvo na máquina e por fim recebemos a demanda de que a cada nota salva o departamento fiscal e o financeiro querem ser notificados disso.
+Continuando essa série de posts sobre design patterns, já foi mostrado como usar em [Java](https://programadev.com.br/factory-strategy/) e [Go](https://programadev.com.br/go-design-patterns/) e agora vamos mostrar como usar com Python também, vamos ver como padrões de projeto nos ajudam a ter um código limpo, reutilizável e de fácil manutenção e alterações caso necessário.
+Então vamos pensar no cenário, temos uma aplicação que vai salvar Notas Fiscais (Invoices), nesse caso vamos ter entrada de vários tipos diferentes de notas e precisamos processar diferentemente cada nota, precisamos descobrir então qual o tipo de nota está chegando e executar a lógica de cálculo de taxas, após isso precisamos salvar essa informação mas de antemão nós não sabemos onde isso será salvo, se vai ser em banco de dados ou em um bucket ou até mesmo um arquivo _txt_ simples salvo na máquina e por fim recebemos a demanda de que para cada nota salva o departamento fiscal e o financeiro querem ser notificados disso.
 
 # Factory
 
-Esse padrão está no grupo dos padrões criacionais e nos ajuda quando precisamos criar objetos baseados em uma superclasse, no nosso exemplo vamos temos um domínio que seria a Nota Fiscal mas não sabemos que tipo de nota seria essa, será um ICMS, ISS ou outra que ainda nem definimos e que pode vir a aparecer por alguma exigência legal ou fiscal. (Não sei nada sobre notas fiscais pra dizer se ICMS é uma nota sozinha mas o exemplo aqui é para entender que existem notas diferentes mas no fim são todas Notas Fiscais).
-Então com essa ideia vamos criar o super tipo ou interface ou classe abstrata, isso vária um pouco de linguagem pra linguagem mas a ideia qui é ter um "molde" pra nossas notas, vamos criar a classe **Invoice**:
+Esse padrão está no grupo dos padrões criacionais e nos ajuda quando precisamos criar objetos baseados em uma superclasse, no nosso exemplo temos um domínio que seria a Nota Fiscal mas não sabemos que tipo de nota seria essa, será um ICMS, ISS ou outra que ainda nem definimos e que pode vir a aparecer por alguma exigência legal ou fiscal. *(Não sei nada sobre notas fiscais pra dizer se ICMS é uma nota sozinha mas o exemplo aqui é para entender que existem notas diferentes mas no fim são todas Notas Fiscais)*.
+Então com essa ideia vamos criar o super tipo ou interface ou classe abstrata, isso vária um pouco de linguagem pra linguagem mas a ideia aqui é ter um "molde" para as nossas notas, vamos criar a classe **Invoice**:
 ```python
 from abc import ABC, abstractmethod
 
@@ -29,7 +29,7 @@ class Invoice(ABC):
     def calculate_rate(self) -> str:
         pass
 ```
-Aqui temos a nossa classe **Invoice** e ela é uma classe abstrata com um método não implementado chamado _calculate_rate_ então aqui temos uma classe que nos obriga a implementar esse método para quem herdar dela.
+Aqui temos a nossa classe **Invoice** e ela é uma classe abstrata com um método não implementado chamado *calculate_rate* então aqui temos uma classe que nos obriga a implementar esse método para quem herdar dela.
 Vamos então criar as suas filhas que serão as classes **InvoiceIcms** e **InvoiceIss**:
 ```python
 from factory.invoice import Invoice
@@ -39,8 +39,8 @@ class InvoiceIss(Invoice):
     def calculate_rate(self) -> str:
         return "Processing Iss tax"
 ```
-As duas seguem o mesmo modelo aqui para o nosso exemplo, pra simplificar temos a classe que herda uma **Invoice** então essa classe é uma **Invoice** e a implementação do método **calculate_rate**.
-Então até aqui temos só o que seria a estrutura ainda nada referente a como iremos criar esses objetos então vamos criar a nossa fábrica especializada em criar tipos **Invoice** mas que saiba se se trata de uma **InvoiceIcms** ou uma **InvoiceIss**:
+As duas seguem o mesmo modelo para o nosso exemplo, pra simplificar temos a classe que herda uma **Invoice** então essa classe é uma **Invoice** e a implementação do método *calculate_rate*.
+Então até aqui temos só o que seria a estrutura ainda nada referente a como iremos criar esses objetos, vamos então criar a nossa fábrica especializada em criar tipos **Invoice** e que saiba é uma **InvoiceIcms** ou uma **InvoiceIss**:
 ```python
 from factory.invoice import Invoice
 from factory.invoice_iss import InvoiceIss
@@ -56,10 +56,11 @@ class InvoiceFactory:
         else:
             return InvoiceIss()
 ```
-A primeira vista uma factory desse tipo parece ser algo que não tem nada de mais com o que vemos no nosso dia-a-dia mas pra esses casos eu gosto de citar o que disse o Uncle Bob a respeito disso no livro _Clean Code_:
+A primeira vista uma factory desse tipo não parece ser algo tão vantajoso  e que não tem nada de mais com o que vemos no nosso dia-a-dia mas para esses casos eu gosto de citar o que disse o Uncle Bob a respeito disso no livro _Clean Code_:
 _"A solução é inserir a estrutura switch no fundo de uma ABSTRACT FACTORY e jamais deixar que alguém a veja. A factory usará o switch para criar instâncias apropriadas derivadas... Minha regra geral para estruturas switch é que são aceitáveis se aparecerem apenas uma vez, como criação de objetos polimórficos, e se estiverem escondidas, atrás de uma relação de herança de mode que o resto do sistema não possa enxergá-la."_
+
 Como não temos ```switch``` em Python vamos usar a estrutura ```if/else```.
-Por fim temos então uma forma de criar os nossos objeto de uma forma mais centralizada e quem chama essa factory não se preocupa na forma como os objetos são criados e se preocupam somente na ideia de usar os objetos criados de forma certa:
+Por fim temos como criar os nossos objetos de uma forma mais centralizada e quem chama a *factory* não se preocupa com a forma que os objetos são criados mas se preocupam somente na ideia de usar os objetos criados:
 ```python
 
 invoice_icms = "ICMS"
@@ -78,7 +79,11 @@ Agora temos a nossa **Invoice** certa sendo construída e o cálculo correto pra
 
 # Adapter
 
-Agora vamos pensar na seguinte ocasião, temos o nosso calculo sendo feito e o processamento acontecendo e precisamos guardar esse dado em algum lugar, mas onde? Em um banco de dados, mas em qual? Enviar esse dado em um sistema de mensageria, mas qual? Kafka? RabbitMQ? Será que isso é algo devemos nos preocupar agora? Pensando na ideia de implementação tardia, onde os detalhes serão pensados no futuro e que a nossa solução tem que ser pensada no negócio e não nas tecnologias envolvidas o padrão **Adapter** nos ajuda e muito com isso.
+Agora vamos pensar na seguinte situação, temos o nosso cálculo sendo feito e o processamento acontecendo mas precisamos guardar esse dado em algum lugar, mas onde? Em um banco de dados, mas em qual? Enviar esse dado em um sistema de mensageria, mas qual? Kafka? RabbitMQ? Será que isso é algo devemos nos preocupar agora? 
+
+Pensando na ideia de implementação tardia, onde os detalhes serão pensados no futuro e que a nossa solução tem que ser pensada no negócio e não nas tecnologias envolvidas o padrão **Adapter** nos ajuda e muito com isso.
+
+
 A ideia aqui é que eu exponha um contrato do que eu preciso que seja feito e posteriormente será implementada a solução, vamos começar a criar para exemplificar melhor:
 ```python
 from abc import ABC
@@ -107,7 +112,7 @@ class FileSystemStorage(Repository):
     def get_one(self, identity: int) -> str:
         return f'FileSystemStorage#get_one'
 ```
-Aqui só um exemplo básico onde no _save_ eu exibo o nome da classe que foi passado e no get_one é devolvido uma string fixa, mas mesmo essa implementação é aderente ao contrato do nosso **Adapter**.
+Aqui é só um exemplo básico onde no método _save_ eu exibo o nome da classe que foi passado e no get_one é devolvido uma string fixa, mas mesmo essa implementação é aderente ao contrato do nosso **Adapter**.
 Ainda vamos criar mais uma camada aqui só para emular o caso em que precisamos fazer alguma preparação pro nosso **Repository**:
 ```python
 from adapter.repository import Repository
@@ -123,7 +128,7 @@ def get_one(repository: Repository, identity: int) -> str:
     print("Preparing to get from storage")
     repository.get_one(identity)
 ```
-Pronto, com isso já podemos usar o nosso adapter e a vantagem que temos aqui é que conseguimos seguir o nosso desenvolvimento sem ficar acoplado ou preso a nenhuma tecnologia, se depois da nossa entrega for definido que vão usar o banco de dados X ou Y o trabalho que temos é criar outra classe que use essa banco de dados mas que implemente a nossa **Repository** e com isso fica transparente pra quem usa esses detalhes de implementação, aqui abaixo um exemplo caso usasse um banco de dados:
+Pronto, com isso já podemos usar o nosso **Adapter** e a vantagem que temos é que conseguimos seguir o nosso desenvolvimento sem ficar acoplado ou preso a nenhuma tecnologia, se depois da nossa entrega for definido que vão usar o banco de dados X ou Y o trabalho que temos é criar outra classe que use esse banco de dados mas que implemente a nossa **Repository** e com isso fica transparente pra quem usa esses detalhes de implementação, aqui abaixo segue um exemplo caso usasse um banco de dados:
 ```python
 from adapter.repository import Repository
 from factory.invoice import Invoice
@@ -157,15 +162,19 @@ get_one(repository, 1)
 # Observer
 
 Agora já podemos criar as nossas **Invoices** dependendo da sua entrada e conseguimos salvar sem nos preocupar com os detalhes de implementação mas ainda falta o último requisito que é enviar para os departamentos interessados a notificação de que salvamos as **Invoices**.
-Podemos ao fim de cada _save_ algo como:
+Podemos ao fim de cada método _save_ fazer algo como:
 ```python
 sendEmail("dpt_financial")
 sendEmail("dpt_fiscal")
 ```
-E isso vai funcionar mas vamos pensar que entrou mais um departamento interessado na criação de **Invoices** ou então mudou a regra e agora cada pessoa desses departamento irão receber e são 50 pessoas em cada departamento vamos ficar entrando sempre no código e aumentar o método ou fazer um ```for``` em uma lista de emails ou departamentos?
-E se tivesse como eu me inscrever como interessado nesse assunto e toda vez que eu um _save_ ocorrer eu seja notificado? Acredito que seria mais simples até mesmo caso eu não queira mais receber notificações eu só iria me desinscrever nesse assunto sem nenhum problema.
+E isso vai funcionar mas vamos pensar que entrou mais um departamento interessado na criação de **Invoices** ou então mudou a regra e agora cada pessoa desses departamentos irão receber e são 50 pessoas em cada departamento.
+
+Vamos ficar entrando sempre no código e aumentar o método ou fazer um ```for``` em uma lista de emails ou departamentos?
+E se tivesse como eu me inscrever como interessado nesse assunto e toda vez que eu um _save_ ocorrer eu seja notificado? Acredito que seria mais simples até mesmo caso onde eu não queira mais receber notificações eu só iria me desinscrever nesse assunto sem nenhum problema.
+
 Esse seria o padrão **Observer** onde eu crio um objeto que fica literalmente observando e recebe notificações nos assuntos que eu me inscrevi.
-Então vamos começar criando a nossa classe **Observer** que vai ser responsável pro criar propriamente dito os observadores e que tem o método que diz o que deve acontecer quando uma notificação for enviada:
+
+Então vamos começar criando a nossa classe **Observer** que vai ser responsável por criar propriamente dito os observadores e que tem o método que diz o que deve acontecer quando uma notificação for enviada:
 ```python
 class EmailObserver:
 
@@ -199,7 +208,7 @@ class EmailSubject:
         for sub in self.__subscribers:
             sub.update(subject)
 ```
-O estado interno dessa classe contém um array de _subscribers_ onde eu adiciono um novo ou removo com os métodos _subscribe_ e _unsubscribe_ e o método para notificar todos os inscritos com notify_subscribers.
+O estado interno dessa classe contém um array de _subscribers_ onde eu adiciono um novo ou removo com os métodos _subscribe_ e _unsubscribe_ e o método para notificar todos os inscritos com *notify_subscribers*.
 E para fazer uso dele podemos fazer o seguinte:
 ```python
 fiscal = EmailObserver("dept_fiscal")
@@ -208,11 +217,11 @@ subject.subscribe(fiscal)
 subject.subscribe(financial)
 subject.add_email("ICMS")
 ```
-E com isso temos o ganho de inscrever somente uma vez e toda vez que o add_email for invocado irá notificar a todos.
+E com isso temos o ganho de inscrever somente uma vez e toda vez que o *add_email* for invocado irá notificar a todos.
 
 # Projeto completo
 
-Segue abaixo o projeto completo e o projeto no [Github]():
+Segue abaixo o projeto completo e o projeto no [Github](https://github.com/guilhermegarcia86/python-design-patterns):
 
 ```python
 from adapter.database import Database
