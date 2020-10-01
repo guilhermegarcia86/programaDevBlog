@@ -1,6 +1,6 @@
 ---
 title: Padrões de projeto com JavaScript
-description: Utilizando padrões Prototype, Decorator e State
+description: Utilizando padrões Prototype, Decorator e Memento
 author: Guilherme Alves
 date: 2020-10-01 00:00:01
 image: /assets/JS-Design-Patterns.png
