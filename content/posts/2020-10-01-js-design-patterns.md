@@ -23,11 +23,11 @@ Então vamos ao nosso projeto, vamos supor que trabalhamos em um empresa de tecn
 *Isso é só um exemplo prático não refletindo a realidade ou enviesando como deve ser um fluxo de trabalho no dia-a-dia*
 
 
-# Protoype
+# Prototype
 
-Aqui vamos abordar o padrão criacional **Protoype**, esse padrão serve para criar objetos a partir de outros existentes, criando uma cópia do objeto e podendo adicionar mais atributos nele.
+Aqui vamos abordar o padrão criacional **Prototype**, esse padrão serve para criar objetos a partir de outros existentes, criando uma cópia do objeto e podendo adicionar mais atributos nele.
 
-No **JavaScript** a idéia de protótipos é muito forte, pois todo objeto em **JS** possui propriedades internas, que são chamados de **Protoype** que é uma referência para outro objeto; resumindo é a forma como o **JS** faz herança.
+No **JavaScript** a idéia de protótipos é muito forte, pois todo objeto em **JS** possui propriedades internas, que são chamados de **Prototype** que é uma referência para outro objeto; resumindo é a forma como o **JS** faz herança.
 
 *Tem muito mais conteúdo sobre o assunto de **Prototype** e pode ser encontrado [aqui](https://github.com/cezaraugusto/You-Dont-Know-JS/blob/portuguese-translation/this%20%26%20object%20prototypes/ch5.md)*
 
