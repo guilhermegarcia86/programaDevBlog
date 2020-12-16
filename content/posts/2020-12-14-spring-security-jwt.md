@@ -574,4 +574,4 @@ E agora com o **JWT** no **Header** de **Authorization** fazemos o **GET** para 
 
 ## Código fonte
 
-Segue o código completo no [GitHub](https://github.com/guilhermegarcia86/kafka-series/tree/main/register).
+Segue o código completo no [GitHub](https://github.com/guilhermegarcia86/kafka-series/tree/security/register).
