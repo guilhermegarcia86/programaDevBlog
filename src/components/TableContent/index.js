@@ -3,6 +3,9 @@ import React from "react"
 import * as Style from "./styles"
 
 const TableContent = ({listElements}) => {
+
+    debugger
+
     return(
         <Style.TableWrapper>
             <Style.Content>

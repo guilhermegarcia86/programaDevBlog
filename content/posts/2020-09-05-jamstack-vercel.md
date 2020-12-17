@@ -73,7 +73,7 @@ Nos nossos arquivos js podemos pegar os parâmetros de algumas formas:
 - Body Parameters
 - Path Segments
 
-## **Query Parameters e Body Parameters**
+## Query Parameters e Body Parameters
 
 ```javascript
 module.exports = (req, res) => {
@@ -141,13 +141,13 @@ Feito deploy, já é possível acessar o dashboard com o projeto em execução.
 
 ![](/assets/chiwawwer-project-dashboard-vercel.png)
 
-Ao acessar o projeto já temos uma pré-vizualição do deploy.
+Ao acessar o projeto já temos uma pré-visualização do deploy.
 
 ![](/assets/chiwawer-production-deployment.png)
 
 Como o projeto está associado ao repo do github, a cada atualização na branch master, automaticamente será feito o build e deploy em produção.
 
-Um bom jeito para o desenvolvimento é seguir um git flow e fazendo os pull request, a cada pull request é possível realizar testes do que foi alterado um uma url pertecente a essa etapa do flow. Após essa verificação e realizando merge em master, o procedimento de produção será inciado.
+Um bom jeito para o desenvolvimento é seguir um git flow e fazendo os pull request, a cada pull request é possível realizar testes do que foi alterado um uma url pertencente a essa etapa do flow. Após essa verificação e realizando merge em master, o procedimento de produção será inciado.
 
 Para os detalhes do projeto, visite o repo no github 😊
 
