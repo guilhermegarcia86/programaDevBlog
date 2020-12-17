@@ -1,5 +1,6 @@
 import React from 'react'
 import { graphql } from 'gatsby'
+import DomParser from 'dom-parser'
 
 import Layout from 'components/Layout'
 import SEO from 'components/Seo'
@@ -43,13 +44,11 @@ const BlogPost = (props) => {
 }
 
 const getLinks = (html) => {
-  let parser = new DOMParser();
-  let doc = parser.parseFromString(html, 'text/html');
-
-  const regex = new RegExp('/#[\w-]+/', 'gm');
+  let parser = new DomParser();
+  let doc = parser.parseFromString(html);
 
   return Array.prototype.slice.call(
-      doc.querySelectorAll('a')
+      doc.getElementsByTagName('a')
   );
 }
 
