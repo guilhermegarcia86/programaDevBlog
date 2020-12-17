@@ -1,6 +1,6 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import DomParser from 'dom-parser'
+import { DOMParser } from 'xmldom'
 
 import Layout from 'components/Layout'
 import SEO from 'components/Seo'
@@ -33,7 +33,7 @@ const BlogPost = (props) => {
         <Style.PostDescription>{post.frontmatter.description}</Style.PostDescription>
         <Style.PostAuthor>por {post.frontmatter.author}</Style.PostAuthor>
       </Style.PostHeader>
-      <TableContent listLinks={getLinks(post.html)} />
+      <TableContent listElements={getElements(post.html)} />
       <Style.MainContent>
         <div dangerouslySetInnerHTML={{ __html: post.html }}></div>
       </Style.MainContent>
@@ -43,13 +43,12 @@ const BlogPost = (props) => {
   )
 }
 
-const getLinks = (html) => {
-  let parser = new DomParser();
-  let doc = parser.parseFromString(html);
+const getElements = (html) => {
+  let parser = new DOMParser();
+  let doc = parser.parseFromString(html, 'text/html');
 
-  return Array.prototype.slice.call(
-      doc.getElementsByTagName('a')
-  );
+  return doc.getElementsByTagName('h2');
+
 }
 
 export default BlogPost

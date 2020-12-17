@@ -10,7 +10,7 @@ tags:
   - Design Patterns
 ---
 
-# Introdução Design Patterns
+## Introdução Design Patterns
 
 Padrões de projeto são formas mais padronizadas para solucionar problemas em comum...
 ![confuso](/assets/confuso.gif)
@@ -31,7 +31,7 @@ Foram divididos em três grupos de padrões:
 
 Com isso foram catálogados 23 padrões que ficaram conhecidos como padrões GoF, Gang of Four, uma referência aos criadores do livro, Erich Gamma, Richard Helm, Ralph Johnson e John Vlissides.
 
-# Projeto prático
+## Projeto prático
 
 Vamos fazer um projeto prático, a intenção aqui não será abordar todos os padrões mas sim como podemos analisar um problema e definir qual padrão poderia ser usado.
 

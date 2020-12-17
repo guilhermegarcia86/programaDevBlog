@@ -17,7 +17,7 @@ Muitas vezes precisamos fazer comunicação com outros serviços externos, seja 
 Vamos fazer uma requisição para buscar no site do Correios e ver aqui uma alternativa a isso usando Feign para fazer as chamadas assíncronas  e primeira retentativa e o mecanismo de Scheduling que o Spring nos provê para fazer o agendamento de requisições que falharam.
 Para esse projeto estou usando Spring Boot e com Gradle para gerenciar as dependências.
 
-# Client
+## Client
 Vamos começar com o nosso client que irá fazer a buscar:
 ```java
 @FeignClient(name = "cepClient", url = "${externalUrl}")
@@ -127,7 +127,7 @@ public class DemoApplication {
 }
 ```
 
-#Service
+##Service
 
 Com o nosso _client_ criado vamos fazer a nossa camada de serviço que é quem irá fazer uso o do _client_ de forma assíncrona, vamos começar criando a classe **ConsultService**:
 ```java
@@ -162,7 +162,7 @@ public class ConsultService {
 O ponto a ser observado é o método _getByCep_ que faz a chamada ao _client_ usamos a anotação _@Async("threadPoolTaskAsyncExecutor")_ referenciando o nosso **Bean** que configuramos anteriormente e isso já nos permite fazer a chamada de forma assíncrona.
 O método _getByCep_ está envolto em um bloco _try/catch_ que o nosso **CustomRetryer** captura em caso de excessão e faz as retentativas.
 
-#Schedule
+##Schedule
 Até agora temos as nossas chamadas de forma assíncrona e um mecanismo de retentativas mas pense na seguinte situação e se a url estiver fora do ar? Não é uma situação que conseguimos resolver mas acreditamos que esse serviço eventualmente será reestabelecido então podemos guardar em algum lugar essa informação que deu errado e depois tentamos fazer a requisição. O Java já nos provê mecanismos para isso e o framework Spring Boot facilita aida mais esse processo, então vamos comçar criando a nossa classe de configuração para o serviço agendado (_schedule_):
 ```java
 package com.example.demo.config;
@@ -306,7 +306,7 @@ public class ConsultService {
 ```
 Então aqui temos a nossa chamada assíncrona onde caso dê algum erro o nosso **CustomRetryer** vai tentar algumas vezes e após isso vai salvar como falha para ser processado posteriormente e caso dê certo nós gravamos como um registro de sucesso.
 
-#Executando o serviço
+##Executando o serviço
 Agora vamos rodar tudo junto, pra isso vou usar a interface **CommandLineRunner** para ser executada no momento em que aplicação subir:
 ```java
 @SpringBootApplication
@@ -330,6 +330,6 @@ public class DemoApplication implements CommandLineRunner {
 ```
 Coloquei na classe _main_ mesmo; então no momento da execução ele irá fazer a busca com o CEP informado.
 
-#Conclusão
+##Conclusão
 Vimos aqui uma dentre outras mil formas que podemos pensar em fazer chamadas HTTP com um client de forma assíncrona, pensando em possíveis cenários de falha e com uma tentativa de reprocessamento agendado.
 Segue o link do projeto no [GitHub](https://github.com/guilhermegarcia86/feign-retry)

@@ -77,6 +77,7 @@ const plugins = [
           resolve: `gatsby-remark-autolink-headers`,
           options: {
             maintainCase: true,
+            removeAccents: true,
             isIconAfterHeader: true,
           },
         },

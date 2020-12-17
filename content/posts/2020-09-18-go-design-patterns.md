@@ -10,12 +10,12 @@ tags:
   - Design Patterns
 ---
 
-# Padrões de projeto
+## Padrões de projeto
 
 São padrões já consagrados com técnicas que nos ajudam no dia-a-dia para solucionar alguns problemas em comum ou fazem com que a nossa aplicação seja mais fácil de mudar no futuro.
 Aqui vamos propor um exemplo onde eu tenho uma aplicação que recebe dados que representem uma pessoa, mas uma pessoa aqui pode ser tanto uma pessoa física quanto uma pessoa jurídica. Então temos que decidir qual é o tipo da pessoa que está sendo informada, executar algumas validações e depois salvar os dados em um banco de dados.
 
-# Builder
+## Builder
 
 Vamos entender primeiramente o que é esse padrão e como ele nos ajudar aqui. 
 O padrão **Builder** é um padrão para criação de objetos onde são informados os passos necessários para a sua criação.
@@ -108,7 +108,7 @@ Temos as peças soltas e agora vamos ver como juntar isso para fazer o nosso **B
 ```
 Aqui basicamente estamos passando como se fosse uma receita de como construir esse objeto e no fim chamamos a nossa função *Build* que vai construir o nosso objeto e devolvê-lo.
 
-# Chain of Responsibility
+## Chain of Responsibility
 
 Então agora temos uma forma de construir os nossos objetos, mas vamos pensar que eu queira executar uma série de passos com esses objetos, sejam validações, transformações e etc. como podemos fazer isso?
 
@@ -226,7 +226,7 @@ Agora vamos ver como seria o funcionamento das validações:
 	validationType.Execute(naturalPerson)
 ```
 
-# Proxy
+## Proxy
 
 Agora pensando que nós já temos o nosso objeto criado e que já validamos e tratamos ele, precisamos seguir o nosso fluxo proposto que seria salvar essa informação em algum lugar, porém essa tarefa pode se tornar muito custosa dependendo de como será implementada. 
 
@@ -347,7 +347,7 @@ const (
 ```
 A parte interessante aqui é que executando esse código teremos duas chamadas para função *Access* porém só a primeira vai demorar 2 segundos pois na próxima chamada o proxy já guardou a conexão.
 
-# Código completo
+## Código completo
 
 Aqui temos a nossa ```main.go``` onde temos a entrada de dados, construímos os nossos objetos, fazemos as nossas validações e depois simulamos a abertura com o banco de dados e acessamos:
 ```go

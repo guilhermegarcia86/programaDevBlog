@@ -1,29 +1,22 @@
 import React from "react"
-import PropTypes from "prop-types"
 
 import * as Style from "./styles"
 
-const TableContent = ({listLinks}) => {
-
+const TableContent = ({listElements}) => {
     return(
         <Style.TableWrapper>
             <Style.Content>
-            {listLinks.filter(link => link.ariaLabel != null).map((link, index) => {
-                return (<Style.Items key={link.href+index}>
+            {Array.from(listElements).map((h2, index) => {
+                return (<Style.Items key={h2.attributes[0].value+index}>
                     <Style.LinkItem
-                        href={link.href}>
-                            {link.ariaLabel.replace(' permalink', '')}
+                        href={h2.lastChild.attributes[0].value}>
+                            {h2.firstChild.data.replace(' permalink', '')}
                     </Style.LinkItem>    
                 </Style.Items>)
             })}
             </Style.Content>
         </Style.TableWrapper>
     )
-
-}
-
-TableContent.propTypes = {
-    html: PropTypes.array
 }
 
 export default TableContent

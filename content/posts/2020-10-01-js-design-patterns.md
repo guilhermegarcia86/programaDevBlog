@@ -10,20 +10,20 @@ tags:
   - Design Patterns
 ---
 
-# Introdução
+## Introdução
 
 JavaScript é uma linguagem moderna e dinâmica onde temos muita flexibilidade pois sua tipagem é fraca, possibilitando com que possamos fazer muitas manipulações em nosso código, é uma linguagem multiparadigma o que significa que possui elementos de POO (Programação Orientada a Objetos) e também de programação funcional.
 
 No exemplo vamos entender como usamos os mecanismos internos do JavaScript para fazer herança, por meio de *Prototypes*, como podemos adicionar comportamentos em um objeto já existente e como podemos criar um histórico das transformações que ocorreram em nosso código.
 
-# Definição do projeto
+## Definição do projeto
 
 Então vamos ao nosso projeto, vamos supor que trabalhamos em um empresa de tecnologia e temos três tipos de funcionários, o dev. **Júnior**, o **Pleno** e o **Sênior** e que cada um pode realizar uma tarefa distinta, o **Júnior** pode fazer *commit* do seu código em um repositório da empresa, o **Pleno** pode fazer *commit* e revisar o código e o **Sênior** faz tudo isso e ainda faz o deploy.
 
 *Isso é só um exemplo prático não refletindo a realidade ou enviesando como deve ser um fluxo de trabalho no dia-a-dia*
 
 
-# Prototype
+## Prototype
 
 Aqui vamos abordar o padrão criacional **Prototype**, esse padrão serve para criar objetos a partir de outros existentes, criando uma cópia do objeto e podendo adicionar mais atributos nele.
 
@@ -65,7 +65,7 @@ const senior = createSenior("senior", "789");
 
 ```
 
-# Decorator
+## Decorator
 
 O padrão **Decorator** nos permite adicionar comportamentos em um objeto de forma dinâmica. Pensando em como isso pode nos ajudar nesse projeto podemos imaginar que temos ações que cada desenvolvedor pode ou não fazer e podemos adicionar esse comportamento em tempo de execução, tornando o nosso código mais flexível. Podemos aproveitar isso fazendo as nossas validações do que cada desenvolvedor poderá fazer, em nossa pasta *decorator* iremos adicionar o seguinte código.
 ```js
@@ -161,7 +161,7 @@ Can I to do a deploy?
 Only Developers Senior can deploy
 ```
 
-# Memento
+## Memento
 
 Agora veremos o padrão **Memento**, esse padrão comportamental nos permite salvar os estados dos nossos objetos, criando uma lista como um histórico das ações realizadas. No nosso cenário seria muito útil se pudéssemos ter um histórico de tudo o que cada desenvolvedor tentou fazer em nossa aplicação. 
 
@@ -296,6 +296,6 @@ Senior trying to deploy
 ```
 Temos o histórico e podemos navegar nessa "linha do tempo".
 
-# Código fonte
+## Código fonte
 
 O código fonte pode ser encontrado [aqui](https://github.com/guilhermegarcia86/js-design-patterns)

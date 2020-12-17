@@ -10,12 +10,12 @@ tags:
   - Design Patterns
 ---
 
-# Definição do projeto
+## Definição do projeto
 
 Continuando essa série de posts sobre design patterns, já foi mostrado como usar em [Java](https://programadev.com.br/factory-strategy/) e [Go](https://programadev.com.br/go-design-patterns/) e agora vamos mostrar como usar com Python também, vamos ver como padrões de projeto nos ajudam a ter um código limpo, reutilizável e de fácil manutenção e alterações caso necessário.
 Então vamos pensar no cenário, temos uma aplicação que vai salvar Notas Fiscais (Invoices), nesse caso vamos ter entrada de vários tipos diferentes de notas e precisamos processar diferentemente cada nota, precisamos descobrir então qual o tipo de nota está chegando e executar a lógica de cálculo de taxas, após isso precisamos salvar essa informação mas de antemão nós não sabemos onde isso será salvo, se vai ser em banco de dados ou em um bucket ou até mesmo um arquivo _txt_ simples salvo na máquina e por fim recebemos a demanda de que para cada nota salva o departamento fiscal e o financeiro querem ser notificados disso.
 
-# Factory
+## Factory
 
 Esse padrão está no grupo dos padrões criacionais e nos ajuda quando precisamos criar objetos baseados em uma superclasse, no nosso exemplo temos um domínio que seria a Nota Fiscal mas não sabemos que tipo de nota seria essa, será um ICMS, ISS ou outra que ainda nem definimos e que pode vir a aparecer por alguma exigência legal ou fiscal. *(Não sei nada sobre notas fiscais pra dizer se ICMS é uma nota sozinha mas o exemplo aqui é para entender que existem notas diferentes mas no fim são todas Notas Fiscais)*.
 Então com essa ideia vamos criar o super tipo ou interface ou classe abstrata, isso vária um pouco de linguagem pra linguagem mas a ideia aqui é ter um "molde" para as nossas notas, vamos criar a classe **Invoice**:
@@ -77,7 +77,7 @@ print(invoice.calculate_rate())
 ```
 Agora temos a nossa **Invoice** certa sendo construída e o cálculo correto pra cada tipo.
 
-# Adapter
+## Adapter
 
 Agora vamos pensar na seguinte situação, temos o nosso cálculo sendo feito e o processamento acontecendo mas precisamos guardar esse dado em algum lugar, mas onde? Em um banco de dados, mas em qual? Enviar esse dado em um sistema de mensageria, mas qual? Kafka? RabbitMQ? Será que isso é algo devemos nos preocupar agora? 
 
@@ -159,7 +159,7 @@ save(repository, invoice)
 get_one(repository, 1)
 ```
 
-# Observer
+## Observer
 
 Agora já podemos criar as nossas **Invoices** dependendo da sua entrada e conseguimos salvar sem nos preocupar com os detalhes de implementação mas ainda falta o último requisito que é enviar para os departamentos interessados a notificação de que salvamos as **Invoices**.
 Podemos ao fim de cada método _save_ fazer algo como:
@@ -219,7 +219,7 @@ subject.add_email("ICMS")
 ```
 E com isso temos o ganho de inscrever somente uma vez e toda vez que o *add_email* for invocado irá notificar a todos.
 
-# Projeto completo
+## Projeto completo
 
 Segue abaixo o projeto completo e o projeto no [Github](https://github.com/guilhermegarcia86/python-design-patterns):
 

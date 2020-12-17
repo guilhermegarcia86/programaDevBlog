@@ -19,13 +19,13 @@ Resumindo ainda mais a arquitetura consiste em um modelo de alto nível que poss
 
 Como o nome diz e levando pro mundo real é como ver um arquiteto de uma casa onde ele desenha a planta e todas as partes da construção se encaixam e como elas devem interagir uma com a outra.
 
-## Por que existe?
+### Por que existe?
 
 A ideia de arquitetura de software surgiu nos anos 60 e se tornou popular nos anos 90.
 
 A ideia era enfatizar a importância de estruturar um sistema antes de seu desenvolvimento.
 
-## O que resolve?
+### O que resolve?
 
 A ideia é que uma boa arquitetura resolva parafrasenado Robert Martin (Uncle Bob):
 
@@ -54,11 +54,11 @@ A arquitetura limpa tem como ideia principal, a modulação das informações qu
 
 Neste modelo proposto por Robert C. Martin, Uncle Bob, a arquitetura é representada por camadas circulares concêntricas passando a proposta de baixo acoplamento e alta coesão:
 
-#### Acoplamento
+### Acoplamento
 
 Dizemos sobre acoplamento em um software quando as partes que o compõe são altamente dependentes umas das outras o que dificulta a manutenção os testes e ainda mais mudanças.
 
-#### Coesão
+### Coesão
 
 Dizemos sobre baixa coesão em um software quando uma parte dele realiza diversas tarefas ou possui multiplas responsabilidades.
 
@@ -67,19 +67,19 @@ Buscamos sempre um sistema que tenha baixo acoplamento e alta coesão. Na imagem
 
 Começando do centro pra fora:
 
-# Entidades
+### Entidades
 
 A Entidade é a camada mais ao centro e mais alta na Arquitetura Limpa, é aqui onde devem ficar os objetos de domínio da aplicação, as regras de negócio cruciais e que não irão mudar com facilidade.
 
-# Casos de Uso
+### Casos de Uso
 
 Casos de uso contém regras de negócio mais específicas referente à aplicação, ele especifíca a entrada a ser fornecida, a saída a ser retornada e os passos de processamento envolvidos.
 
-# Adaptadores de Interface
+### Adaptadores de Interface
 
 Camada que tem como finalidade converter dados da maneira mais acessível e conveniente possível para as camadas Entidades e Casos de Uso. Um exemplo seria o uso de _Mapper's_, onde eu poderia controlar as estruturas transmitidas entre Casos de Uso e Entidades com o interface do usuário, por exemplo.
 
-# Frameworks e Drivers
+## Frameworks e Drivers
 
 Contém qualquer frameworks ou ferramentas para poder rodar na aplicação.
 
@@ -493,7 +493,7 @@ public class CreateUser {
 
 ```
 
-Pronto temos a nosa validação e agora precisamos de alguma forma informar que queremos persistir essa informação, porém como fazer isso se os drivers e frameworks estão na camada mais externa e a ideia aqui é deixar o Caso de Uso desacoplado de deles?
+Pronto temos a nossa validação e agora precisamos de alguma forma informar que queremos persistir essa informação, porém como fazer isso se os drivers e frameworks estão na camada mais externa e a ideia aqui é deixar o Caso de Uso desacoplado de deles?
 
 Usaremos _interfaces_ e inversão de controle, trocando em miúdos vamos dizer na nossa classe **CreateUser** que queremos salvar um usuário mas como ele será salvo já não nos importa.
 
@@ -600,7 +600,7 @@ Vamos criar um diretório chamado _adapter_ e dentro dele outro diretório chama
 </project>
 ```
 
-Vamos começar aqui criando o nosso objeto de resposta da nossa aplicação, não queremos que a nossa entidade seja retornada aqui pois caso a apresentação seja alterada temos um ponto unico de alteração e podemos ainda aqui realizar qualquer transformação que seja importante para exibição. Então criamos a classe **UserModel**:
+Vamos começar aqui criando o nosso objeto de resposta da nossa aplicação, não queremos que a nossa entidade seja retornada aqui pois caso a apresentação seja alterada temos um ponto único de alteração e podemos ainda aqui realizar qualquer transformação que seja importante para exibição. Então criamos a classe **UserModel**:
 
 ```java
 package com.gogo.powerrangers.model;
@@ -725,7 +725,7 @@ O benefício é que com isso temos uma aplicação altamente desacoplada, as cam
 
 Aqui vamos criar três pontos de entrada, um com **Java** puro executando por terminal e com um banco em memória, outro com **Spring Boot** e persistência com **JDBC Template** e outro com **VertX** e **Hibernate**.
 
-### Aplicação Java executada pelo terminal
+## Aplicação Java executada pelo terminal
 
 Começando pela aplicação **Java** puro executado pelo terminal. Dentro do diretório _adapter_ vamos criar um outro diretório chamado _repository_ e dentro dele outro diretório chamado _in-memory-db_ e dentro dele um arquivo _pom.xm_:
 
@@ -988,7 +988,7 @@ Temos o retorno:
 UserModel{name='Guilherme', email='guiherme@gmail.com', age=34, personality='Persistência', ranger='Verde'}
 ```
 
-### Spring Boot e JDBC Template
+## Spring Boot e JDBC Template
 
 Agora vamos fazer a aplicação com um frameworks web e outro pra banco de dados.
 
@@ -1442,7 +1442,7 @@ public class AddUserController {
 
 Aqui temos a nossa injeção através da _annotation_ **@Autowired** da **UserController** e as declarações necessárias para a criação de um endpoint que recebe um **UserModel** através de um **POST** e faz a criação e persistência desse usuário.
 
-### VertX e Hibernate
+## VertX e Hibernate
 
 Agora vamos criar uma aplicação com o framework **VertX** e com persistência de dados com o **Hibernate**. Para isso vamos começar com o **Hibernate**, criaremos um diretório dentro de _repository_ com nome _hibernate_ e nele criamos um arquivo _pom.xml_:
 

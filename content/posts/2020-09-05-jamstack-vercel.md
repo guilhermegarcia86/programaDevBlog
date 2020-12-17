@@ -73,7 +73,7 @@ Nos nossos arquivos js podemos pegar os parâmetros de algumas formas:
 - Body Parameters
 - Path Segments
 
-### **Query Parameters e Body Parameters**
+## **Query Parameters e Body Parameters**
 
 ```javascript
 module.exports = (req, res) => {
@@ -89,7 +89,7 @@ No arquivo `index.js` da nossa API, podemos receber os parâmetros req e res man
 
 **[Aqui](https://node-echo-api.now-examples.now.sh/api/?name=Leo)** contém um exemplo na prática, teste também fazendo um POST passando um body json para ver o resultado.
 
-### Path Segment
+## Path Segment
 
 Passando parametros pelo path da API exige um passo a mais mas nada complicado.
 
