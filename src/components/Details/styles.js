@@ -11,9 +11,6 @@ export const Details = styled.ul`
     padding: 10px;
     width: 100%;
     font-size: 0.9rem;
-
-
-
 `
 
 export const Item = styled.li`

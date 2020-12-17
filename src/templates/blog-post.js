@@ -7,6 +7,8 @@ import SEO from 'components/Seo'
 import RecommendedPosts from "components/RecommendedPosts"
 import Comments from "components/Comments"
 
+import TableContent from "components/TableContent"
+
 import * as Style from "components/Post/styles"
 
 const BlogPost = (props) => {
@@ -30,6 +32,7 @@ const BlogPost = (props) => {
         <Style.PostDescription>{post.frontmatter.description}</Style.PostDescription>
         <Style.PostAuthor>por {post.frontmatter.author}</Style.PostAuthor>
       </Style.PostHeader>
+      <TableContent listLinks={getLinks(post.html)} />
       <Style.MainContent>
         <div dangerouslySetInnerHTML={{ __html: post.html }}></div>
       </Style.MainContent>
@@ -37,6 +40,17 @@ const BlogPost = (props) => {
       <Comments url={post.fields.slug} title={post.frontmatter.title} />
     </Layout>
   )
+}
+
+const getLinks = (html) => {
+  let parser = new DOMParser();
+  let doc = parser.parseFromString(html, 'text/html');
+
+  const regex = new RegExp('/#[\w-]+/', 'gm');
+
+  return Array.prototype.slice.call(
+      doc.querySelectorAll('a')
+  );
 }
 
 export default BlogPost

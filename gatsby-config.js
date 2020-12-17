@@ -72,7 +72,14 @@ const plugins = [
           },
         },
         `gatsby-plugin-catch-links`,
-        `gatsby-remark-lazy-load`,
+        `gatsby-remark-lazy-load`,        
+        {
+          resolve: `gatsby-remark-autolink-headers`,
+          options: {
+            maintainCase: true,
+            isIconAfterHeader: true,
+          },
+        },
         `gatsby-remark-prismjs`,
         `gatsby-remark-external-links`,
         `gatsby-remark-smartypants`,
