@@ -3,7 +3,7 @@ title: Produzindo mensagens com Kafka e Schema Registry
 description: Criando um produtor de mensagens com Kafka, Avro e Spring Boot
 author: Guilherme Alves
 date: 2021-01-01 00:00:01
-image: /assets/spring-security-jwt.png
+image: /assets/kafka-java.png
 tags:
   - Kafka
   - Spring Boot
@@ -11,11 +11,11 @@ tags:
   - Java
 ---
 
-Vamos iniciar uma série de artigos sobre Kafka, a intenção será mostrar a criação de diversas aplicações que irão se comunicar de forma assíncrona utilizando O **Apache Kafka**.
+Vamos iniciar uma série de artigos sobre Kafka, a intenção será mostrar a criação de diversas aplicações que irão se comunicar de forma assíncrona utilizando o **Apache Kafka**.
 
 Trabalhar com assincronicidade não é uma tarefa simples e fácil, mas extremamente importante em grandes sistemas que precisam manipular grandes volumes de dados.
 
-Pensando nisso o LinkedIn desenvolveu uma ferramenta para comunicação de mensagens assíncronas, levando em consideração contextos onde o grande volume de dados seja algo impactante, posteriormente se tornando *Open Source* pela Apache o Kafka é uma ferramente robusta, rápida, escalável.
+Pensando nisso o LinkedIn desenvolveu uma ferramenta para comunicação de mensagens assíncronas, levando em consideração contextos onde o grande volume de dados seja algo impactante, posteriormente se tornando *Open Source* pela Apache o Kafka é uma ferramente robusta, rápida e escalável.
 
 Existem muitas ferramentas de mensageria disponíveis e não entraremos aqui no mérito de qual é melhor ou pior, vamos demonstrar que apesar de ser uma ferramenta com suas peculiaridades o **Kafka** pode ser configurado e utilizado de forma rápida, produtiva e sem grandes dores de cabeça para isso.
 Nesse artigo criaremos um produtor de mensagens com **Kafka**, também iremos mostrar a vantagem de usarmos um validador para as nossas mensagens através de contratos com **Schema Registry** e utilizaremos **Spring Boot**.
@@ -26,11 +26,11 @@ Também não vamos nos alongar muito nos conceitos sobre o que é o **Kafka** e 
 - [O que é Kafka pela Confluent](https://www.confluent.io/what-is-apache-kafka/)
 - [O que é Kafka pela RedHat](https://www.redhat.com/pt-br/topics/integration/what-is-apache-kafka)
 
-# Criando o ambiente
+## Criando o ambiente
 
-Antes de mais nada vamos montar a nossa infra estrutura com o **Kafka**, mas nesse exemplo não iremos instalar o **Kafka** e todos os outros serviços dele pois além de ser custoso para a máquina que vai rodá-lo não é necessário com a abordagem que faremos. Ao invés disso usaremos **Docker** e **Docker Compose** para levar o nosso ambiente.
+Antes de mais nada vamos montar a nossa infra estrutura com o **Kafka**, mas nesse exemplo não iremos instalar o **Kafka** e todos os outros serviços dele pois além de ser custoso para a máquina que vai rodá-lo não é necessário com a abordagem que faremos. Ao invés disso usaremos **Docker** e **Docker Compose** para levantar o nosso ambiente.
 
-Utilizaremos a imagem disponibilizada pela **Landdop** que nos fornece todo o ambiente de desenvolvimento necessário para utilizarmos todas funcionalidades do **Kafka**, além disso vamos utilizar em conjunto com **Docker Compose** para termos controle sobre as configurações de variáveis de ambiente, portas e rede.
+Utilizaremos a imagem disponibilizada pela **Landoop** que nos fornece todo o ambiente de desenvolvimento necessário para utilizarmos as funcionalidades do **Kafka**, além disso vamos utilizar em conjunto com **Docker Compose** para termos controle sobre as configurações de variáveis de ambiente, portas e rede.
 
 O nosso **docker-compose.yml** ficará assim:
 ```dockerfile
@@ -55,20 +55,20 @@ services:
 
 ```
 
-Para rodar basta abrirmos o terminal onde está localizado o no arquivo **docker-compose.yml** e executar:
+Para rodar basta abrirmos o terminal onde está localizado o nosso arquivo **docker-compose.yml** e executar:
 ```bash
 docker-compose -d up
 ```
 
-Apó fazer podemos acessar [http://localhost:3030/](http://localhost:3030/) e conseguiremos abrir o dashboard que a **Landoop** disponibiliza e teremos algo parecido com isso:
+Após fazer isso podemos acessar [http://localhost:3030/](http://localhost:3030/) e conseguiremos abrir o dashboard que a **Landoop** disponibiliza e teremos algo parecido com isso:
 
 ![](/assets/kafka-dash.png)
 
-# Schema Registry
+## Schema Registry
 
 Antes de iniciarmos o projeto vamos entender o que é o Schema Registry e por que ele é importante.
 
-O **Kafka** envia e recebe mensagens porém não faz validação sobre o que está sendo enviado ou recebido até que a aplicação consumidora tente realizar a desserialização da mensagem e caso o contrato da aplicação não seja compatível ocorrerá um erro. Para evitar isso a **Confluent** criou o **Schema Registry** para fazer a validação de contratos e metadados das mensagens que são trafegados.
+O **Kafka** envia e recebe mensagens porém não faz validação sobre o que está sendo enviado ou recebido até que a aplicação consumidora tente realizar a desserialização da mensagem e caso o contrato da aplicação consumidora não seja compatível ocorrerá um erro. Para evitar isso a **Confluent** criou o **Schema Registry** para fazer a validação de contratos e metadados das mensagens que são trafegadas.
 
 A grosso modo o **Schema Registry** valida se a mensagem que está sendo enviada por uma aplicação é compatível. Podemos usar vários formatos de arquivos para criar os nossos *schemas* como *XML*, *CSV*, *JSON* mas aqui usaremos *Apache Avro* que é um formato desenvolvido para criação de schemas com tipagem.
 
@@ -76,11 +76,11 @@ O **Schema Registry** é um componente apartado do **Kafka** como na imagem abai
 
 ![](/assets/schema-registry.png)
 
-# Avro
+## Avro
 
 Para começarmos a criar o nosso produtor de mensagens vamos aproveitar o projeto do artigo sobre [Spring Security com JWT](https://programadev.com.br/spring-security-jwt/). 
 
-Essa aplicação é usada para envio de dados para receita federal, a princípio fazemos um **POST** com os dados de um contribuinte contendo o nome e o CPF.
+Essa aplicação é usada para simular o envio de dados para receita federal, a princípio fazemos um **POST** com os dados de um contribuinte contendo o nome e o CPF.
 
 Vamos começar criando o nosso **Avro**, dentro da pasta *resources/avro* criamos o arquivo *taxpayer-v1.avsc* contendo o nosso schema:
 ```json
@@ -97,9 +97,9 @@ Vamos começar criando o nosso **Avro**, dentro da pasta *resources/avro* criamo
 }
 ```
 
-O nosso **Avro** contém os metadados de *type*, *namespace*, *name* e *version*. Também adicionamos os campos da nossa entidade no array *fields* nele conseguimos além do *name* colocar outros atributos como tipagem com o *type* e valores padrão com o campo *default*.
+O nosso **Avro** contém os metadados de *type*, *namespace*, *name* e *version*. Também adicionamos os campos da nossa entidade no array *fields* e nele conseguimos além do *name* colocar outros atributos como tipagem com o *type* e valores padrão com o campo *default*.
 
-Vamos começar pelas dependências no projeto:
+Vamos adicionar as dependências no projeto:
 
 ```xml
 <dependency>
@@ -184,7 +184,7 @@ E também precisamos adicionar o plugin que irá interpretar o nosso **Avro** e 
 Com isso feito podemos rodar o comando ```mvn generate-sources``` e a nossa classe será gerada em *target/generated-sources/avro/TaxPayer.java*.
 
 
-# Configurando o Kafka
+## Configurando o Kafka
 
 Precisamos configurar a nossa aplicação para se conectar com o **Kafka**. O **Kafka** contém uma série de configurações customizáveis e para deixar mais flexível vamos usar algumas delas via *properties*.
 
@@ -249,15 +249,15 @@ public class MessagingConfigTaxPayer implements MessagingConfigPort<TaxPayer> {
 }
 ```
 
-# Configurando o Produtor
+## Configurando o Produtor
 
 Agora vamos criar o nosso produtor que implementa a interface **MessagingPort<T>** que possui três métodos:
 
 - ```String topic()```
-- ```ProducerRecord<String, TaxPayer> createProducerRecord(T t)```
+- ```ProducerRecord<String, T> createProducerRecord(T t)```
 - ```void send(CommonDTO dto)```
 
-Esses três métodos fornecem o que precisamos para conseguir enviar uma mensagem pelo Kafka e no nosso exemplo será uma classe tipada para a nossa classe **Avro** a **TaxPayer**:
+Esses três métodos fornecem o que precisamos para conseguir enviar uma mensagem pelo Kafka e no nosso exemplo será uma classe tipada para a nossa classe **TaxPayer**:
 
 ```java
 @Service
@@ -312,11 +312,11 @@ O método *createProducerRecord* recebe como parâmetro o nosso **TaxPayer** e d
 
 O método *send* recebe um **CommonDTO**, que nada mais é do que uma interface de marcação para os **DTOs** da aplicação, nele podemos ver que usamos o **Builder** que a **TaxPayer** fornece, passando os dados que iremos receber no **POST** da **API**.
 
-Também é nesse método que fazemos o envio da mensagem para o **Kafka** podemos ver que o método *send* do **KafkaProducer** recebe o nosso **TaxPayer** mas também executa uma função de *callback* onde fazemos uma simples verificação de sucesso ou erro e logamos o resultado. Após isso "atualizamos" a transação e fechamos.
+Também é nesse método que fazemos o envio da mensagem para o **Kafka**, podemos ver que o método *send* do **KafkaProducer** recebe o nosso **TaxPayer** mas também executa uma função de *callback* onde fazemos uma simples verificação de sucesso ou erro e logamos o resultado. Após isso "atualizamos" a transação e fechamos.
 
-# Controller
+## Controller
 
-Precisamos criar a nossa porta de entrada da aplicação, o lugar que irá receber os dados e repassar para a nossa **Service**.
+Precisamos criar a porta de entrada da aplicação, o lugar que irá receber os dados e repassar para a nossa **Service**.
 
 ```java
 @RestController
@@ -356,7 +356,7 @@ public class TaxpayerDTO implements CommonDTO{
 }
 ```
 
-# Executando
+## Executando
 
 Vamos executar a aplicação e enviar um **POST** para conferir o funcionamento, para enviar os dados foi utilizado o [Gerador de Pessoas](https://www.4devs.com.br/gerador_de_pessoas) e também é necessário enviar o token **JWT** para autorização a esse recurso, para saber mais sobre isso consultar o artigo sobre [Spring Security com JWT](https://programadev.com.br/spring-security-jwt/).
 
@@ -366,22 +366,22 @@ E como estamos usando o *dashboard* da **Landoop** podemos acessar e ver que o n
 
 ![](/assets/schema-dash.png)
 
-Aqui vemos o nosso *schema* criado.
+A cima vemos o nosso *schema* criado.
 
 ![](/assets/topic-dash.png)
 
 E aqui temos o nosso tópico criado e vemos a informação que foi enviada.
 
-# Consumindo via Terminal
+## Consumindo via Terminal
 
-Podemos produzir, consumir, criar e fazer todas as operações da **Kafka** via terminal, agora para fins de exemplo vamos consumir a mensagem que enviamos via terminal.
+Podemos produzir, consumir, criar e fazer todas as operações do **Kafka** via terminal, agora para fins de exemplo vamos consumir a mensagem que enviamos via terminal.
 
-Para isso precisamos acessar o nosso **Schema Registry** via **Docker**:
+Podemos fazer isso acessando o nosso **Schema Registry** via **Docker**:
 ```bash
 docker run -it --rm --net=host confluentinc/cp-schema-registry:3.3.1 bash
 ```
 
-E para consumir a mensagem usaremos o utilitário *kafka-avro-console-consumer*:
+E para consumir a mensagem usaremos o utilitário de linha de comando *kafka-avro-console-consumer*:
 ```bash
 kafka-avro-console-consumer --topic taxpayer-avro \
      --bootstrap-server localhost:9092 \
@@ -394,6 +394,6 @@ Que irá produzir o resultado:
 {"name":"Luís Marcelo da Conceição","document":"216.172.648-06","situation":false}
 ```
 
-# Código fonte
+## Código fonte
 
 Segue o código completo no [GitHub](https://github.com/guilhermegarcia86/kafka-series/tree/avro/register)
