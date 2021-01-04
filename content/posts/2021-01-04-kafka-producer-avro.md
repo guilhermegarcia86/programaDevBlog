@@ -57,7 +57,7 @@ services:
 
 Para rodar basta abrirmos o terminal onde está localizado o nosso arquivo **docker-compose.yml** e executar:
 ```bash
-docker-compose -d up
+docker-compose up -d
 ```
 
 Após fazer isso podemos acessar [http://localhost:3030/](http://localhost:3030/) e conseguiremos abrir o dashboard que a **Landoop** disponibiliza e teremos algo parecido com isso:
