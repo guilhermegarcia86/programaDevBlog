@@ -1,5 +1,5 @@
 ---
-title: Versionando o banco de dados com FLyway
+title: Versionando o banco de dados com Flyway
 description: Adicionando o Flyway na aplicação para automatizar o banco de dados
 author: Guilherme Alves
 date: 2021-01-11 00:00:01
