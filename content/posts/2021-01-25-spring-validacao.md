@@ -71,16 +71,111 @@ Para isso será criado uma **Annotation** ```@Cpf``` que nos auxiliará:
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Cpf {
 	
-    String message() default "invalid.document";
+    String message() default "Documento Inválido";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 
 }
 ```
 
-Na **annotation** ```@Cpf``` é definido a mensagem que será devolvida para o usuário, é também definido que essa anotação servirá para colocarmos no nosso atributo e por fim adicionamos ```@Constraint(validatedBy = CpfValidator.class)``` que é classe que contém a lógica para executar a validação.
+Na **annotation** ```@Cpf``` é definida a mensagem que será devolvida para o usuário, é também definido que essa anotação servirá para colocarmos no nosso atributo e por fim adicionamos ```@Constraint(validatedBy = CpfValidator.class)``` que é classe que contém a lógica para executar a validação.
 
+É necessário criar a classe **CpfValidator** que contém a regra de validação:
 
+```java
+public class CpfValidator implements ConstraintValidator<Cpf, String>{
+	
+	private final int[] PESO_CPF = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+
+	@Override
+	public boolean isValid(String cpf, ConstraintValidatorContext context) {
+		
+		String cpfSomenteDigitos = cpf.replaceAll("\\D", "");
+		
+		if ((cpfSomenteDigitos == null) || (cpfSomenteDigitos.length() != 11) || cpfSomenteDigitos.equals("00000000000")
+				|| cpfSomenteDigitos.equals("11111111111") || cpfSomenteDigitos.equals("22222222222")
+				|| cpfSomenteDigitos.equals("33333333333") || cpfSomenteDigitos.equals("44444444444")
+				|| cpfSomenteDigitos.equals("55555555555") || cpfSomenteDigitos.equals("66666666666")
+				|| cpfSomenteDigitos.equals("77777777777") || cpfSomenteDigitos.equals("88888888888")
+				|| cpfSomenteDigitos.equals("99999999999")) {
+			return false;
+		}
+		
+		Integer digito1 = calcularDigito(cpfSomenteDigitos.substring(0, 9), PESO_CPF);
+		Integer digito2 = calcularDigito(cpfSomenteDigitos.substring(0, 9) + digito1, PESO_CPF);
+
+		return cpfSomenteDigitos.equals(cpfSomenteDigitos.substring(0, 9) + digito1.toString() + digito2.toString());
+	}
+	
+	private int calcularDigito(String str, int[] peso) {
+		int soma = 0;
+		for (int indice = str.length() - 1, digito; indice >= 0; indice--) {
+			digito = Integer.parseInt(str.substring(indice, indice + 1));
+			soma += digito * peso[peso.length - str.length() + indice];
+		}
+		soma = 11 - soma % 11;
+		return soma > 9 ? 0 : soma;
+	}
+
+}
+```
+
+A primeira a se notar nessa classe é que ela implementa a interface do *javax.validation* **ConstraintValidator<A extends Annotation, T>** que recebe uma **Annotation** como parâmetro.
+
+E aqui executamos o algoritmo para validarmos se um CPF é válido ou não.
+
+Para que a validação tenha efeito é necessário adicionar no **Controller** que recebe o nosso objeto a anotação ```@Valid``` ao método para que surja efeito.
+
+```java
+public ResponseEntity<TaxpayerDTO> postTaxpayer(@Valid @RequestBody TaxpayerDTO taxpayer)
+```
+
+Com isso nós podemos adicionar essa **Annotation** ao atributo ```document``` no DTO **TaxpayerDTO**.
+
+```java
+@Cpf
+private String document;
+```
+
+Se tentarmos agora fazer um **POST** com um número que não seja um CPF válido será lançado o erro com status 400.
+
+```json
+{
+    "errors": [
+        {
+            "code": "Documento invalido",
+            "message": null
+        }
+    ]
+}
+```
+
+Já retorna uma mensagem de erro com mais padrão porém um tanto quanto estranha já que a *mensagem* está como ```null``` e tem esse campo *code* está com a mensagem que definimos na **Annotation** CPF.
+
+Isso ocorre pois a nossa dependência de validação usa o mecanismo do **Spring MessageSource** para buscar as mensagens que serão exibidas, então precisamos criar o nosso arquivo ```messages.properties``` no **Resources** do projeto e lá adicionamos as mensagens.
+
+```properties
+invalid.document=Documento invalido
+```
+
+E alteramos também na annotation com chave da mensagem.
+
+```java
+String message() default "invalid.document";
+```
+
+Fazendo isso a tentando novamente com um CPF que é inválido o retorno será esse:
+
+```json
+{
+    "errors": [
+        {
+            "code": "invalid.document",
+            "message": "Documento invalido"
+        }
+    ]
+}
+```
 
 ## Criando um Exception customizada
 
