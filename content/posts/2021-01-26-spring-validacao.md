@@ -2,7 +2,7 @@
 title: Validando e requisições com Spring Boot
 description: Aprendendo como criar validações customizadas de forma produtiva para sua API
 author: Guilherme Alves
-date: 2021-01-25 00:00:01
+date: 2021-01-26 00:00:01
 image: /assets/spring-error.png
 tags:
   - Spring Boot
@@ -179,4 +179,89 @@ Fazendo isso a tentando novamente com um CPF que é inválido o retorno será es
 
 ## Criando um Exception customizada
 
+Outra feature interessante dessa biblioteca é a capacidade de poder fazer a tratativa dos erros nas **Exceptions** que criamos na aplicação.
+
+Vamos criar um **Exception** para poder simular um cenário e ficar mais claro, imaginemos que há uma regra na nossa aplicação onde não seja aceito pessoas com o nome *Guilherme* e vamos verificar isso na nossa classe que executa as regras de negócio:
+
+```java
+	@Override
+	public void send(CommonDTO taxpayerDTO) {
+		
+
+		TaxPayer taxPayer = TaxPayer.newBuilder().setName(((TaxpayerDTO) taxpayerDTO).getName())
+				.setDocument(((TaxpayerDTO) taxpayerDTO).getDocument()).setSituation(false).setEmail(((TaxpayerDTO) taxpayerDTO).getEmail()).build();
+		
+		
+        // Aqui está o lançamento da Exception
+		if(taxPayer.getName().contains("Guilherme")) {
+			throw new BadTaxpayerUser(taxPayer.getName());
+		}
+		
+		
+		producer.send(this.createProducerRecord(taxPayer), (rm, ex) -> {
+			if (ex == null) {
+				log.info("Data sent with success!!!");
+			} else {
+				log.error("Fail to send message", ex);
+			}
+		});
+
+		producer.flush();
+
+	}
+```
+
+No trecho de código acima temos uma **Exception** que recebe o nome do *taxpayer*, e será nessa classe de **Exception** que será feito a manipulação do erro para o retorno da **API**:
+
+```java
+@Getter
+@ExceptionMapping(statusCode = HttpStatus.I_AM_A_TEAPOT, errorCode = "bad.user.message")
+public class BadTaxpayerUser extends RuntimeException {
+	
+    @ExposeAsArg(value = 0, name = "user")
+    private final String key;
+
+    public BadTaxpayerUser(String key) {
+        super(key);
+        this.key = key;
+    }
+
+}
+```
+
+Na **BadTaxpayerUser** bastou adicionarmos uma anotação ```@ExceptionMapping``` e nela passamos no campo ```statusCode``` o código HTTP que deve ser retornado e no campo ```errorCode``` é passado a chave da mensagem, que está em ```resources```, que deve ser exibida.
+
+Antes de vermos a anotação ```@ExposeAsArg``` iremos adicionar ao arquivo ```message.properties``` a mensagem que deve ser exibida e vamos customizá-la dessa forma:
+
+```properties
+bad.user.message=O user {user} nao pode!!!
+```
+
+Com isso quando adicionarmos a anotação ```@ExposeAsArg``` no atributo *key* da **Exception** temos que informar que o primeiro argumento que está entre chaves, ```{user}```, deve ser interpolado pelo valor a ser recebido na exceção.
+
+Agora fazendo o teste e enviando um POST com essas informações, que foram geradas pelo [Gerador de pessoas da 4Devs](https://www.4devs.com.br/gerador_de_pessoas):
+
+```json
+{
+    "name": "Guilherme Paulo Carlos Eduardo Dias",
+    "document": "893.475.166-51",
+    "email": "guilhermepaulocarloseduardodias-89@3dmaker.com.br"
+}
+```
+
+Teremos como retorno o erro com status **418 I'm a teapot** com o corpo da mensagem:
+
+```json
+{
+    "errors": [
+        {
+            "code": "bad.user.message",
+            "message": "O user Guilherme Paulo Carlos Eduardo Dias nao pode!!!"
+        }
+    ]
+}
+```
+
 ## Código fonte
+
+O código desse projeto pode ser encontrado no [GitHub](https://github.com/guilhermegarcia86/kafka-series/tree/spring-validation)
