@@ -3,7 +3,7 @@ title: Validando e requisições com Spring Boot
 description: Aprendendo como criar validações customizadas de forma produtiva para sua API
 author: Guilherme Alves
 date: 2021-01-26 00:00:01
-image: /assets/spring-error.png
+image: /assets/spring-erro.png
 tags:
   - Spring Boot
   - Validation
