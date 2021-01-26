@@ -29,7 +29,7 @@ Para isso iremos usar uma *lib* muito interessante que ajuda muito no desenvolvi
 
 ## Adicionado ao Maven
 
-O projeto [register](https://github.com/guilhermegarcia86/kafka-series/tree/main/register) é um projeto **Java** que utiliza o **Maven** então vasta adicionar a dependência no ```pom.xml```:
+O projeto [register](https://github.com/guilhermegarcia86/kafka-series/tree/main/register) é um projeto **Java** que utiliza o **Maven** então basta adicionar a dependência no ```pom.xml```:
 
 ```xml
 <dependency>
