@@ -1,5 +1,5 @@
 ---
-title: Validando e requisições com Spring Boot
+title: Validando requisições com Spring Boot
 description: Aprendendo como criar validações customizadas de forma produtiva para sua API
 author: Guilherme Alves
 date: 2021-01-26 00:00:01
@@ -10,11 +10,11 @@ tags:
   - Java
 ---
 
-Erros ocorrem e sempre irão ocorrer, seja por mal requisito de negócio, seja por mal desenvolvimento ou qualquer outra razão que possa ocorrer. O fato é que erros acontecem e precisamos saber lidar com eles.
+Erros ocorrem e sempre irão ocorrer, seja por mal requisito de negócio, seja por mal desenvolvimento ou qualquer outra razão. O fato é que erros acontecem e precisamos saber lidar com eles.
 
 Mas como vamos apresentar o erro para o usuário ou cliente que chamam as nossas APIs?
 
-O Spring já fornece todo um mecanismo para [tratativa de erros](https://spring.io/blog/2013/11/01/exception-handling-in-spring-mvc) que é muito válido e auxilia e muito o desenvolvimento, mas aqui eu irei apresentar uma outra forma de realizar essa tratativa através de um *lib* que descobri recentemente que facilita ainda mais o trabalho e padronização de erros e mensagens na resposta.
+O Spring já fornece todo um mecanismo para [tratativa de erros](https://spring.io/blog/2013/11/01/exception-handling-in-spring-mvc) que é muito válido e auxilia, e muito, o desenvolvimento mas aqui eu irei apresentar uma outra forma de realizar essa tratativa através de uma *lib* que descobri recentemente que facilita ainda mais o trabalho e padronização de erros e mensagens na resposta.
 
 ## Projeto
 
@@ -22,7 +22,7 @@ Seguindo com os conteúdos dos artigos anteriores vamos reaproveitar o projeto q
 
 Este projeto também está sendo usado nos artigos sobre o Kafka aqui do blog e nessa aplicação temos como premissa que seja enviado os dados de um contribuinte como nome, documento e email.
 
-No nosso projeto hoje não há validação alguma se os dados enviados estão corretos, para esse exemplo queremos que o número do documento, CPF, seja um número válido e caso não seja deve retornar uma mensagem indicando isso.
+No nosso projeto hoje não há validação alguma se os dados enviados estão corretos, para esse exemplo queremos que o número do documento (CPF), seja um número válido e caso não seja deve retornar uma mensagem indicando isso.
 
 Para isso iremos usar uma *lib* muito interessante que ajuda muito no desenvolvimento com **Spring Boot**, a [Errors Spring Boot Starter](https://github.com/alimate/errors-spring-boot-starter) é um projeto que visa facilitar ainda mais a manipulação de erros e validação de dados de entrada.
 
@@ -54,7 +54,7 @@ O nosso objeto de entrada no **POST** contém um campo **documento** que será o
 
 ```json
 {
-    "name": "Uset",
+    "name": "User",
     "document": "XXX.XXX.XXX-XX",
     "email": "email@fake.com"
 }
@@ -78,7 +78,7 @@ public @interface Cpf {
 }
 ```
 
-Na **annotation** ```@Cpf``` é definida a mensagem que será devolvida para o usuário, é também definido que essa anotação servirá para colocarmos no nosso atributo e por fim adicionamos ```@Constraint(validatedBy = CpfValidator.class)``` que é classe que contém a lógica para executar a validação.
+Na **annotation** ```@Cpf``` é definida a mensagem que será devolvida para o usuário e também adicionamos ```@Constraint(validatedBy = CpfValidator.class)``` que é classe que contém a lógica para executar a validação.
 
 É necessário criar a classe **CpfValidator** que contém a regra de validação:
 
@@ -120,11 +120,11 @@ public class CpfValidator implements ConstraintValidator<Cpf, String>{
 }
 ```
 
-A primeira a se notar nessa classe é que ela implementa a interface do *javax.validation* **ConstraintValidator<A extends Annotation, T>** que recebe uma **Annotation** como parâmetro.
+A primeira coisa a se notar nessa classe é que ela implementa a interface do *javax.validation* **ConstraintValidator<A extends Annotation, T>** que recebe uma **Annotation** como parâmetro.
 
 E aqui executamos o algoritmo para validarmos se um CPF é válido ou não.
 
-Para que a validação tenha efeito é necessário adicionar no **Controller** que recebe o nosso objeto a anotação ```@Valid``` ao método para que surja efeito.
+Para que a validação tenha efeito é necessário adicionar no **Controller** que recebe o nosso objeto a anotação ```@Valid``` para que surja efeito.
 
 ```java
 public ResponseEntity<TaxpayerDTO> postTaxpayer(@Valid @RequestBody TaxpayerDTO taxpayer)
@@ -150,9 +150,9 @@ Se tentarmos agora fazer um **POST** com um número que não seja um CPF válido
 }
 ```
 
-Já retorna uma mensagem de erro com mais padrão porém um tanto quanto estranha já que a *mensagem* está como ```null``` e tem esse campo *code* está com a mensagem que definimos na **Annotation** CPF.
+Já retorna uma mensagem de erro mais padronizada porém um tanto quanto estranha já que a *message* está com valor ```null``` e no campo *code* está com a mensagem que definimos na **Annotation** CPF.
 
-Isso ocorre pois a nossa dependência de validação usa o mecanismo do **Spring MessageSource** para buscar as mensagens que serão exibidas, então precisamos criar o nosso arquivo ```messages.properties``` no **Resources** do projeto e lá adicionamos as mensagens.
+Isso ocorre pois a nossa dependência de validação usa o mecanismo do **Spring MessageSource** para buscar as mensagens que serão exibidas, então precisamos criar o nosso arquivo ```messages.properties``` na pasta **Resources** do projeto e lá adicionamos as mensagens.
 
 ```properties
 invalid.document=Documento invalido
@@ -179,9 +179,9 @@ Fazendo isso a tentando novamente com um CPF que é inválido o retorno será es
 
 ## Criando um Exception customizada
 
-Outra feature interessante dessa biblioteca é a capacidade de poder fazer a tratativa dos erros nas **Exceptions** que criamos na aplicação.
+Outra *feature* interessante dessa biblioteca é a capacidade de poder fazer a tratativa dos erros nas **Exceptions** que criamos na aplicação.
 
-Vamos criar um **Exception** para poder simular um cenário e ficar mais claro, imaginemos que há uma regra na nossa aplicação onde não seja aceito pessoas com o nome *Guilherme* e vamos verificar isso na nossa classe que executa as regras de negócio:
+Vamos criar uma **Exception** para simular um cenário e poder ficar mais claro, imaginemos que há uma regra na nossa aplicação onde não seja aceito pessoas com o nome *Guilherme* e vamos verificar isso na nossa classe que executa as regras de negócio:
 
 ```java
 	@Override
@@ -211,7 +211,7 @@ Vamos criar um **Exception** para poder simular um cenário e ficar mais claro, 
 	}
 ```
 
-No trecho de código acima temos uma **Exception** que recebe o nome do *taxpayer*, e será nessa classe de **Exception** que será feito a manipulação do erro para o retorno da **API**:
+No trecho de código acima temos uma **Exception** que recebe o nome do *taxpayer*, e será nessa classe de **Exception** que será feita a manipulação do erro para o retorno da **API**:
 
 ```java
 @Getter
