@@ -262,6 +262,8 @@ Teremos como retorno o erro com status **418 I'm a teapot** com o corpo da mensa
 }
 ```
 
-## Código fonte
+## Conclusão
+
+Bom espero nesse artigo ter apresentando um pouco mais sobre a biblioteca [Errors Spring Boot Starter](https://github.com/alimate/errors-spring-boot-starter) e suas facilidades. Lembrando que essa é apenas uma outra maneira para lidar com validações. 
 
 O código desse projeto pode ser encontrado no [GitHub](https://github.com/guilhermegarcia86/kafka-series/tree/spring-validation)
