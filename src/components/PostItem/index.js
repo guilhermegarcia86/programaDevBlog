@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from "prop-types"
-import Details from 'components/Details'
 import * as Style from './styles'
 
 import getThemeColor from "utils/getThemeColor"
