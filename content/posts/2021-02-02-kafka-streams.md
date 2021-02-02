@@ -119,13 +119,13 @@ public class KafkaConfiguration implements MessageConfiguration {
 
 Das configurações acima vale ressaltar as seguintes:
 
-- **APPLICATION_ID_CONFIG**: Um identificador único do processo no cluster do Kafka.
-- **GROUP_ID_CONFIG**: O identificador do grupo de consumidores.
-- **BOOTSTRAP_SERVERS_CONFIG**: Pode ser uma lista de url's de conexão com o cluster do Kafka.
-- **SCHEMA_REGISTRY_URL_CONFIG**: Url de conexão do **Schema Registry**.
-- **DEFAULT_KEY_SERDE_CLASS_CONFIG**: Definição do Serializador/Deserializador padrão para as chaves das mensagens.
-- **DEFAULT_VALUE_SERDE_CLASS_CONFIG**: Definição do Serializador/Deserializador padrão para as mensagens.
-- **SPECIFIC_AVRO_READER_CONFIG**: Indica que será usado uma classe específica para ler a mensagem **Avro**
+- **APPLICATION\_ID\_CONFIG**: Um identificador único do processo no cluster do Kafka.
+- **GROUP\_ID\_CONFIG**: O identificador do grupo de consumidores.
+- **BOOTSTRAP\_SERVERS\_CONFIG**: Pode ser uma lista de url's de conexão com o cluster do Kafka.
+- **SCHEMA\_REGISTRY\_URL\_CONFIG**: Url de conexão do **Schema Registry**.
+- **DEFAULT\_KEY\_SERDE\_CLASS\_CONFIG**: Definição do Serializador/Deserializador padrão para as chaves das mensagens.
+- **DEFAULT\_VALUE\_SERDE\_CLASS\_CONFIG**: Definição do Serializador/Deserializador padrão para as mensagens.
+- **SPECIFIC\_AVRO\_READER\_CONFIG**: Indica que será usado uma classe específica para ler a mensagem **Avro**
 
 ## Configurando o processamento
 
