@@ -14,13 +14,13 @@ tags:
 
 Na documentação do Kafka Streams temos a seguinte descrição: "Kafka Streams é uma biblioteca cliente para construir aplicações e microserviços onde a entrada e saída de dados são armazenados nos clusters do Kafka. Ele combina a simplicidade de escrever e subir aplicações Java e Scala no lado do cliente com os benefícios da tecnologia de clusters do lado do servidor do Kafka"
 
-Trocando em miúdos o Kafka Streams é uma ferramenta para processamento de fluxo de dados (streams) em tempo real que é integrada ao ambiente do Kafka. Possibilitando o processamento, transformação e persistência de dados em novos tópicos.
+Isso significa que o Kafka Streams é uma ferramenta para processamento de fluxo de dados (streams) em tempo real que é integrada ao ambiente do Kafka. Possibilitando o processamento, transformação e persistência de dados em novos tópicos.
 
 Nesse artigo será mostrado um exemplo onde uma aplicação conectada ao Kafka utiliza a biblioteca do Kafka Streams para executar o processamento dos dados.
 
 ## O Projeto
 
-Anteriormente em artigos passados vou mostrado como [produzir mensagens com Kafka](https://programadev.com.br/kafka-producer-avro/) e como [consumir mensagens com Kafka](https://programadev.com.br/kafka-consumer/) e agora vamos continuar com esse modelo onde o produtor irá enviar esses dados e tanto o consumidor simples quanto o nosso consumidor com Streams irá processar e para esse exemplo não iremos persistir em um novo tópico iremos apenas chamar um **Processor** que irá persistir em um banco de dados.
+Anteriormente em artigos passados foi mostrado como [produzir mensagens com Kafka](https://programadev.com.br/kafka-producer-avro/) e como [consumir mensagens com Kafka](https://programadev.com.br/kafka-consumer/) e agora vamos continuar com esse modelo onde o produtor irá enviar esses dados e tanto o consumidor simples quanto o nosso consumidor com Streams irá processar e para esse exemplo não iremos persistir em um novo tópico iremos apenas chamar um **Processor** que irá persistir em um banco de dados.
 A visão geral de como os projetos se comunicam com o Kafka seria algo assim:
 
 ![](assets/diagrama-kafka.png)
@@ -117,14 +117,14 @@ public class KafkaConfiguration implements MessageConfiguration {
 }
 ```
 
-Das configurações acima vale ressaltar as seguitnes:
+Das configurações acima vale ressaltar as seguintes:
 
 - **APPLICATION_ID_CONFIG**: Um identificador único do processo no cluster do Kafka.
 - **GROUP_ID_CONFIG**: O identificador do grupo de consumidores.
 - **BOOTSTRAP_SERVERS_CONFIG**: Pode ser uma lista de url's de conexão com o cluster do Kafka.
 - **SCHEMA_REGISTRY_URL_CONFIG**: Url de conexão do **Schema Registry**.
-- **DEFAULT_KEY_SERDE_CLASS_CONFIG**: Definição do Serealizador/Deserealizador padrão para as chaves das mensagens.
-- **DEFAULT_VALUE_SERDE_CLASS_CONFIG**: Definição do Serealizador/Deserealizador padrão para as mensagens.
+- **DEFAULT_KEY_SERDE_CLASS_CONFIG**: Definição do Serializador/Deserializador padrão para as chaves das mensagens.
+- **DEFAULT_VALUE_SERDE_CLASS_CONFIG**: Definição do Serializador/Deserializador padrão para as mensagens.
 - **SPECIFIC_AVRO_READER_CONFIG**: Indica que será usado uma classe específica para ler a mensagem **Avro**
 
 ## Configurando o processamento
