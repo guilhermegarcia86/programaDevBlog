@@ -16,7 +16,6 @@ export const TableWrapper = styled.nav`
 `
 
 export const Content = styled.ul`
-    border-right: 1px solid var(--texts);
     overflow: hidden auto;
     margin: 0.75rem;
 `
