@@ -59,6 +59,7 @@ const plugins = [
             linkImagesToOriginal: false
           },
         },
+        `gatsby-remark-images-zoom`,
         {
           resolve: 'gatsby-remark-copy-linked-files',
           options: {
