@@ -1,6 +1,6 @@
 ---
 title: Kafka Connector
-description: Utilizando conectores do Kafka para escutar o sue banco de dados
+description: Utilizando conectores do Kafka para escutar o seu banco de dados
 author: Guilherme Alves
 date: 2021-02-23 00:00:01
 image: /assets/capa-kafka-debezium.png
