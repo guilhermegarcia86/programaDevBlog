@@ -3,7 +3,7 @@ title: Kafka Sink
 description: Enviando informações do Kafka para o seu banco de dados
 author: Guilherme Alves
 date: 2021-03-02 00:00:01
-image: /assets/capa-kafka-debezium-sink.png
+image: /assets/capa-mongo-data-kafka.png
 tags:
   - Kafka
   - Kafka Sink
