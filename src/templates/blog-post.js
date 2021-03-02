@@ -33,7 +33,7 @@ const BlogPost = (props) => {
         <Style.PostDescription>{post.frontmatter.description}</Style.PostDescription>
         <Style.PostAuthor>por {post.frontmatter.author}</Style.PostAuthor>
       </Style.PostHeader>
-      <TableContent listElements={getElements(post.html)} />
+      {/* <TableContent listElements={getElements(post.html)} /> */}
       <Style.MainContent>
         <div dangerouslySetInnerHTML={{ __html: post.html }}></div>
       </Style.MainContent>
