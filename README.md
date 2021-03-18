@@ -8,6 +8,8 @@
 
 Crie um arquivo `.md` na pasta `/content/posts` com o título seguindo o padrão `YYYY-MM-DD-título_do_seu_conteudo.md`
 
+Após isso basta enviar o seu **PR**
+
 ## Front Matter importa
 
 É um markup **obrigatório** para o blog identificar e autogerir os seus conteúdos.
