@@ -118,7 +118,7 @@ const Contact = {
 module.exports = Object.create(Contact)
 ```
 
-A definição acima é a representação do que seria um contato em uma agenda de contatos composta pelo id, aqui entra um discussão sobre Entidades e VO mas para esse exemplo deixei com um *id* pois acredito que o modelo em um projeto real não deveria possuir um *id* provavelmente voltaremos a esse ponto em um artigo futuro, name, telephone e address que são *Strings* e no *exports* criamos esse objeto com a função *create*.
+A definição acima é a representação do que seria um contato em uma agenda de contatos composta pelo id, ```(aqui entra um discussão sobre Entidades e VO mas para esse exemplo deixei com um id pois acredito que o modelo em um projeto real não deveria possuir um id provavelmente voltaremos a esse ponto em um artigo futuro)``` name, telephone e address que são *Strings* e no *exports* criamos esse objeto com a função *create*.
 
 ## Criando a Repository
 
