@@ -2,7 +2,7 @@
 title: NodeJS e Express
 description: Construindo uma API REST do zero
 author: Guilherme Alves
-date: 2021-04-05 00:00:01
+date: 2021-04-06 00:00:01
 image: /assets/capa-node-express-rest.png
 tags:
   - JavaScript
