@@ -1,6 +1,6 @@
 ---
-title: NodeJS e Express
-description: Construindo uma API REST do zero
+title: Express e MongoDB
+description: Conectando uma aplicação web ao MongoDB
 author: Guilherme Alves
 date: 2021-04-19 00:00:01
 image: /assets/capa-node-express-mongo.png
