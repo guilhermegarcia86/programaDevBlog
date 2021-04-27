@@ -159,17 +159,17 @@ Podemos notar que não existe mais um campo ```id```, apesar de internamente exi
 
 ## Adicionando validação
 
-A nossa aplicação ainda não é capaz de validar a entrada de dados. Validar entrada de dados é algo que pode começar simples e logo se torna muito complicado dependendo das regras, para nos ajudar com existe uma biblioteca especializada nisso, o **JOI**, onde conseguimos definir regras a serem seguidas. Validar entrada de dados é algo que pode ser muito complicado e o **JOI** possui uma vasta [documentação](https://joi.dev/api/?v=17.4.0) para nos ajudar com regras, desde as mais simples até as mais complexas usando **Regex**.
+A nossa aplicação ainda não é capaz de validar a entrada de dados. Validar entrada de dados é algo que pode começar simples e logo se torna muito complicado dependendo das regras, para nos ajudar com isso existe uma biblioteca especializada nisso, o **JOI**, onde conseguimos definir regras a serem seguidas. Validar entrada de dados é algo que pode ser muito complicado e o **JOI** possui uma vasta [documentação](https://joi.dev/api/?v=17.4.0) para nos ajudar com regras, desde as mais simples até as mais complexas usando **Regex**.
 
 Em conjunto com o **JOI**, que faz a validação dos dados que estão entrando na aplicação precisamos devolver uma resposta clara e padronizada ao usuário sobre o erro ocorrido. Para isso usaremos o *middleware* **Celebrate** que integra muito bem ao **JOI**.
 
-Para adicionar ao projeto essas duas ferramentas faremos assim:
+Precisamos adicionar somente o **Celebrate** ao projeto, pois o **JOI** é usado internamente pelo **Celebrate**:
 
 ```bash
 npm install --save celebrate
 ```
 
-E vamos começar criando a parte da nossa aplicação que será responsável por fazer as validações, vamos criar um pasta chamada **validation** e nessa criamos o arquivo ```index.js```:
+E vamos começar criando a parte da nossa aplicação que será responsável por fazer as validações, vamos criar um pasta chamada **validation** e nela criamos o arquivo ```index.js```:
 
 ```js
 const { Joi } = require('celebrate')
@@ -180,18 +180,18 @@ const bodySchema = Joi.object().keys({
     address: Joi.string().required()
 })
 
-const pathParam = { name: Joi.string().min(3).required() } 
+const pathSchema = { name: Joi.string().min(3).required() } 
 
 module.exports = {
     bodySchema,
-    pathParam
+    pathSchema
 }
 ```
 
 Definimos as seguintes validações:
 
-- Quando for passado um *body* é obrigatório todos os campos e o campo ```name``` deve ter pelo menos 3 caracteres.
-- Quando for passado um *pathParam* de nome ```name``` também é obrigatório e deve ter pelo menos 3 caracteres.
+- Quando for passado um *body* são obrigatórios todos os campos e o campo ```name``` deve ter pelo menos 3 caracteres.
+- Quando for passado um *pathParam* de nome ```name```, ele é obrigatório e deve ter pelo menos 3 caracteres.
 
 Agora precisamos adicionar essas validações nas rotas, mas antes disso para que o **Celebrate** possa lidar com as mensagens de erro é necessário adicioná-lo como *middleware* para o **Express**:
 
@@ -235,7 +235,7 @@ router.post('/', celebrate({[Segments.BODY]: validation.bodySchema }), async (re
     res.status(201).json(contact)
 })
 
-router.get('/:name', celebrate({[Segments.PARAMS]: validation.pathParam }), async (req, res) => {
+router.get('/:name', celebrate({[Segments.PARAMS]: validation.pathSchema }), async (req, res) => {
 
     const id = req.name_from_param
 
