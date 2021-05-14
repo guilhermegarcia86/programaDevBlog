@@ -79,7 +79,7 @@ const plugins = [
                     frontmatter {
                       title
                       description
-                      date(locale: "pt-br", formatString: "DD MMM[,] YYYY")
+                      date
                       tags
                     }
                     excerpt
