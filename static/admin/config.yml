@@ -2,7 +2,7 @@ backend:
   name: github
   repo: guilhermegarcia86/programaDevBlog
   branch: master
-  site_domain: proagramadev.netlify.app
+  site_domain: programadev.netlify.app
 
 media_folder: static/assets/posts
 public_folder: /assets

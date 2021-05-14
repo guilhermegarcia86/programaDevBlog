@@ -5,13 +5,13 @@ import ReactDisqusComments from "react-disqus-comments"
 import * as Style from "./styles"
 
 const Comments = ({ url, title }) => {
-  const completeURL = `https://proagramadev.netlify.app${url}`
+  const completeURL = `https://programadev.netlify.app${url}`
 
   return (
     <Style.CommentsWrapper>
       <Style.CommentsTitle>Comentários</Style.CommentsTitle>
       <ReactDisqusComments
-        shortname="proagramadev"
+        shortname="programadev"
         identifier={completeURL}
         title={title}
         url={completeURL}

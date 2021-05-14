@@ -201,7 +201,7 @@ module.exports = {
     title: `programaDev`,
     author: `@programaDev`,
     description: `Conteúdo colaborativo de tecnologia`,
-    siteUrl: `https://proagramadev.com.br`,
+    siteUrl: `https://programadev.com.br`,
   },
   plugins
 }
