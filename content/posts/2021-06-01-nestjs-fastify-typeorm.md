@@ -2,7 +2,7 @@
 title: Criando uma aplicação REST com NestJS, Fastify e TypeORM
 description: Utilizando Typescript no backend
 author: Guilherme Alves
-date: 2021-06-31 00:00:01
+date: 2021-06-01 00:00:01
 image: /assets/capa-nest-fast-type.png
 tags:
   - JavaScript
