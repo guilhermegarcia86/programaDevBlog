@@ -17,27 +17,27 @@ tags:
 
 ## Introdução
 
-A linguagem Kotlin é um projeto criado em 2011 pela JetBrains, a criadora de IDEs como IntelliJ, Web Storm e etc., e ganhou fama após ter sido adotado como linguagem oficial para desenvolvimento Android. Misturando conceitos das linguagens Scala e Java o Kotlin se torna uma linguagem muito versátil e descomplicada, principalmente para o desenvolvimento mobile no Android onde antes era desenvolvido unicamente com Java e tinha algumas complicações que o desenvolvedor tinha que adaptar, como manipulação de Threads e interfaces anônimas.
+A linguagem **Kotlin** é um projeto criado em 2011 pela **JetBrains**, a criadora de IDEs como **IntelliJ**, **Web Storm** e etc., e ganhou fama após ter sido adotado como linguagem oficial para desenvolvimento **Android**. Misturando conceitos das linguagens **Scala** e **Java** o **Kotlin** se torna uma linguagem muito versátil e descomplicada, principalmente para o desenvolvimento mobile no **Android** onde antes era desenvolvido unicamente com **Java** e tinha algumas complicações que o desenvolvedor tinha que adaptar, como manipulação de Threads e implementação interfaces anônimas.
 
-Mas o Kotlin não se limita exclusivamente ao desenvolvimento mobile podendo também ser utilizado para desenvolvimento Web e nesse artigo iremos explorar como criar uma aplicação inteira do zero, desde a criação do projeto, modelagem de domínio, implementação de regras de negócio, persistência de dados, integração com outras aplicações, configuração de endpoints e rotas, testes unitários e start da aplicação.
+Mas o **Kotlin** não se limita exclusivamente ao desenvolvimento mobile podendo também ser utilizado para desenvolvimento Web e nesse artigo iremos explorar como criar uma aplicação inteira do zero, desde a criação do projeto, modelagem de domínio, implementação de regras de negócio, persistência de dados, integração com outras aplicações, configuração de endpoints e rotas, testes unitários e start da aplicação.
 
-Junto com o Kotlin será usado o Framework Javalin, esse framework tem a característica de ser muito leve e pode ser usado tanto com a linguagem Java quanto com Kotlin, fora o Javalin será usado o Exposed que é um Framework ORM (Object Relational Mapper) da JetBrains para a comunicação com o banco de dados e manipulação dos dados. Como esse projeto irá fazer integração com outra aplicação via protocolo HTTP será usada lib Fuel que é um projeto para fazer o client HTTP.
+Junto com o **Kotlin** será usado o Framework **Javalin**, esse framework tem como característica ser muito leve e pode ser usado tanto com a linguagem **Java** quanto com **Kotlin**, fora o **Javalin** será usado o **Exposed** que é um Framework ORM (Object Relational Mapper) da JetBrains para a comunicação com o banco de dados e manipulação dos dados. Como esse projeto irá fazer integração com outra aplicação via protocolo HTTP será usada lib **Fuel** que é um projeto para fazer o client HTTP.
 
-Pra finalizar também será usado Swagger para documentação das APIs.
+Pra finalizar também será usado **Swagger** para documentação das APIs.
 
 ## O Projeto
 
-O projeto consiste em fazer buscas de Amiibo por nome. Pra quem não sabe Amiibos são estatuetas ou cartões que representam diversos personagens da Nintendo, como Mario, Link, Donkey Kong e etc. A aplicação irá fazer uma consulta no endpoint "https://www.amiiboapi.com/api/amiibo" que é um projeto terceiro que contém os Amiibos para fazer consultas e irá retornar a resposta, a aplicação irá tratar a resposta e exibirá para o usuário, um problema que existe é que ess endpoint é um pouco lento e isso pode causar impactos para o usuário que irá fazer consulta na nossa API, para resolver isso iremos salvar os dados na base do nossa aplicação, então quando um pesquisa for feita primeiramente será consultado a base da aplicação e depois a consulta será feita no endpoint externo.
+O projeto consiste em fazer buscas de **Amiibo** por nome. Pra quem não sabe **Amiibos** são estatuetas ou cartões que representam diversos personagens da **Nintendo**, como Mario, Link, Donkey Kong e etc. A aplicação irá fazer uma consulta no endpoint [https://www.amiiboapi.com/api/amiibo](https://www.amiiboapi.com/api/amiibo) que é uma url para fazer as consultas dos **Amiibos**. A aplicação fará um **GET** e irá tratar a resposta e exibirá para o usuário, um problema que existe é que esse endpoint é um pouco lento e isso pode causar impactos para o usuário que irá fazer consulta na nossa API, para resolver isso iremos salvar os dados em um banco de dados da nossa aplicação, então quando uma pesquisa for feita primeiramente será consultado a base da aplicação e depois a consulta será feita no endpoint externo se não existir no banco de dados.
 
 ## Criando o projeto com IntelliJ
 
-Criar um projeto com Kotlin não e complicado bastando criar a estrutura de arquivos mas para facilitar ainda mais é possível pelo IntelliJ ou pelo Eclipse as duas formas estão listadas abaixo.
+Criar um projeto com **Kotlin** não e complicado bastando criar a estrutura de arquivos mas para facilitar é possível criar pelo **IntelliJ** ou pelo **Eclipse**, as duas formas estão listadas abaixo.
 
-https://www.jetbrains.com/help/idea/create-your-first-kotlin-app.html#92ef4a93
+[IntelliJ](https://www.jetbrains.com/help/idea/create-your-first-kotlin-app.html#92ef4a93)
 
-https://kotlinlang.org/docs/eclipse.html
+[Eclipse](https://kotlinlang.org/docs/eclipse.html)
 
-E agora adicionando as dependências que serão usadas no projeto no arquivo build.gradle.kts
+E agora adicionando as dependências que serão usadas no projeto no arquivo ```build.gradle.kts```
 
 ```bash
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -124,7 +124,7 @@ application {
 
 ## Modelando o domínio
 
-Com a estrutura do projeto pronta agora iremos fazer o core da aplicação, o objeto que deve ser transacionado pela aplicação. Lendo a API do AmiiboAPI temos o seguinte retorno para uma busca com sucesso:
+Com a estrutura do projeto pronta agora iremos fazer o **core** da aplicação, o objeto que deve ser transacionado pela aplicação. Lendo a API do **AmiiboAPI** temos o seguinte retorno para uma busca com sucesso:
 
 ```json
 {
@@ -165,7 +165,7 @@ Com a estrutura do projeto pronta agora iremos fazer o core da aplicação, o ob
 }
 ```
 
-Temos muitas informações nem todas queremos exibir pro usuário que chama a nossa API, então fazendo um resumo dos dados retornado pela AmiiboAPI extraímos esse domínio:
+Temos muitas informações mas nem todas queremos exibir pro usuário que chama a nossa API, então fazendo um resumo dos dados retornado pela **AmiiboAPI** é possível extrar esse domínio:
 
 ```kotlin
 data class Amiibo(
@@ -177,13 +177,13 @@ data class Amiibo(
 )
 ```
 
-Aqui usamos a estrutura ```data class``` que é uma estrutura existente no Kotlin para trafegar dados na aplicação e implementa alguns métodos que são úteis como ```equals() toString() hashCode()``` entre outros que auxiliam na manipulação desses objetos na aplicação ele é relativo ao projeto Lombok que é muito usado em aplicações Java.
+Aqui usamos a estrutura ```data class``` que é uma estrutura existente no **Kotlin** para trafegar dados na aplicação e implementa alguns métodos que são úteis como ```equals() toString() hashCode()``` entre outros que auxiliam na manipulação desses objetos na aplicação, ele é relativo ao projeto Lombok que é muito usado em aplicações Java.
 
 ## Criando casos de uso
 
-Com o domínio modelado e disponível na aplicação é necessário aplicar a lógica de negócio que queremos que seja executada, é nessa parte do código que vive o coração da aplicação e é o que é chamada de casos de uso de uma aplicação.
+Com o domínio modelado e disponível na aplicação é necessário aplicar a lógica de negócio que queremos que seja executada, é nessa parte do código que vive o coração da aplicação e é chamado de **casos de uso** de uma aplicação.
 
-Essa aplicação a primeiro momento irá somente executar buscas então iremos nomear a classe de serviço com o nome SearchAmiibo e faremos da seguinte forma:
+Essa aplicação a primeiro momento irá somente executar buscas então iremos nomear a classe de serviço com o nome **SearchAmiibo** e faremos da seguinte forma:
 
 ```kotlin
 class SearchAmiibo(private val repository: Repository, private val api: Api) {
@@ -195,13 +195,13 @@ class SearchAmiibo(private val repository: Repository, private val api: Api) {
 }
 ```
 
-Dois pontos importantes do código acima, primeiro é necessário criar esses elementos que estão sendo usados pela classe SearchAmiibo o Repository e a Api e segundo que definimos um método chamado searchAmiiboByName que recebe o nome do Amiibo para fazer a busca e pode retornar um lista de Amiibos.
+Dois pontos importantes do código acima, primeiro é necessário criar esses elementos que estão sendo usados pela classe **SearchAmiibo**, o **Repository** e a **Api** e segundo que definimos um método chamado *searchAmiiboByName* que recebe o nome do **Amiibo** para fazer a busca e pode retornar um lista de **Amiibos**.
 
-Um detalhe pode ser visto pelo operador ```?``` do Kotlin que é um operador ```null-safe``` para evitar erros do tipo NullPointerException.
+Um detalhe pode ser visto pelo uso do operador ```?``` do **Kotlin** que é um operador ```null-safe``` para evitar erros do tipo NullPointerException.
 
-Antes de criar uma implementação de Repository e Api vamos criar as suas interfaces, os contratos que queremos que um Repository e uma Api façam na nossa aplicação, a implementação delas virá depois e mais pra frente ficará nítidos a vantagem que isso trás.
+Antes de criar uma implementação de **Repository** e **Api** vamos criar as suas interfaces, os contratos que queremos que um **Repository** e uma **Api** façam na aplicação, a implementação delas virá depois.
 
-Começando pelo Repository:
+Começando pelo **Repository**:
 
 ```kotlin
 interface Repository {
@@ -212,9 +212,9 @@ interface Repository {
 }
 ```
 
-Esse Repository será responsável por buscar um Amiibo pelo seu nome e inserir um e isso já basta por hora.
+Esse **Repository** expõe o contrato que será responsável por buscar um **Amiibo** pelo seu nome e inserir um.
 
-E agora pela Api:
+E agora pela **Api**:
 
 ```kotlin
 interface Api {
@@ -223,7 +223,7 @@ interface Api {
 }
 ```
 
-A Api por sua vez só tem uma responsabilidade que é buscar um Amiibo.
+A **Api** por sua vez só tem uma responsabilidade que é buscar um **Amiibo** externamente.
 
 Com isso podemos nos concentrar na regra de negócio e conseguimos fazer a regra de negócio sem se preocupar com a implementação agora:
 
@@ -253,13 +253,13 @@ class SearchAmiibo(private val repository: Repository, private val api: Api) {
 }
 ```
 
-No código acima podemos ver alguns utilitários do Kotlin que nos ajudam a construir um código mais legível, fluente e declarativo como ```takeIf```, ```let``` e o ```?:``` chamado de Elvis operator.
+No código acima podemos ver alguns utilitários do **Kotlin** que nos ajudam a construir um código mais legível, fluente e declarativo como ```takeIf```, ```let``` e o ```?:``` chamado de *Elvis operator*.
 
-O ```takeIf``` é uma forma idiomática que o Kotlin possui onde seria equivalente ao if de outras linguagens onde dada uma condição sendo verdadeira será repassada,  ```let``` é está usado após a chamada repository.findByAmiiboName(amiiboName)? que usa o ```?``` para passar para o let somente se o resultado do método não for nulo e o let irá executar o bloco de código recebendo o valor passado e retornando o mesmo que nesse caso é só retornar a lista de Amiibo se existir no banco.
+O ```takeIf``` é uma forma idiomática que o **Kotlin** possui onde seria equivalente ao *if* de outras linguagens onde dada uma condição sendo verdadeira será repassada, o ```let``` está sendo usado após a chamada *repository.findByAmiiboName(amiiboName)?* que usa o ```?``` como tratativa *null-safe* para passar para o ```let``` o resultado somente se o resultado do método não for nulo, o ```let``` irá executar o bloco de código recebendo o valor passado e retornando o mesmo que nesse caso é a lista de **Amiibo** se existir no banco.
 
-Já o Elvis operator ```?:``` é um operador condicional que executará o código à direita se o código à esquerda for ```null``` então se a chamada no Repository não trouxer dados será executada a chamada para a Api que também pode falhar e devolver ```null``` e nesse caso o Elvis operator irá executar o último bloco que é o lançamento de um Exception customizada e mesmo assim temos uma feature interessante do Kotlin que é a maneira mais simples como é possível interpolar Strings com uso do operador ```$```
+Já o *Elvis operator* ```?:``` é um operador condicional que executará o código à direita se o código à esquerda for ```null``` então se a chamada no **Repository** não trouxer dados será executada a chamada para a **Api** que também pode falhar e devolver ```null``` e nesse caso o *Elvis operator* irá executar o último bloco que é o lançamento de uma **Exception** customizada. Por fim temos uma feature interessante do Kotlin que é a maneira mais simples como é possível interpolar **Strings** com uso do operador ```$```
 
-Para efeitos didáticos segue o código da Exception criada:
+Para efeitos didáticos segue o código da **Exception** criada:
 
 ```kotlin
 class AmiiboNotFoundException(message: String): Exception(message)
@@ -267,9 +267,9 @@ class AmiiboNotFoundException(message: String): Exception(message)
 
 ## Implementando repositório
 
-Aqui veremos como implementar o Repository, até o momento no projeto existe a interface Repository que serve como uma porta e agora é necessário implementar um adaptador. Nesse exemplo iremos usar o Exposed que é um framework ORM, isso significa que é necessário mapear no projeto as classes que representam as tabelas no banco de dados. O exposed é um projeto da JetBrains e nos ajuda a mapear o banco de dados do lado da aplicação, fora que frameworks ORM expõe APIs para melhor manipulação dos dados e segurança contra ataques do tipo SQLInjection entre outros.
+Aqui veremos como implementar o **Repository**, até o momento no projeto existe a interface **Repository** que serve como uma porta e agora é necessário implementar um adaptador. Nesse exemplo será usado o **Exposed** que é um framework **ORM**, isso significa que é necessário mapear no projeto as classes que representam as tabelas no banco de dados. O **Exposed** é um projeto da **JetBrains** e nos ajuda a mapear o banco de dados do lado da aplicação, fora que frameworks **ORM** expõe APIs para melhor manipulação dos dados e segurança contra ataques do tipo SQLInjection entre outros.
 
-No projeto iremos criar a pasta ```repository.exposed.entity``` e iremos criar a AmiiboEntity:
+No projeto iremos criar a pasta ```repository.exposed.entity``` e iremos criar a **AmiiboEntity**:
 
 ```kotlin
 object AmiiboEntity : Table(name = "Amiibo") {
@@ -285,11 +285,11 @@ object AmiiboEntity : Table(name = "Amiibo") {
 }
 ```
 
-Para que esse classe possa ser usada em conjunto com o Exposed é necessário implementar a classe Table, onde já é informado o nome da tabela no banco de dados. Em cada atributo que é equivalente a cada coluna no banco de dados é possível definir o tipo e o seu tamanho e o último ponto importante é que definimos o campo ```id``` como sendo ```auto increment``` e sobrescrevemos a classe PrimaryKey onde informado que o atributo ```id``` será a Primary Key e informamos o nome dela, se não for informado o Exposed se encarregará de criar um nome.
+Para que esse classe possa ser usada em conjunto com o **Exposed** é necessário herdar a classe **Table**, onde informamos o nome da tabela no banco de dados. Em cada atributo que é equivalente a cada coluna no banco de dados é possível definir o tipo e o seu tamanho, o último ponto importante é que definimos o campo ```id``` como sendo ```auto increment``` e sobrescrevemos a classe **PrimaryKey** onde informado que o atributo ```id``` será a **Primary Key** e informamos o nome dela, se não for informado o **Exposed** se encarregará de criar um nome.
 
-Um ponto bom para explicar do Kotlin é a declaração object para a criação da classe AmiiboEntity, esse tipo de declaração auxilia o desenvolvedor quando for necessário criar classes apenas uma vez, [Singletons](https://kotlinlang.org/docs/object-declarations.html#object-declarations-overview), e no Kotlin basta usar a declaração object para isso.
+Um ponto bom para explicar do **Kotlin** é a declaração *object* para a criação da classe **AmiiboEntity**, esse tipo de declaração auxilia o desenvolvedor quando for necessário criar classes apenas uma vez, [Singletons](https://kotlinlang.org/docs/object-declarations.html#object-declarations-overview), e no **Kotlin** basta usar a declaração *object* para isso.
 
-Com a Entity definida será criada a classe que irá implementar a interface Repository:
+Com a **Entity** definida será criada a classe que irá implementar a *interface* **Repository**:
 
 ```kotlin
 object ExposedAmiiboRepository : Repository {
@@ -330,9 +330,9 @@ object ExposedAmiiboRepository : Repository {
 }
 ```
 
-A classe ExposedAmiiboRepository além de implementar a interface Repository também é usado a declaração object para ela, nos métodos findByAmiiboName e insertAmiibo usamos o bloco ```transaction``` do Exposed onde como o nome diz é usado no contexto de transações no banco de dados, fora que é usado o método utilitário addLogger para ajudar na visualização de logs.
+A classe **ExposedAmiiboRepository** além de implementar a interface **Repository** também é usado a declaração *object* para ela, nos métodos *findByAmiiboName* e *insertAmiibo* usamos o bloco ```transaction``` do **Exposed** onde como o nome diz é usado no contexto de transações no banco de dados, fora que é usado o método utilitário *addLogger* para ajudar na visualização de logs.
 
-Agora olhando um pouco mais detalhadamente para o método findByAmiiboName, dentro do bloco transaction é chamado a AmiiboEntity que por ser do tipo Table possui métodos para acesso ao banco de dados e aqui será usado o método select onde queremos passar um filtro de igualdade e que nesse método é usado para fazer um filtro de igualdade pelo nome do Amiibo no banco. O método select pode não trazer nenhum resultado pois pode não haver nenhum resultado para a pesquisa no banco de dados e por isso usamos o operador ```?``` para caso não encontre valores já para o processamento e não corremos o risco de erros do tipo NullPointerException. Mas caso exista o select retorna uma Query que conseguimos iterar os resultados com um ```map```, pra cada resultado devolver um Amiibo e devolver uma lista de Amiibos.
+Agora olhando um pouco mais detalhadamente para o método *findByAmiiboName*, dentro do bloco ```transaction``` é chamado a **AmiiboEntity** que por ser do tipo **Table** possui métodos para acesso ao banco de dados e aqui será usado o método *select* onde queremos passar um filtro de igualdade e que nesse método é usado para fazer um filtro de igualdade pelo nome do Amiibo no banco. O método *select* pode não trazer nenhum resultado pois pode não haver nenhum resultado para a pesquisa no banco de dados e por isso é usado o operador ```?``` para caso não encontre valores interrompe o processamento e não corremos o risco de erros do tipo **NullPointerException**. Mas caso exista o *select* retorna uma **Query** que conseguimos iterar os resultados com um ```map``` e para cada resultado criar um **Amiibo** e devolver uma lista de **Amiibos**.
 
 ```kotlin
 AmiiboEntity.select { AmiiboEntity.name eq amiiboName }?.map { row ->
@@ -346,7 +346,7 @@ AmiiboEntity.select { AmiiboEntity.name eq amiiboName }?.map { row ->
 }.toList()
 ```
 
-Com isso já temos o Exposed implementado porém é necessário criar a conexão com o banco de dados e para isso foi criado a pasta ```adapter.repository.exposed.config``` e a classe DatabaseFactory onde além de conectar no banco será usado o Hikari para ser criado um pool de conexões:
+Com isso já temos o **Exposed** implementado porém é necessário criar a conexão com o banco de dados e para isso foi criado a pasta ```adapter.repository.exposed.config``` e a classe **DatabaseFactory** onde além de conectar no banco, que no projeto será o **MySQL**, também usará o **Hikari** para criar um pool de conexões:
 
 ```kotlin
 class DatabaseFactory {
@@ -382,13 +382,13 @@ class DatabaseFactory {
 }
 ```
 
-A classe DatabaseFactory só tem uma responsabilidade que é se conectar ao banco de dados delegando ao Hikari a criação do DataSource, porém existem alguns elementos do Kotlin que vale a pena comentar para melhor entendimento de como isso é feito.
+A classe **DatabaseFactory** possui apenas uma responsabilidade que é se conectar ao banco de dados delegando ao **Hikari** a criação do **DataSource**, porém existem alguns elementos do **Kotlin** que vale a pena comentar para melhor entendimento de como isso é feito.
 
-O primeiro ponto é o uso do ```tailrec``` no método createHikariDataSourceWithRetry onde é uma forma elegante que o Kotlin possui para métodos ou funções recursivas, ao invés de usarmos um loop for ou while o Kolitn expõe essa palavra reservada ```tailrec``` onde o compilador é capaz de executar otimizações para recursividade.
+O primeiro ponto é o uso do ```tailrec``` no método *createHikariDataSourceWithRetry* onde é uma forma elegante que o **Kotlin** possui para métodos ou funções recursivas, ao invés de ser usado um loop *for* ou *while* o **Kolitn** expõe essa palavra reservada ```tailrec``` onde o compilador é capaz de executar otimizações para recursividade.
 
-O segundo ponto é a declaração ```companion object``` que é outra forma de criar Singletons e é usado muito quando se quer usar métodos ou atributos que devem se comportar como atributos ou métodos da classe ao invés da instância, o que é equivalente ao modificador ```static```do Java, inclusive se for usado a anotação ```@JvmStatic``` a JVM tentará gerar esses campos ou métodos como estáticos.
+O segundo ponto é a declaração ```companion object``` que é outra forma de criar **Singletons** e é usado muito quando se quer usar métodos ou atributos que devem se comportar como atributos ou métodos da classe ao invés da instância, o que é equivalente ao modificador ```static```do Java, inclusive se for usado a anotação ```@JvmStatic``` a **JVM** tentará gerar esses campos ou métodos como estáticos.
 
-Um utilitário muito interessante do Exposed é a capacidade dele de gerar as tabelas via código, essa prática não é recomendada em códigos de produção, bastante utilizar o SchemaUtils do Exposed:
+Um utilitário muito interessante do **Exposed** é a capacidade dele de gerar as tabelas via código, essa prática não é recomendada em códigos de produção, bastando utilizar o **SchemaUtils** do **Exposed**:
 
 ```kotlin
 fun createDatabase() {
@@ -427,9 +427,9 @@ fun main(args: Array<String>) {
 
 ## Adicionando o client HTTP
 
-Aqui será mostrado como implementar a interface Api e ela será implementada com a lib Fuel, que é um projeto de um client HTTP para realizarmos chamadas HTTP para serviços externos, ele é bem simples e muito completo, permitindo usar várias libs para desserialização podendo o desenvolvedor utilizar a que estiver mais familiarizado, também possui um bom suporte para requests assíncronos.
+Aqui será mostrado como implementar a interface **Api** e ela será implementada com a lib **Fuel**, que é um projeto de um client HTTP para realizarmos chamadas HTTP para serviços externos, ele é bem simples e muito completo, permitindo usar várias libs para desserialização podendo o desenvolvedor utilizar a que estiver mais familiarizado, também possui um bom suporte para requests assíncronos.
 
-Para fazer a request para o serviço externo será executado um GET onde quando houver uma resposta positiva será retornado um objeto json com os dados e quando não encontrar dados irá retornar um erro 404 e um json diferente com a mensagem de erro, iremos começar criando essas classes que só serão usadas para trafegar os dados da API para o domínio da aplicação então será criados objetos com o padrão DTO, Data Transfer Object, primeiramente o response no caso positivo:
+Para fazer a request para o serviço externo será executado um **GET** onde quando houver uma resposta positiva será retornado um objeto *json* com os dados e quando não encontrar dados irá retornar um **erro 404** e um *json* diferente com a mensagem de erro, iremos começar criando essas classes que só serão usadas para trafegar os dados da API para o domínio da aplicação então será criados objetos com o padrão **DTO**, **Data Transfer Object**, primeiramente o response no caso positivo:
 
 ```kotlin
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -459,7 +459,7 @@ data class ResponseError(
 )
 ```
 
-E agora podemos criar a pasta ```adapter.api.fuel``` e a classe FuelClientApi que irá implementar a Api:
+E agora podemos criar a pasta ```adapter.api.fuel``` e a classe **FuelClientApi** que irá implementar a **Api**:
 
 ```kotlin
 object FuelClientApi : Api {
@@ -503,17 +503,17 @@ object FuelClientApi : Api {
 }
 ```
 
-Dentro do método searchAmiiboByName utilizado o método Fuel.get e é passado no primeiro parâmetro a url e no segundo a lista de parâmetros que devem ser passados na url. Utilizamos o método responseObject onde é tipado o response para AmiiboWrapper, esse método tem como retorno a Request, o Response e o Result, como os dois primeiros não serão usados pode ser usado o ```_``` para indicar que esse valor não será usado mas o Result será usado pois ele é um objeto que envelopa tanto o objeto de sucesso quanto o objeto de erro, sendo que um sempre será nulo quando o outro existir.
+Dentro do método *searchAmiiboByName* é utilizado o método *Fuel.get* e é passado no primeiro parâmetro a *url* e no segundo a lista de parâmetros que devem ser passados na *url*. Utilizamos o método *responseObject* onde é tipado o response para **AmiiboWrapper**, esse método tem como retorno a **Request**, o **Response** e o **Result**, como os dois primeiros não serão usados pode ser usado o ```_``` para indicar que esse valor não será usado, mas o **Result** será usado pois ele é um objeto que envelopa tanto o objeto de sucesso quanto o objeto de erro, sendo que um sempre será nulo quando o outro existir.
 
-Então fazemos a desestruturação do retorno ```val (apiResult, fuelError) = result``` e é feita a checagem se o ```fuelError``` é nulo, caso não seja é feito a desserialização do json utilizando a Gson. Caso o ```fuelError``` seja nulo será feita a desserialização para o AmiiboResponse.
+Fazendo a desestruturação do retorno ```val (apiResult, fuelError) = result``` e é feita a checagem se o ```fuelError``` é nulo, caso não seja é feito a desserialização do *json* utilizando a **Gson** para o **ResponseError**. Caso o ```fuelError``` seja nulo será feita a desserialização para o **AmiiboResponse**.
 
-Vale ressaltar que quando é usado o método responseObject deve ser feita alguma tratativa para que seja esperado a execução do GET pois ele é assíncrono então no fim do método é usado o método ```get()``` é da API Future do Java e que faz com que o método aguarde a execução do código.
+Vale ressaltar que quando é usado o método *responseObject* deve ser feita alguma tratativa para que seja esperado a execução do **GET** pois ele é assíncrono então no fim do método foi usado o método ```get()``` que é da API **Future** do **Java** e que faz com que o método aguarde a execução do código.
 
 ## Configurando o Javalin e Swagger
 
-Para criar o server HTTP e subir a aplicação será usado o Javalin que é um framework que pode ser usado tanto com Kotlin quanto com Java, é muito leve e de fácil utilização, junto a ele será usado o projeto Swagger para documentação das APIs.
+Para criar o server **HTTP** e subir a aplicação será usado o **Javalin** que é um framework que pode ser usado tanto com **Kotlin** quanto com **Java**, é muito leve e de fácil utilização, junto a ele será usado o projeto **Swagger** para documentação das APIs.
 
-Para iniciar será feita configuração inicial do Javalin e após isso a configuração de rotas e handlers, primeiro será criado a pasta ```application.http``` e a função startHttpServer:
+Para iniciar será feita configuração inicial do **Javalin** e após isso a configuração de rotas e handlers, primeiro será criado a pasta ```application.http``` e a função *startHttpServer*:
 
 ```kotlin
 fun startHttpServer(port: String = "8080") {
@@ -537,9 +537,9 @@ fun startHttpServer(port: String = "8080") {
 }
 ```
 
-No código acima o primeiro bloco, create, serve para configurar o contexto do Javalin, o path, habilitarmos o Swagger que será visto em seguida, desabilitar o CORS e configurar o json como padrão.
+No código acima o primeiro bloco, *create*, serve para configurar o contexto do **Javalin**, o path, habilitar o **Swagger**, que será visto em seguida, desabilitar o **CORS** e configurar o *json* como padrão.
 
-Foi registrado um plugin onde é passado o método ```getConfiguredOpenApiPlugin()``` na pasta ```application.http.openapi``` e será mostrado agora o que esse método faz:
+Foi registrado um plugin onde é passado o método *getConfiguredOpenApiPlugin()*, na pasta ```application.http.openapi``` será mostrado o que esse método faz:
 
 ```kotlin
 fun getConfiguredOpenApiPlugin() = OpenApiPlugin(
@@ -556,11 +556,11 @@ fun getConfiguredOpenApiPlugin() = OpenApiPlugin(
 )
 ```
 
-No código acima foi utilizado a classe OpenApiPlugin do Javalin e passamos as informações que irão aparecer na tela do Swagger e por fim é configurado path para o json ```/swagger-docs``` e o path para o ui do Swagger ```/swagger-ui```.
+No código acima foi utilizado a classe **OpenApiPlugin** do **Javalin** e passamos as informações que irão aparecer na tela do **Swagger** e por fim é configurado path para o json ```/swagger-docs``` e o path para o *ui* do **Swagger** ```/swagger-ui```.
 
-Com isso temos o mínimo para iniciar a aplicação mas ainda é necessário adicionar rotas para a aplicação para que ela seja utilizável, mas antes de definir as rotas será definido as handlers que são as funções que serão chamadas pelas rotas e chamarão os casos de uso. Teremos três handlers ao todo, um para a busca de Amiibo, um para o HealthCheck e outro para manipular os possíveis erros que podem ocorrer e que queremos que seja tratado antes de ser enviado ao usuário que fez a solicitação na API.
+Com isso temos o mínimo para iniciar a aplicação mas ainda é necessário adicionar rotas para a aplicação para que ela seja utilizável, mas antes de definir as rotas será definido as handlers que são as funções que serão chamadas pelas rotas e chamarão os casos de uso. Teremos três handlers ao todo, um para a busca de **Amiibo**, um para o **HealthCheck** e outro para manipular os possíveis erros que podem ocorrer e que queremos que seja tratado antes de ser enviado ao usuário que fez a solicitação na **API**.
 
-Começando pelo handler HealthCheck será criado a pasta ```application.http.handler``` e o arquivo ```HealthCheck.kt```:
+Começando pelo handler **HealthCheck** será criado a pasta ```application.http.handler``` e o arquivo ```HealthCheck.kt```:
 
 ```kotlin
 fun liveness(ctx: Context) {
@@ -586,7 +586,7 @@ fun searchAmiibo(ctx: Context){
 }
 ```
 
-Onde a função searchAmiibo recebe o Context e extrair do pathParam o nome do Amiibo para pesquisar e delega para a classe SearchAmiibo o método searchAmiiboByName com o nome do Amiibo que devolve uma lista de Amiibos e é devolvido ao Context o status 200 com o json a lista de Amiibos.
+Onde a função *searchAmiibo* recebe o **Context** e extrai do *pathParam* o nome do **Amiibo** para pesquisar e delega para a classe **SearchAmiibo** o método *searchAmiiboByName* com o nome do **Amiibo** que devolve uma lista de **Amiibos** que por sua vez devolve ao **Context** o *status 200* com o *json* a lista de **Amiibos**.
 
 Por fim o ```ErrorHandler.kt```:
 
@@ -608,9 +608,9 @@ fun errorHandler(app: Javalin){
 }
 ```
 
-Onde a função errorHandler diferentemente das duas anteriores não recebe o Context e sim a própria instância do Javalin e usa o método exception que registra o que deve ser feito quando uma Exception ocorrer na aplicação. Então quando a aplicação lançar uma AmiiboNotFoundException irá devolver um status 404 e no json um objeto com a mensagem "Superhero not found" e se ocorrer qualquer outra Exception irá retornar o status 500 e no body irá mostrar a mensagem de erro da Exception.
+Onde a função *errorHandler* diferentemente das duas anteriores não recebe o **Context** e sim a própria instância do **Javalin** e usa o método *exception* que registra o que deve ser feito quando uma **Exception** ocorrer na aplicação. Então quando a aplicação lançar uma **AmiiboNotFoundException** irá devolver um *status 404* e no *json* um objeto com a mensagem *Superhero not found* e se ocorrer qualquer outra **Exception** irá retornar o *status 500* e no *body* irá mostrar a mensagem de erro da **Exception**.
 
-Um ponto interessante aqui é que foi feito o uso de uma classe anônima através da sintaxe ```object {}```.
+Um ponto interessante aqui é que foi feito o uso de uma **classe anônima** através da sintaxe ```object {}```.
 
 Com os handlers criados podemos criar as rotas na pasta ```application.http.route``` no arquivo ```Routes.kt```:
 
@@ -630,9 +630,9 @@ fun mountRoutes(app: Javalin){
 }
 ```
 
-Na função mountRoutes recebemos a instância do Javalin e é utilizado o função before para tratativas antes de qualquer request e na função routes é mapeado o verbo HTTP que será usado, nesse caso são dois GETs, o path e aqui é passado o método documented onde é informado o método para montar esse request no Swagger, será visto logo a frente, e a função handler para aquela rota.
+Na função *mountRoutes* recebemos a instância do **Javalin** e é utilizado o função *before* para tratativas que ocorrem antes de qualquer *request* e na função *routes* é mapeado o verbo HTTP que será usado, nesse caso são dois **GETs**, o path e também foi passado o método *documented* onde é informado o método para montar esse request no **Swagger**, será visto logo a frente, e a função handler para aquela rota.
 
-Agora para mostrar as funções que serão usadas pelo Swagger será criada no mesmo arquivo que foi criado a função getConfiguredOpenApiPlugin() as funções healthDocumentation e searchAmiiboDocumentation:
+Agora para mostrar as funções que serão usadas pelo **Swagger** será criada no mesmo arquivo que foi criado a função *getConfiguredOpenApiPlugin()* as funções *healthDocumentation* e *searchAmiiboDocumentation*:
 
 ```kotlin
 const val TAG = "Amiibo"
@@ -655,9 +655,9 @@ fun searchAmiiboDocumentation() = document().operation { operation ->
     }::class.java)
 ```
 
-Nessas funções são passadas as informações relevantes e o body em caso de sucesso e de erro.
+Nessas funções são passadas as informações relevantes para aquele request e o *body* em caso de sucesso e de erro.
 
-Pra isso tudo funcionar é necessário chamar essas funções lá na função startHttpServer:
+Pra isso tudo funcionar é necessário chamar essas funções lá na função *startHttpServer*:
 
 ```kotlin
 fun startHttpServer(port: String = "8080") {
@@ -688,7 +688,7 @@ fun startHttpServer(port: String = "8080") {
 }
 ```
 
-Com isso pronto basta chamar a função startHttpServer no main da aplicação:
+Com isso pronto basta chamar a função *startHttpServer* no main da aplicação:
 
 ```kotlin
 fun main(args: Array<String>) {
@@ -699,9 +699,9 @@ fun main(args: Array<String>) {
 
 ## Adicionando testes
 
-Uma das vantagens de uma arquitetura de portas e adaptadores é a facilidade de testar, para ser mais claro essa vantagem será implementado os testes dessa aplicação sem necessidade de usar outra lib de mocks pois basta criar um adaptador que faça esse trabalho.
+Uma das vantagens de uma arquitetura de portas e adaptadores é a facilidade de testar, para ser mais claro essa vantagem será implementado os testes dessa aplicação sem necessidade de usar outra lib de *mocks* pois basta criar um adaptador que faça esse trabalho.
 
-Vamos criar então o adaptador para a Repository:
+Vamos criar então o adaptador para a **Repository**:
 
 ```kotlin
 object InMemoryDatabase : Repository {
@@ -723,9 +723,9 @@ object InMemoryDatabase : Repository {
 }
 ```
 
-Foi simulado o acesso ao banco de dados através de um ```HashMap``` e isso já basta para cumprir o contrato da Repository.
+Foi simulado o acesso ao banco de dados através de um ```HashMap``` e isso já basta para cumprir o contrato da **Repository**.
 
-Agora será criado o adaptador para a Api;
+Agora será criado o adaptador para a **Api**;
 
 ```kotlin
 object InMemoryApi : Api {
@@ -751,7 +751,7 @@ object InMemoryApi : Api {
 
 Aqui é feito uma checagem simples para emular que a chamada não funcionou e retornou erro.
 
-Agora para criar os testes foi criada a classe SearchAmiiboTest e implementado os métodos:
+Agora para criar os testes foi criada a classe **SearchAmiiboTest** e implementado os métodos:
 
 ```kotlin
 class SearchAmiiboTest {
@@ -797,20 +797,20 @@ class SearchAmiiboTest {
 
 Rodando os testes todos passam.
 
-Um ponto importante e ser analisado é o seguinte, apesar de todos os testes passarem se rodarmos um coverage de código nem tudo estará coberto, para alguns isso pode ser um problema, porem quando é analisado com mais cuidados conseguimos ver que toda a regra de negócio e domínio da aplicação está com cobertura de 100%, o que faz muito sentido pois não queremos testar o Javalin, o Exposed ou o Fuel, eles já possuem testes nos seus próprios projetos, queremos testar a nossa implementação e se aplicação se comporta como definimos no negócio.
+Um ponto importante e ser analisado é o seguinte, apesar de todos os testes passarem se rodarmos um coverage de código nem tudo estará coberto, para alguns isso pode ser um problema, porém quando é analisado com mais cuidado conseguimos ver que toda a regra de negócio e domínio da aplicação está com cobertura de 100%, o que faz muito sentido pois não queremos testar o **Javalin**, o **Exposed** ou o **Fuel**, eles já possuem testes nos seus próprios projetos, queremos testar a nossa implementação e se aplicação se comporta como definimos nos casos de uso.
 
-![coverage]()
+![coverage](assets/kotlin-coverage.png)
 
 ## Subindo a aplicação e testando
 
 Agora com tudo pronto podemos iniciar a aplicação e testar os endpoints.
 
-Se testarmos com um Amiibo que não existe teremos o seguinte resultado:
+Se testarmos com um **Amiibo** que não existe teremos o seguinte resultado:
 
 ```bash
 curl --location --request GET 'http://localhost:8080/amiibo/v1/muahaha/search' | json_pp
 {
-    "message": "Superhero not found"
+    "message": "Amiibo not found"
 }
 ```
 
@@ -840,7 +840,7 @@ SQL: SELECT Amiibo.id, Amiibo.amiiboSeries, Amiibo.`name`, Amiibo.gameSeries, Am
 SQL: INSERT INTO Amiibo (amiiboSeries, gameSeries, imageUrl, `name`, `type`) VALUES ('Super Smash Bros.', 'The Legend of Zelda', 'https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_01000000-00040002.png', 'Link', 'Figure')
 ```
 
-E repetirmos o resquest ele será visivelmente mais rápido e nos logs veremos:
+Repetindo o *request* ele será visivelmente mais rápido e nos logs veremos:
 
 ```log
 [qtp708613859-32] INFO com.amiibo.search.useCase.SearchAmiibo - INIT SEARCH FOR AN AMIIBO OR IT WILL TRY FETCH ON EXTERNAL SERVICE
@@ -850,7 +850,9 @@ SQL: SELECT Amiibo.id, Amiibo.amiiboSeries, Amiibo.`name`, Amiibo.gameSeries, Am
 
 ## Trocando o MySQL pelo Mongo
 
-Como estamos usando uma estratégia que se diz de fácil troca dos adaptadores e baixo acoplamento com frameworks será mostrado como poderemos fazer a troca do adaptador por qualquer outro sem grandes esforços contanto que o contrato seja implementado.
+Como estamos usando uma estratégia que prega facilidade de trocar os adaptadores com baixo acoplamento com frameworks será mostrado como poderemos fazer a troca do adaptador por qualquer outro sem grandes esforços contanto que o contrato seja implementado.
+
+Será trocado o **MySQL** pelo **MongoDB** noe xemplo a seguir. 
 
 Para isso adicionamos a dependência no arquivo ```build.gradle.kts```:
 
@@ -859,7 +861,7 @@ val mongo = "3.12.8"
 implementation("org.mongodb:mongodb-driver:$mongo")
 ```
 
-E criar a pasta ```adapter.repository.mongo.config``` e o arquivo MongoFactory:
+E criamos a pasta ```adapter.repository.mongo.config``` e o arquivo **MongoFactory**:
 
 ```kotlin
 object MongoFactory {
@@ -872,7 +874,7 @@ object MongoFactory {
 }
 ```
 
-Nesse arquivo é feita a configuração da conexão com o Mongo e agora será feita a implementação da interface Api na classe MongoAmiiboRepository:
+Nesse arquivo é feita a configuração da conexão com o **Mongo** e agora será feita a implementação da interface **Repository** na classe **MongoAmiiboRepository**:
 
 ```kotlin
 object MongoAmiiboRepository : Repository {
@@ -916,7 +918,7 @@ object MongoAmiiboRepository : Repository {
 }
 ```
 
-E após isso podemos trocar o adaptador onde ele é usado:
+Após isso é possível trocar o adaptador onde ele é usado:
 
 ```kotlin
 fun searchAmiibo(ctx: Context){
@@ -936,9 +938,9 @@ A vantagem é clara, pois não necessitou de grandes mudanças no projeto, os te
 
 ## Conclusão
 
-Nesse projeto vimos como criar um projeto com Kotlin e algumas das facilidades dessa linguagem. Também vimos como usar o Javalin e como é fácil a sua configuração e também vimos como usar o framework ORM Exposed, uma outra opção com Mongo e como é fácil trocar as tecnologias quando se usa uma arquitetura de portas e adaptadores e por fim foi mostrado como fazer integrações com outros serviços via HTTP com o Fuel.
+Nesse projeto vimos como criar um projeto com **Kotlin** e algumas das facilidades dessa linguagem. Também vimos como usar o **Javalin** e como é fácil a sua configuração e também vimos como usar o **framework ORM Exposed** com o **MySQL** e uma outra opção com **Mongo** e como é fácil trocar as tecnologias quando se usa uma arquitetura de portas e adaptadores e por fim foi mostrado como fazer integrações com outros serviços via **HTTP** com o **Fuel**.
 
-Vimos também como testar uma aplicação utilizando adaptadores sem a necessidade de mocks, não que mocks sejam um problemas mas por vezes a má utilização dessas libs podem acarretar mais dificuldades do que benefícios nos testes da aplicação.
+Vimos também como testar uma aplicação utilizando adaptadores sem a necessidade de *mocks*, não que *mocks* sejam um problemas mas por vezes a má utilização dessas libs podem acarretar mais dificuldades do que benefícios nos testes da aplicação.
 
 ## Código fonte
 
