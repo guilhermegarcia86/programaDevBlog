@@ -4,6 +4,31 @@
 
 💻 SITE: [programaDev Blog](https://programadev.com.br/)
 
+## :rocket: Technology
+
+<div align="center">
+
+```sh
+Platform: GatsbyJS
+Build System: Yarn
+```
+  
+</div>
+
+![gastby](https://img.shields.io/badge/Gatsby-663399?style=for-the-badge&logo=gatsby&logoColor=white)![yarn](https://img.shields.io/badge/Yarn-2C8EBB?style=for-the-badge&logo=yarn&logoColor=white)
+
+## Como instalar o projeto
+
+```bash
+yarn install
+```
+
+## Como rodar o projeto local
+
+```bash
+yarn develop
+```
+
 ## Como contribuir
 
 Crie um arquivo `.md` na pasta `/content/posts` com o título seguindo o padrão `YYYY-MM-DD-título_do_seu_conteudo.md`
