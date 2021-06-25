@@ -7,13 +7,7 @@
 ## :rocket: Technology
 
 <div align="center">
-
-```sh
-Platform: GatsbyJS
-Build System: Yarn
-```
- 
-
+![node](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node-dot-js&logoColor=white)
 ![gastby](https://img.shields.io/badge/Gatsby-663399?style=for-the-badge&logo=gatsby&logoColor=white)![yarn](https://img.shields.io/badge/Yarn-2C8EBB?style=for-the-badge&logo=yarn&logoColor=white)
 
 </div>
