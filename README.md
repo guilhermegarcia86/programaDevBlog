@@ -12,10 +12,11 @@
 Platform: GatsbyJS
 Build System: Yarn
 ```
-  
-</div>
+ 
 
 ![gastby](https://img.shields.io/badge/Gatsby-663399?style=for-the-badge&logo=gatsby&logoColor=white)![yarn](https://img.shields.io/badge/Yarn-2C8EBB?style=for-the-badge&logo=yarn&logoColor=white)
+
+</div>
 
 ## Como instalar o projeto
 
