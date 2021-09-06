@@ -76,7 +76,7 @@ int numero = 1;
 numero = 2;
 ```
 
-No trecho acima foi criado uma variável com nome "numero", por debaixo dos panos o **Java** irá reservar um espaço em memória para guardar o valor que foi definido, primeiramente com o número 1 e em seguida foi adicionado outro valor para a variável "numero" com o valor 2. Nesse momento outro espaço de memória é criado e nele é guardado o valor 2. Isso só é possível pois estamos usando uma varíavel e como o seu nome dá a entender o seu valor pode ser mudado.
+No trecho acima foi criado uma variável com nome "numero", por debaixo dos panos o **Java** irá reservar um espaço em memória para guardar o valor que foi definido, primeiramente com o número 1 e em seguida foi adicionado outro valor para a variável "numero" com o valor 2. Nesse momento outro espaço de memória é criado e nele é guardado o valor 2. Isso só é possível pois estamos usando uma variável e como o seu nome dá a entender o seu valor pode ser mudado.
 
 Perceba também que antes da a variável "numero" tem a palavra **int**, isso acontece pois o **Java** é uma linguagem fortemente tipada, isso significa que tudo deve possuir um identificador de qual tipo é, nesse caso **int** representa os números inteiros, existem outros tipos e os veremos mais adiante.
 
@@ -144,7 +144,7 @@ static final double PI = 3.14159265359;
 double circunferencia = PI * diametro = 2 * PI * raio;
 ```
 
-Por convenção toda constante é escrita em letras maiusculas e agora se por algum motivo alguém tentar alterar o valor da constante **PI** o compilador irá exibir uma mensagem de erro:
+Por convenção toda constante é escrita em letras maiúsculas e agora se por algum motivo alguém tentar alterar o valor da constante **PI** o compilador irá exibir uma mensagem de erro:
 
 ```java
 //Exemplo de código que não compila
