@@ -294,7 +294,150 @@ O laço **while** também é muito usado quando se trabalha com **Iterators** qu
 
 ## Do/While
 
+Agora iremos entender a estrutura **Do/While**, apesar da palavra **while** existir a ideia dele é um pouco diferente da estrutura **while** do tópico acima. A ideia por trás desse laço de repetição é que uma ação seja executada primeiramente e após isso seja avaliado se deve ser repetida ou não, a declaração dele é assim:
+
+```java
+do {
+    *declaração*
+} while (*expressão*);
+```
+
+Então no trecho de código acima existe a inicialização do bloco com a palavra **do**, então o que estiver dentro desse bloco será executado pelo menos uma vez e após isso existe a palavra **while** onde será avaliada alguma expressão **booleana** e caso seja **true** irá repetir o que estiver dentro do bloco **do**.
+
+Vamos pensar em um exemplo onde queremos mostrar na tela os números de 0 até 10 usando a estrutura **do/while**:
+
+```java
+int contador = 0;
+do {
+    System.out.println("Contador é: " + contador);
+    contador++;
+} while (contador < 11);
+
+System.out.println("Finalizado programa");
+```
+
+Rodando esse programa a saída na tela será assim:
+
+```bash
+Contador é: 0
+Contador é: 1
+Contador é: 2
+Contador é: 3
+Contador é: 4
+Contador é: 5
+Contador é: 6
+Contador é: 7
+Contador é: 8
+Contador é: 9
+Contador é: 10
+Finalizado programa
+```
+
+Então perceba que no início do código o bloco **do** é executado de primeira e já imprime na tela a mensagem e após isso o valor da variável **contador** é incrementada, após isso é avaliado, dentro do **while** se o valor da variável **contador** é menor do que 11 e caso seja verdade (**true**) é repetido o fluxo dentro do bloco **do** e quando a variável **contador** chega o valor 11 o programa sai da estrutura **do/while** e o programa continua.
+
+Agora vamos deixar um exemplo um pouco mais real ao invés de ficar percorrendo por números, vamos imaginar um programa que simule um despertador, ele irá tocar a primeira vez e depois irá verificar se está no modo soneca, caso ainda esteja irá tocar até que a pessoa desligue o alarme.
+
+```java
+public static void main(String[] args) throws InterruptedException {
+
+    do{
+        System.out.println("SOAR ALARME: dim! drim! alarme de relógio");
+    }while (despertadorEstaNaSoneca());
+
+    System.out.println("Finalizado programa");
+
+}
+
+private static boolean despertadorEstaNaSoneca() throws InterruptedException {
+    Thread.sleep(1000);
+    return new Random().nextBoolean();
+}
+```
+
+Explicando o código acima temos o bloco **do** que inicia o despertador na sequência temos um método chamado *despertadorEstaNaSoneca* que verifica se ainda está na soneca e devolve um **booleano**, ele usa o **Thread.sleep(1000);** para esperar um segundo e depois executa o **new Random().nextBoolean();** que escolhe se será **true** ou **false** randomicamente, isso significa que aleatoriamente vai ser escolhido se será **true** ou **false**, enquanto o *despertadorEstaNaSoneca* rodar e for **true** o bloco **do** irá se repetir. Não se preocupe muito com toda a sintaxe pois tudo isso será explicado mais pra frente, no momento em que foi rodado esse programa a saída foi:
+
+```bash
+SOAR ALARME: dim! drim! alarme de relógio
+SOAR ALARME: dim! drim! alarme de relógio
+Finalizado programa
+```
+
+Se for executado de novo esse programava pode haver mudança pois como é escolhido de forma aleatoria se é **true** ou **false** pode ser que demora mais ou menos.
+
 ## For
+
+O laço de repetição **for** é uma estrutura de repetição para situações onde é conhecido quantas vezes é necessário repetir uma tarefa. Em comparação com **while** e **do/while** onde o laço será repetido até que uma condição seja atendida a declaração do **for** já pede de antemão que seja informado a quantidade de vezes que será executado o código:
+
+```java
+for (declaração 1; declaração 2; declaração 3) {
+  // código a ser executado
+}
+```
+
+Entendendo cada parte da declaração:
+
+- A primeira declaração é executada uma vez dentro do bloco **for** e é a inicialização da variável de controle.
+- A segunda declaração define a condição que será executada no bloco **for**.
+- A terceira declaração será executada sempre que houver uma repetição no bloco **for**.
+
+Adicionando um exemplo mais prático iremos imprimir na tela os números de 0 até 10:
+
+```java
+for (int indice = 0; indice <= 10; indice++){
+    System.out.println(indice);
+}
+```
+
+E a saída será:
+
+```bash
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+```
+
+Podemos ver que as três condições do bloco **for** foram atendidas, primeiro iniciamos uma variável chamada *indice* com valor 0, depois foi definido a condição de parada desse bloco sendo o valor da variável *indice* menor ou igual a 10 e por fim declaramos que a cada fez que o bloco for repetido o valor de *indice* deve ser incrementado em 1 e dentro do bloco mandamos imprimir o valor atual da variável *indice*.
+
+É muito útil esse laço de repetição quando estamos trabalhando com listas do **Java** pois essa estrutura de dados já possui formas para sabermos o seu tamanho total, no exemplo abaixo fica um pouco mais claro:
+
+```java
+var lista = List.of("Arroz", "Feijão", "Macarrão", "Óleo");
+
+for (int indice = 0; indice < lista.size(); indice++) {
+    System.out.println(lista.get(indice));
+}
+```
+
+No código acima simulamos que temos uma lita de mercado e no laço **for** fazemos uso do método **size** que já diz qual é o tamanho dessa lista e dentro do bloco **for** mandamos imprimir o valor da lista de acordo com o índice. Valendo ressaltar que ainda não foi abordado listas e coleções de dados mas adiantando que listas no **Java** são coleções de dados que começam com o seu índice em 0.
+
+Executando esse código a saída será:
+
+```bash
+Arroz
+Feijão
+Macarrão
+Óleo
+```
+
+Existe outra forma de executar o laço **for** que é chamado de **Enhanced-for** ou **for melhorado** em tradução livre e é assim:
+
+```java
+for (String l : lista){
+    System.out.println(l);
+}
+```
+
+E nele é encurtado a escrita, mas ele só é possível de ser feito em coleções de dados que tenham o método **size** implementado pois por debaixo dos panos ele vai executar um **for** tradicional é mais uma facilidade para o desenvolvedor.
+
+## Break/Continue
 
 ## Arrays
 
