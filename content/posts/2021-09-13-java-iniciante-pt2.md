@@ -439,6 +439,256 @@ E nele é encurtado a escrita, mas ele só é possível de ser feito em coleçõ
 
 ## Break/Continue
 
+Agora que foi apresentado as estruturas de controles e repetições iremos ver as clausulas **break** e **continue**, o **break** foi previamente apresentado na explicação do **switch** e agora ele será aprofundado em detalhes.
+
+Imagine a seguinte situação onde você, como desenvolvedor, precisa escrever um código onde você possui uma lista e se houver algum valor específico nessa lista você precisa que pare todo o processamento ou dependendo do valor que for você quer ignorar e ir para o próximo valor, como poderia ser feito isso? É isso que o **break** e o **continue** fazem, vamos abordar primeiramente o **break**.
+
+A clausula **break** interromper um laço de repetição ou no caso do switch para sair do bloco, vamos ver no exemplo:
+
+```java
+for (int i = 0; i <= 10; i++){
+    System.out.println("i = " + i);
+    if(i == 5){
+        System.out.println("Vai sair do for no valor 5");
+        break;
+    }
+    System.out.println("proxima iteracao");
+}
+
+System.out.println("Finalizou");
+```
+
+E a saída desse programa será:
+
+```bash
+i = 0
+Proxima iteracao
+i = 1
+Proxima iteracao
+i = 2
+Proxima iteracao
+i = 3
+Proxima iteracao
+i = 4
+Proxima iteracao
+i = 5
+Vai sair do loop no valor 5
+Finalizou
+```
+
+Se não houvesse o **break** nesse código ele iria imprimir até o valor 10 pra depois finalizar mas o **break** forçou o encerramento dele, o mesmo podemos fazer com **while**:
+
+```java
+int i = 0;
+while (i <= 10){
+    System.out.println("i = " + i);
+    if(i == 7){
+        System.out.println("Vai sair do while no valor 7");
+        break;
+    }
+    i++;
+}
+```
+
+E teremos como saída:
+
+```bash
+i = 0
+i = 1
+i = 2
+i = 3
+i = 4
+i = 5
+i = 6
+i = 7
+Vai sair do while no valor 7
+Finalizou
+```
+
+Mas e se precisarmos somente ignorar algum valor mas sem parar o processamento?
+
+Para esse caso entra a clausula **continue** que vai pular aquela iteração e passar para a próxima, vamos ver no exemplo abaixo para ficar mais claro:
+
+```java
+for (int i = 0; i <= 10; i++){
+    if(i == 5){
+        System.out.println("Vai pular no valor 5");
+        continue;
+    }
+    System.out.println("i = " + i);
+    System.out.println("Proxima iteracao");
+}
+
+System.out.println("Finalizou");
+```
+
+E teremos como saída:
+
+```bash
+i = 0
+Proxima iteracao
+i = 1
+Proxima iteracao
+i = 2
+Proxima iteracao
+i = 3
+Proxima iteracao
+i = 4
+Proxima iteracao
+Vai pular no valor 5
+i = 6
+Proxima iteracao
+i = 7
+Proxima iteracao
+i = 8
+Proxima iteracao
+i = 9
+Proxima iteracao
+i = 10
+Proxima iteracao
+Finalizou
+```
+
+Aqui podemos ver que no momento em que a variável **i** estava com valor 5 a clausula **continue** pulou para o próximo valor e continuou o processamento. 
+
 ## Arrays
 
+**Arrays** em **Java** são uma forma de guardar multiplos valores em uma unica variável e isso é algo muito útil para trabalhar com coleções de dados, conjuntos ou listas.
+
+Existe duas formas de inicializar um **array**:
+
+```java
+int[] array = new int[10];
+```
+
+Aqui podemos ver a sintaxe de um array onde é obrigatório definir o tipo desse array, o seu tamanho inicial e é necessário os colchetes **[]**, podemos também declarar um **array** da seguinte forma:
+
+```java
+int outroArray[] = new int[10];
+```
+
+Onde os colchetes **[]** estão após o nome da variável mas não é muito usual e também agora podemos declarar um **array** sem precisar dizer explicitamente o seu tipo:
+
+```java
+var arraySemTipoExplicito = new int[10];
+```
+
+Apesar desse **array** não possuir o seu explicitamente tipado na variável o compilador consegue inferir o seu tipo então apesar da variável *arraySemTipoExplicito* não ter um tipo declarado o compilador entende que é um **array** de **int** com 10 posições.
+
+Um ponto em comum com essas três declarações é que quando criamos um array utilizando a palavra reservada **new**, que é a palavra usada para criarmos em memória o **array**, é obrigatório informar o tamanho que esse **array** vai ter pois é necessário reservar espaços na memória para guardar os valores que podem ser preenchidos.
+
+Após criar um **array** podemos inserir valores em cada posição dele e para isso temos que entender como um array é indexado. O índice de um array sempre começa em 0 então um array de 10 posições é acessível de 0 até 9, isso é muito importante pois se tentarmos acessar um posição inválida dentro de um **array** será lançado um erro no programa.
+
+Então para adicionar valores em cada posição do **array** pode ser feito dessa maneira:
+
+```java
+array[0] = 1;
+array[1] = 2;
+array[2] = 3;
+array[3] = 4;
+array[4] = 5;
+array[5] = 6;
+array[6] = 7;
+array[7] = 8;
+array[8] = 9;
+array[9] = 10;
+```
+
+Caso adicionemos valor em um índice que não existe:
+
+```java
+array[10] = 10;
+```
+
+No momento da execução será lançado o seguinte erro:
+
+```java
+Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: Index 10 out of bounds for length 10
+```
+
+Porém existe uma outra maneira para inicializar um **array** e iremos ver agora:
+
+```java
+int[] arrayInicializado = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+```
+
+A diferença é basicamente que já criamos um **array** com os valores definidos.
+
+Como todo **array** possui indices podemos acessar os seus valores através dos indices:
+
+```java
+System.out.println(arrayInicializado[3]);
+```
+
+E saída será:
+
+```bash
+4
+```
+
+Seguindo a mesma lógica conseguimos alterar um valor dentro de um **array** pelo índice também:
+
+```java
+arrayInicializado[0] = 10;
+System.out.println(arrayInicializado[0]);
+```
+
+E agora o valor que inicialmente era 1 agora será 10.
+
+Outra propriedade muito útil dos **arrays** é que como quando nós criamos um **array** precisamos definir o seu tamanho, seja com **new int[10]** ou com os valores dentro de chaves **{}** e como **arrays** tem tamanho fixo nós temos condições de saber o seu tamanho sendo então muito usado para laços de repetição do tipo **for**, bastando com que seja usada a propriedade **length**:
+
+```java
+for (int indice = 0; indice < arrayInicializado.length; indice++){
+    System.out.println(arrayInicializado[indice]);
+}
+```
+
+Ou podemos fazer uso do **Enhanced-for** também nesses casos:
+
+```java
+for (int indice: arrayInicializado) {
+    System.out.println(indice);
+}
+```
+
+A diferença está no tamanho desse **for** e que não precisamos acessar o **array** no índice (*arrayInicializado[indice]*).
+
+Vimos até o momento o modo mais comum que são usados **arrays**, porém **arrays** podem ser multidimensionais isso significa que são **arrays** dentro de **arrays** não é algo muito comum mas dependendo do local pode ser comum mas sinceramente em minha experiência não é algo que se vê todo dia mas é bom ter esse conhecimento caso necessite resolver problemas ou caso se depare com algo assim em algum momento, então no exemplo iremos criar um **array** de duas dimensões:
+
+```java
+int[][] arrayDimensional = { {1, 2, 3, 4}, {5, 6, 7} };
+```
+
+A primeira coisa que podemos notar é que precisamos adicionar dois colchetes **[]** na declaração da variável **arrayDimensional** e para cada **array** envolvemos com chaves **{}**, mas também poderíamos ter feito assim:
+
+```java
+int[][] outroArrayDimensional = new int[4][3];
+```
+
+Para acessar, inserir ou alterar os valores dentro de um **array** multidimensional é necessário informar os dois valores, o primeiro para indicar qual **array** estamos querendo acessar e outro valor para informar qual o índice queremos acessar desse **array**:
+
+```java
+System.out.println(arrayDimensional[0][2]);
+```
+
+Então nesse exemplo queremos acessar o primeiro **array**, lembrando que os índices sempre começam em 0, e dentro do primeiro **array** queremos o terceiro elemento, nesse caso o valor 3.
+
+Se fosse necessário fazer um **for** em **array** multidimensional é possível e ficaria desse jeito:
+
+```java
+for (int i = 0; i < arrayDimensional.length; i++) {
+    for(int j = 0; j < arrayDimensional[i].length; j++) {
+        System.out.println(arrayDimensional[i][j]);
+    }
+}
+```
+
+Nesse caso não é possível fazer uso do **Enhanced-for** pois é necessário trabalhar com os índices para acessar os dois **arrays**.
+
+Podemos ver que é possível então trabalhar com **arrays** tridimensionais ou até mais porém como podemos ver no código acima a legibilidade começa a ficar comprometida e para cada dimensão a mais no **array** precisaríamos aninhar outro laço **for** o que pode comprometer também a performance do programa dependendo da quantidade de elementos que cada **array** contenha.
+
 ## Conclusão
+
+Nesse artigo foi apresentado as estruturas ded controle como **if/else** e **switch** vimos como criá-los e como usá-los, também vimos as estruturas de controle com os laços **while**, **do/while** e **for** como podemos trabalhar com eles e em quais momentos usar cada um. Entendemos também as clausulas **break** e **continue** como elas podem ser uteis quando precisamos interromper um processamento ou então ignorar um processamento mas sem parar o fluxo e por fim foi apresentado a estrutura de dados **array** e como podemos criá-los, acessar seus valores e percorrer seus dados com o laço **for**.
+
+O link para o projeto que está no [GitHub](https://github.com/guilhermegarcia86/helloworld)
