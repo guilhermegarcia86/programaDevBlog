@@ -3,10 +3,10 @@ title: Primeiros passos com Java
 description: Iniciando na programação backend com Java
 author: Guilherme Alves
 date: 2021-09-06 00:00:01
-image: /assets/capa-java-iniciante.png
+image: /assets/ArtigoI.png
 tags:
   - Java
-  - Iniciante
+  - Beginner
 ---
 
 ## História
