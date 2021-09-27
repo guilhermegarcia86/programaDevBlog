@@ -38,7 +38,6 @@ const BlogPost = (props) => {
         <div dangerouslySetInnerHTML={{ __html: post.html }}></div>
       </Style.MainContent>
       <RecommendedPosts next={next} previous={previous} />
-      <Comments url={post.fields.slug} title={post.frontmatter.title} />
     </Layout>
   )
 }
