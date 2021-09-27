@@ -1,9 +1,9 @@
 ---
-title: Primeiros passos com Java pt2
+title: Primeiros passos com Java II
 description: Iniciando na programação backend com Java
 author: Guilherme Alves
 date: 2021-09-13 00:00:01
-image: /assets/capa-java-iniciante-ptII.png
+image: /assets/ArtigoII.png
 tags:
   - Java
   - Beginner
