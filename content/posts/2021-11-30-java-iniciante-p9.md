@@ -1,5 +1,5 @@
 ---
-title: Primeiros passos com Java VIII
+title: Primeiros passos com Java IX
 description: Trabalhando com Enums
 author: Guilherme Alves
 date: 2021-11-30 00:00:01
