@@ -157,7 +157,7 @@ Exception in thread "main" java.lang.Exception: Você não pode sacar esse valor
 
 Na saída do console fica explícito que houve uma **Exception** informando em qual thread ocorreu, qual o tipo dessa **Exception**, a mensagem customizada e se continuarmos lendo a pilha de log é informado qual foi o método que ocorreu a **Exception** e como ele foi subindo a pilha de execução até chegar no método **main** e não havendo nenhuma tratativa o programa encerrou.
 
-Para entender essa pilha de execução e por que foi necessário colocar a clausula **throws Exception** no metodo **main** vamos ver adiante como tratar **Exceptions**.
+Para entender essa pilha de execução e por que foi necessário colocar a clausula **throws Exception** no método **main** vamos ver adiante como tratar **Exceptions**.
 
 ## Tratando Exceptions
 
@@ -203,7 +203,7 @@ Executando código para se recuperar da Exception
 
 Não foi executado o print de console que existe após a chamada do método **saca** pois foi lançado uma **Exception** e isso interrompeu o fluxo do bloco **try** que passou para o bloco **catch** que executou e depois prosseguiu o fluxo do método normalmente.
 
-Foi dito anteriormente que o **catch** faz checagem se o tipo da **Exception** lançada é do mesmo tipo que está no bloco **catch** e isso acontece para que possamos tratar multiplas **Exceptions** em um mesmo bloco **try-catch**, mas para ver isso vamos aprender primeiro como criar as nossas próprias **Exceptions**.
+Foi dito anteriormente que o **catch** faz checagem se o tipo da **Exception** lançada é do mesmo tipo que está no bloco **catch** e isso acontece para que possamos tratar múltiplas **Exceptions** em um mesmo bloco **try-catch**, mas para ver isso vamos aprender primeiro como criar as nossas próprias **Exceptions**.
 
 ## Criando Exceptions customizadas
 
@@ -245,7 +245,7 @@ Exception in thread "main" br.com.company.artigox.SaldoInsuficienteException: Vo
 
 A mensagem do erro é mais indicativa ao desenvolvedor que ler esse log pois além da mensagem que foi passada o próprio nome da **Exception** é indicativo.
 
-Agora temos uma **Exception** customizada e específica criada e com isso podemos fazer o tratamento de multiplas exceções com um bloco **try-multi-catch**:
+Agora temos uma **Exception** customizada e específica criada e com isso podemos fazer o tratamento de múltiplas exceções com um bloco **try-multi-catch**:
 
 ```java
 public void transfere(Conta de, Conta para, BigDecimal quantidade) throws Exception {
@@ -362,7 +362,7 @@ public void conectaBancoDeDados() throws BusinessException {
 }
 ```
 
-A parte do bloco **try-catch** não sofreu alteração a unica coisa que foi acrescentada foi o bloco **finally** após o bloco **catch**, e se entendermos o código acima vamos perceber que no bloco **try** é lançada uma exceção do tipo **SQLException** passando a mensagem *Problemas na conexão* e na sequência o bloco **catch** captura essa exceção e faz manipulação para uma exceção do tipo **BusinessException**, onde encapsulamos a exceção original mas conseguimos extrair algumas informações importantes da exceção original pois o bloco **catch** recebe uma variável com a instância da **SQLException** e conseguimos pegar alguns dados como o nome da classe, a mensagem original entre outras coisas. E por fim o bloco **finally** executa e irá exibir a mensagem no console *Fechando conexão com o banco* mesmo que no bloco **catch** tenha sido lançado um exceção, se rodarmos essa código teremos a seguinte saída:
+A parte do bloco **try-catch** não sofreu alteração a única coisa que foi acrescentada foi o bloco **finally** após o bloco **catch**, e se entendermos o código acima vamos perceber que no bloco **try** é lançada uma exceção do tipo **SQLException** passando a mensagem *Problemas na conexão* e na sequência o bloco **catch** captura essa exceção e faz manipulação para uma exceção do tipo **BusinessException**, onde encapsulamos a exceção original mas conseguimos extrair algumas informações importantes da exceção original pois o bloco **catch** recebe uma variável com a instância da **SQLException** e conseguimos pegar alguns dados como o nome da classe, a mensagem original entre outras coisas. E por fim o bloco **finally** executa e irá exibir a mensagem no console *Fechando conexão com o banco* mesmo que no bloco **catch** tenha sido lançado um exceção, se rodarmos essa código teremos a seguinte saída:
 
 ```bash
 Conectando...
