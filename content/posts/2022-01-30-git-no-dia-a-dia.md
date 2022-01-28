@@ -49,8 +49,81 @@ Initialized empty Git repository in <CAMINHO-DA-PASTA>
 
 Pronto, só isso é necessário para iniciar um projeto que terá gerenciamento de versão pelo **Git**
 
+# Configurando usuário e email
+
+Com o proejto **Git** iniciado vamos antes de mais nada configurar o usuário e email. Isso é iportante para que o **Git** saiba qual usuário está realizando as alterações:
+
+```bash
+git config --global user.name "Seu nome"
+git config --global user.email seuemail@exemplo.br
+```
+
+E depois para confirmar essas configurações:
+
+```bash
+git config --list
+
+user.name=Guilherme Alves
+user.email=guilherme.garcia86@gmail.com
+core.repositoryformatversion=0
+core.filemode=true
+core.bare=false
+core.logallrefupdates=true
+```
+
+# Utilizando o GitHub
+
+Antes de continuarmos falando a respeito de **Git** é importante falarmos sobre **GitHub** e entender que são duas coisas distintas uma da outra, enquanto o **Git** é a ferramenta de versionamento de código o **GitHub** é uma empresa trabalha com o **Git** para hospedar os seus códigos, existem diversas outas empresas que trabalham com **Git** também como **GitLab** e **Bitbucket** cada uma dessas empreas possuem funcionalidades próprias que nos ajudam porém se você usar apenas **Git** o resultado é o mesmo em todas.
+
+Nesse artigo usaremos o **GitHub** e vamos mostrar agora como criar uma conta, criar um projeto lá no **GitHub** e criar uma chave **SSH** para podermos enviar o nosso código para lá.
+
+Criar uma conta no **GitHub** é bem tranquilo, basta acessar o [site](https://github.com/signup) deles e seguir os passos, após isso você já tem acesso ao dashboard do seu usuário e pode criar **repositórios**, que é a forma como nos referimos aos projetos no **Git**.
+
+Um último passo é criar um chave **SSH** para que possamos nos comunicar de forma segura com o **GitHub**, primeiramente você precisa criar uma chave na sua máquina, se você não sabe como fazer isso segue o [link](https://docs.github.com/pt/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) do próprio **GitHub** de como criar uma chave **SSH** tanto pra **Windows**, **Mac** ou **Linux**. Feito isso agora podemos ir no **GitHub** nas configurações (settings):
+
+Estano na tela de configurações, clicar na guia **SSH and GPG keys**, no meu caso já possuo algumas chaves configuradas, e depois clicar no botão **New SSH Key**:
+
+
+Nos campos que apareceram, basta adicionar um título para sua chave SSH e colaro conteúdo da chave foi gerada e clicar em **Add SSH key**.
+
+Pronto a chave foi configurada com sucesso e agora você consegue baixar ou enviar seus códigos para os seus repositórios no **GitHub**.
+
+# Criando repositórios no GitHub
+
+Agora vamos criar o nosso repositório no **GitHub**, o mesmo que iniciamos localmente no início do artigo, para isso vamos ao dashboard do seu usuário no **GitHub** e clicar no botão **New** na parte de **Repositories**:
+
+
+Após isso vamos adicionar o nome do projeto, manter as confgurações de projeto como público e não selecionar mais nada para que seja criado um repositório vazio para nós e clicar em **Create Repository**.
+
+Pronto com isso o projeto foi criado no **GitHub** e está pronto para uso.
 # Branch
 
-Entender o **Git** é entender o conceito de **branches** que são as ramificações a partir de uma fonte de código, para entender melhor vamos imaginar que o **Git** é como uma árvore e o tronco dessa árvore é código de alguma aplicação que você está trabalhando junto com uma equipe de 5 pessoas:
+O **Git** trabalha bastante com o conceito de **branches** que são as ramificações a partir de uma fonte de código, para entender melhor vamos imaginar que o **Git** é como uma árvore e o tronco dessa árvore é código de alguma aplicação que você está trabalhando junto com uma equipe de 5 pessoas:
 
-Essa árvore possui galhos, ou ramificações, saindo do tronco mas ainda assim ligados ao tronco da árvore. É a mesma coisa com **branches** elas são ramificações que saem de uma parte principal e com isso temos uma cópia do código porém sem afetar a raiz do código quando fizermos as alterações que precisamos fazer, o ganho disso é rastreabilidade de saber o que foi feito, por quem e garantia de que ninguém mais além de você irá fazer alterações nessa ramificação.
+Essa árvore possui galhos, ou ramificações, saindo do tronco mas ainda assim ligados ao tronco da árvore. É a mesma coisa com **branches** elas são ramificações que saem de uma parte principal e com isso temos uma cópia do código porém sem afetar a raiz do repositório. O ganho disso é rastreabilidade de saber o que foi feito, por quem foi feito e a garantia de que ninguém mais além de você irá fazer alterações nessa ramificação.
+
+# Commit
+
+# Desfazendo commits
+
+# Push
+
+# Rollback de pushs
+
+# Revert
+
+# Reset
+
+# Resolvendo conflitos
+
+# Cherry pick
+
+# Pull Request
+
+# Tags
+
+# Merge
+
+# Revertendo Merge
+
+# Rebase
