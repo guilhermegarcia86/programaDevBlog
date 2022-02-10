@@ -93,14 +93,61 @@ Pronto a chave foi configurada com sucesso e agora você consegue baixar ou envi
 Agora vamos criar o nosso repositório no **GitHub**, o mesmo que iniciamos localmente no início do artigo, para isso vamos ao dashboard do seu usuário no **GitHub** e clicar no botão **New** na parte de **Repositories**:
 
 
-Após isso vamos adicionar o nome do projeto, manter as confgurações de projeto como público e não selecionar mais nada para que seja criado um repositório vazio para nós e clicar em **Create Repository**.
+Após isso vamos adicionar o nome do projeto, manter as configurações de projeto como público e não selecionar mais nada para que seja criado um repositório vazio para nós e clicar em **Create Repository**.
 
 Pronto com isso o projeto foi criado no **GitHub** e está pronto para uso.
+
+## Adicionando arquivos no projeto
+
+Após criarmos o projeto **GIT** agora é hora mostrar como criar um arquivo e adicionar ao **GIT**.
+
+```bash
+touch helloWorld.txt
+```
+
+Esse comando irá criar um arquivo pelo terminal do **Linux**, caso você esteja usando **Windows** basta criar um arquivo pela interface gráfica.
+
+Com isso o arquivo já passa a ser gerenciado pelo **GIT**, se quisermos saber o estado das alterações basta executar o comando **git status**:
+```bash
+git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	helloWorld.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+```
+
+O resultado desse comando basicamente diz em qual **branch** o **GIT** está, veremos o que é isso em breve, se existe algum **commit**, também veremos em breve isso e que existem arquivos que não rastreáveis, nesse caso o arquivo **helloWorld.txt** e termina dando o comando que podemos usar para adicionar essas arquivos para serem gerenciados pelo **GIT**, o comando **git add arquivo** faz isso para nós:
+
+```bash
+git add helloWorld.txt
+```
+
+Também é possível não especificar o arquivo e pedir para que todo arquivo criado ou modificado seja adicionado da seguinte maneira:
+
+```bash
+git add .
+```
+
+O **.** (ponto) diz para adicionar tudo o que tiver não rastreado pra o **GIT**.
+
 # Branch
 
 O **Git** trabalha bastante com o conceito de **branches** que são as ramificações a partir de uma fonte de código, para entender melhor vamos imaginar que o **Git** é como uma árvore e o tronco dessa árvore é código de alguma aplicação que você está trabalhando junto com uma equipe de 5 pessoas:
 
 Essa árvore possui galhos, ou ramificações, saindo do tronco mas ainda assim ligados ao tronco da árvore. É a mesma coisa com **branches** elas são ramificações que saem de uma parte principal e com isso temos uma cópia do código porém sem afetar a raiz do repositório. O ganho disso é rastreabilidade de saber o que foi feito, por quem foi feito e a garantia de que ninguém mais além de você irá fazer alterações nessa ramificação.
+
+Cada **branch** possui um nome e geralmente a **branch** principal se chama **main**, no passado era comum se chamar **master** mas este nome caiu em desuso por ser um termo **racista**, a partir da branch **main** conseguimos criar outras **branches** a partir do seguinte comando:
+
+```bash
+git checkout -b develop
+```
+
+O comando acima eu realizo a operação de **checkout** para que eu saia da **branch** atual e vá para outra que será informada, o parâmetro **-b** é para que seja possível criar uma **branch** que não exista no momento do **checkout** e por fim **develop** é só um nome qualquer que eu dei para a **branch** poderia ser qualquer nome de sua preferência.
 
 # Commit
 
