@@ -97,6 +97,20 @@ Após isso vamos adicionar o nome do projeto, manter as configurações de proje
 
 Pronto com isso o projeto foi criado no **GitHub** e está pronto para uso.
 
+# Branch
+
+O **Git** trabalha bastante com o conceito de **branches** que são as ramificações a partir de uma fonte de código, para entender melhor vamos imaginar que o **Git** é como uma árvore e o tronco dessa árvore é código de alguma aplicação que você está trabalhando junto com uma equipe de 5 pessoas:
+
+Essa árvore possui galhos, ou ramificações, saindo do tronco, é a mesma coisa com as **branches** elas são ramificações que saem de uma parte principal e com isso temos uma cópia do código porém sem afetar a raiz do repositório. O ganho disso é rastreabilidade de saber o que foi feito, por quem foi feito e com isso podemos desfazer alterações de forma mais simplificada se for necessário.
+
+Cada **branch** possui um nome e geralmente a **branch** principal se chama **main**, no passado era comum se chamar **master** mas este nome caiu em desuso por ser um termo **racista**, a partir da branch **main** conseguimos criar outras **branches** com o seguinte comando:
+
+```bash
+git checkout -b develop
+```
+
+Com o comando acima eu realizo a operação de **checkout** para que eu saia da **branch** atual e vá para outra que será informada, o parâmetro **-b** é para que seja possível criar uma **branch** que não exista no momento do **checkout** e por fim **develop** é só um nome qualquer que eu dei para a **branch**, poderia ser qualquer nome de sua preferência.
+
 ## Adicionando arquivos no projeto
 
 Após criarmos o projeto **GIT** agora é hora mostrar como criar um arquivo e adicionar ao **GIT**.
@@ -135,21 +149,11 @@ git add .
 
 O **.** (ponto) diz para adicionar tudo o que tiver não rastreado pra o **GIT**.
 
-# Branch
-
-O **Git** trabalha bastante com o conceito de **branches** que são as ramificações a partir de uma fonte de código, para entender melhor vamos imaginar que o **Git** é como uma árvore e o tronco dessa árvore é código de alguma aplicação que você está trabalhando junto com uma equipe de 5 pessoas:
-
-Essa árvore possui galhos, ou ramificações, saindo do tronco mas ainda assim ligados ao tronco da árvore. É a mesma coisa com **branches** elas são ramificações que saem de uma parte principal e com isso temos uma cópia do código porém sem afetar a raiz do repositório. O ganho disso é rastreabilidade de saber o que foi feito, por quem foi feito e a garantia de que ninguém mais além de você irá fazer alterações nessa ramificação.
-
-Cada **branch** possui um nome e geralmente a **branch** principal se chama **main**, no passado era comum se chamar **master** mas este nome caiu em desuso por ser um termo **racista**, a partir da branch **main** conseguimos criar outras **branches** a partir do seguinte comando:
-
-```bash
-git checkout -b develop
-```
-
-O comando acima eu realizo a operação de **checkout** para que eu saia da **branch** atual e vá para outra que será informada, o parâmetro **-b** é para que seja possível criar uma **branch** que não exista no momento do **checkout** e por fim **develop** é só um nome qualquer que eu dei para a **branch** poderia ser qualquer nome de sua preferência.
-
 # Commit
+
+Após adicionar os arquivos desejados no projeto usando **GIT** é necessário enviá-los para algum lugar, pois até o momento nós só adicionamos os arquivos para serem monitorados pelo **GIT** mas eles continuam somente no seu computador o que pode ser perigoso já que muitas vezes em uma mesma **branch** pode haver mais de uma pessoa trabalhando ou até mesmo qualquer outro incidente pode acontecer no seu computador e você perder todo o projeto.
+
+O comando **commit** do **GIT** não irá enviar suas alterações para um repositório na nuvem, *ex.: GitHub*, mas ele é capaz de salvar o estado atual do seu projeto, ele é como um comando *Crtl+S* que manda salvar a alteração em algum arquivo, e a partir quando temos um estado novo podemos posteriormente enviar o projeto alterado para a nuvem.
 
 # Desfazendo commits
 
