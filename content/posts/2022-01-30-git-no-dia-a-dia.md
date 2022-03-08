@@ -155,9 +155,50 @@ Após adicionar os arquivos desejados no projeto usando **GIT** é necessário e
 
 O comando **commit** do **GIT** não irá enviar suas alterações para um repositório na nuvem, *ex.: GitHub*, mas ele é capaz de salvar o estado atual do seu projeto, ele é como um comando *Crtl+S* que manda salvar a alteração em algum arquivo, e a partir quando temos um estado novo podemos posteriormente enviar o projeto alterado para a nuvem.
 
-# Desfazendo commits
+Então vamos adicionar algum conteúdo ao nosso arquivo *helloWorld.txt* para que o **GIT** perceba a alteração e com isso possamos salvar essas alterações com o comando *commit*:
+
+```txt
+#helloWorld.txt
+Olá Mundo!!!
+```
+
+Vamos adicionar a alteração no **GIT**:
+
+```bash
+git add .
+```
+
+E agora vamos salvar a alteração, perceba que é necessário adicionar um título para essa alteração através do parâmetro *-m*:
+
+```bash
+git commit -m "Primeiro Commit"
+```
+
+Fazendo isso a saída no terminal será parecida com isso:
+
+```bash
+[master (root-commit) f447135] Primeiro Commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 helloWorld.txt
+```
+
+E se quisermos mais detalhes sobre os *commits* feitos podemos utilizar o comando *git log* que trás todos os *commits* feitos no projeto:
+
+```bash
+commit f447135cc39f81a090e9bbbc91c45bbdbbbbd928 (HEAD -> master)
+Author: Guilherme Alves <guilherme@gringo.com.vc>
+Date:   Tue Mar 8 09:18:31 2022 -0300
+
+    Primeiro Commit
+```
+
+Nesse exemplo como só tem um *commit* só trouxe essa informação mas um ponto interessante de notarmos é que todo *commit* possui um *hash* único isso existe para que seja possível navegar entre *commits* ou até mesmo ser mais fácil o *rollback* de versões.
 
 # Push
+
+# Pull Request
+
+# Desfazendo commits
 
 # Rollback de pushs
 
@@ -169,7 +210,6 @@ O comando **commit** do **GIT** não irá enviar suas alterações para um repos
 
 # Cherry pick
 
-# Pull Request
 
 # Tags
 
