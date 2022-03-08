@@ -81,7 +81,7 @@ Criar uma conta no **GitHub** é bem tranquilo, basta acessar o [site](https://g
 
 Um último passo é criar um chave **SSH** para que possamos nos comunicar de forma segura com o **GitHub**, primeiramente você precisa criar uma chave na sua máquina, se você não sabe como fazer isso segue o [link](https://docs.github.com/pt/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) do próprio **GitHub** de como criar uma chave **SSH** tanto pra **Windows**, **Mac** ou **Linux**. Feito isso agora podemos ir no **GitHub** nas configurações (settings):
 
-Estano na tela de configurações, clicar na guia **SSH and GPG keys**, no meu caso já possuo algumas chaves configuradas, e depois clicar no botão **New SSH Key**:
+Estando na tela de configurações, clicar na guia **SSH and GPG keys**, no meu caso já possuo algumas chaves configuradas, e depois clicar no botão **New SSH Key**:
 
 
 Nos campos que apareceram, basta adicionar um título para sua chave SSH e colar o conteúdo da chave foi gerada e clicar em **Add SSH key**.
@@ -195,8 +195,41 @@ Date:   Tue Mar 8 09:18:31 2022 -0300
 Nesse exemplo como só tem um *commit* só trouxe essa informação mas um ponto interessante de notarmos é que todo *commit* possui um *hash* único isso existe para que seja possível navegar entre *commits* ou até mesmo ser mais fácil o *rollback* de versões.
 
 # Push
+Após fazer o *commit* e salvar as alterações localmente é necessário enviar essas alterações para o repositório na nuvem, **GitHub** no nosso exemplo, porém o comando é o mesmo para qualquer repositório que você esteja trabalhado.
+
+Para fazer o envio usamos o comando *push*, empurrar em inglês, mas antes disso vamos aproveitar para terminar a configuração do **GIT**, começando pelo nome da *branch*, por padrão o nome ainda é *master*, mas como foi dito anteriormente esse nome foi depreciado por ser racista, então vamos renomear para *main* conforma abaixo:
+
+```bash
+git branch -M main
+```
+
+Agora vamos configurar a url do repositório no **GitHub** no projeto local:
+
+```bash
+git remote add origin git@github.com:guilhermegarcia86/projeto-git.git
+```
+
+E por fim o comando *push* que irá enviar para o repositório na nuvem:
+
+```bash
+git push
+```
+
+E a saída no terminal será parecido com isso:
+
+```bash
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 240 bytes | 240.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://github.com/guilhermegarcia86/projeto-git.git
+ * [new branch]      main -> main
+Branch 'main' set up to track remote branch 'main' from 'origin'.
+```
 
 # Pull Request
+
+# Sincronizando o seu projeto localmente
 
 # Desfazendo commits
 
