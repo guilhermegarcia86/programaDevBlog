@@ -84,7 +84,7 @@ Um último passo é criar um chave **SSH** para que possamos nos comunicar de fo
 Estano na tela de configurações, clicar na guia **SSH and GPG keys**, no meu caso já possuo algumas chaves configuradas, e depois clicar no botão **New SSH Key**:
 
 
-Nos campos que apareceram, basta adicionar um título para sua chave SSH e colaro conteúdo da chave foi gerada e clicar em **Add SSH key**.
+Nos campos que apareceram, basta adicionar um título para sua chave SSH e colar o conteúdo da chave foi gerada e clicar em **Add SSH key**.
 
 Pronto a chave foi configurada com sucesso e agora você consegue baixar ou enviar seus códigos para os seus repositórios no **GitHub**.
 
