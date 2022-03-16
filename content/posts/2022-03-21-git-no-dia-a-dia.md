@@ -2,7 +2,7 @@
 title: Git para o seu dia a dia
 description: Os comandos mais utilizados
 author: Guilherme Alves
-date: 2022-01-30 00:00:01
+date: 2022-03-21 00:00:01
 image: /assets/java-artigoX.png
 tags:
   - Git
@@ -227,27 +227,32 @@ To https://github.com/guilhermegarcia86/projeto-git.git
 Branch 'main' set up to track remote branch 'main' from 'origin'.
 ```
 
-# Pull Request
-
 # Sincronizando o seu projeto localmente
 
-# Desfazendo commits
+Agora pensando que outras pessoas estarão desenvolvendo na mesma *branch* como fazemos para sincronizar o nosso trabalho com o delas? Antes de falar sobre isso é importante saber algumas coisas sobre como o **GIT** sincroniza e sabe o estado mais atual do projeto, a cada *commit* e *push* é gerado um **hash** único além das informações sobre o autor do *commit*, data e hora. E com essa informações o **GIT** tem condições de saber se o seu projeto local está atualizado ou se está a frente ou atrás em relação ao repositório na nuvem. Por isso caso o repositório na nuvem estiver a frente e você tentar fazer um comando *git push* o comando irá falhar com uma mensagem parecida com isso:
 
-# Rollback de pushs
+```bash
+ ! [rejected]        main -> main (fetch first)
+error: failed to push some refs to 'https://github.com/guilhermegarcia86/projeto-git.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+```
 
-# Revert
+A informação basicamente diz que não foi possível enviar a sua alteração pois no repositório remoto (nuvem) contém atualizações que você não tem, isso é de extrema importância pois imagine se eu estiver fazendo alterações no mesmo arquivo que a pessoa que fez o *commit* fez e como isso seria resolvido pelo **GIT** por isso na própria mensagem de erro já vem com uma dica de que é necessário atualizar primeiramente o se projeto com as alterações e resolver possíveis conflitos e depois subir as suas alterações.
 
-# Reset
+Para atualizar o seu projeto e deixá-lo sincronizado com o repositório remoto, basta executar o comando *pull* para que trazer as atualizações:
 
-# Resolvendo conflitos
+```bash
+git pull
+```
 
-# Cherry pick
+## Conclusão
 
+Esse foram o comandos básicos para começar a entender e trabalhar com o **GIT**, no dia-a-dia de uma pessoa que usa o **GIT** como versionador de códigos esses comandos provavelmente serão os mais utilizados. Porém existem outras situações que veremos mais a frente, que será a resolução de conflitos quando fizermos uma sincronização do projeto por exemplo, podemos usar *tags* nos nossos *commits* e podemos também reverter *commits*, esse são tópicos um pouco avançados e iremos vê-los nos próximos artigos.
 
-# Tags
+O código deste artigo se encontra no [GitHub](https://github.com/guilhermegarcia86/projeto-git)
 
-# Merge
-
-# Revertendo Merge
-
-# Rebase
+Visite também o nosso canal no [Youtube](https://www.youtube.com/channel/UCDWmrzFPkkQf5VI_ziZrgvw) para mais acompanhar essa série de **Primeiros passos com o Java** e muito mais conteúdos sobre programação.
