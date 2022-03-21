@@ -198,7 +198,7 @@ E se quisermos mais detalhes sobre os *commits* feitos podemos utilizar o comand
 
 ```bash
 commit f447135cc39f81a090e9bbbc91c45bbdbbbbd928 (HEAD -> master)
-Author: Guilherme Alves <guilherme@gringo.com.vc>
+Author: Guilherme Alves <guilherme.garcia86@gmail.com>
 Date:   Tue Mar 8 09:18:31 2022 -0300
 
     Primeiro Commit
